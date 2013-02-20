@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:background="#0FF000"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/tab_PPT"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:paddingRight="1dp"
+                android:text="+" />
+
+            <TextView
+                android:id="@+id/tab_PPT"
+                android:layout_width="77dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="我的PPT" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tab_PPT"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="这是PPT" />
+
+            <TextView
+                android:id="@+id/tab_Meeting"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="这是Meeting" />
+
+            <TextView
+                android:id="@+id/tab_Live"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="这是Live" />
+
+            <TextView
+                android:id="@+id/tab_more"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="这是更多" />
+        </FrameLayout>
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</TabHost>
