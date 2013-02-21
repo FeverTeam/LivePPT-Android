@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ public class PPT_upload extends Activity implements OnClickListener{
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.pptupload);
 		upload_butn=(Button)this.findViewById(R.id.upload_butn);
 		concel_butn=(Button)this.findViewById(R.id.concel_butn);
@@ -30,7 +32,7 @@ public class PPT_upload extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.upload_butn:// 点击Gallery按钮
-			Intent intent1=new Intent(this,PPT_Grid.class);//新意图
+			Intent intent1=new Intent(this,Login_UI.class);//新意图
 			startActivity(intent1);
 			break;
 		case R.id.concel_butn:// 点击ImageSwitcher按钮

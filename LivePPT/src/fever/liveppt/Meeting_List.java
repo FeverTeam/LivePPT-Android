@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
@@ -17,6 +18,7 @@ public class Meeting_List extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.meetinglist);
 		meeting_butn=(Button)this.findViewById(R.id.meeting_butn);
 		meeting_butn.setOnClickListener(this);
@@ -26,7 +28,7 @@ public class Meeting_List extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		
-		Intent intent1=new Intent(this,PPT_upload.class);//新意图
+		Intent intent1=new Intent(this,Login_UI.class);//新意图
 		startActivity(intent1);
 	}
 }

@@ -25,6 +25,7 @@
         <activity android:name="PPT_Grid" />
         <activity android:name="PPT_upload" />
         <activity android:name="Meeting_List" />
+        <activity android:name="Login_UI" />
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@ public class MainActivity extends TabActivity implements OnClickListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.tabs); 
 		       
 		//ppt_butn=(Button)this.findViewById(R.id.tab_PPT);
