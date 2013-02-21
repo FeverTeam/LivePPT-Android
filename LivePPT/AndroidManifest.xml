@@ -22,6 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="PPT_Grid" />
+        <activity android:name="PPT_upload" />
+        <activity android:name="Meeting_List" />
     </application>
 
 </manifest>
