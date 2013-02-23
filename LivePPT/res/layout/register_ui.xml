@@ -4,87 +4,68 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-   <RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#EB8C1B" >
 
         <TextView
-            android:id="@+id/tv_header"
+            android:id="@+id/tv_register_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="#EB8C1B"
             android:textSize="20dp"
-            android:text="登录" />
-
+            android:background="#EB8C1B"
+            android:text="注册" />
+        
         <Button
-            android:id="@+id/btn_login_back"
+            android:id="@+id/btn_register_back"
             android:layout_width="40dp"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/left_back"
-            />
+            android:text="(=" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
         <EditText
-            android:id="@+id/et_username"
+            android:id="@+id/register_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="44dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="38dp"
             android:ems="12"
             android:textSize="20dp"
-            android:hint="EmailAddress">
-            <requestFocus /> 
-        </EditText>
-        
+            android:hint="EmailAddress" />
+
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/register_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/et_username"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="19dp"
+            android:layout_alignLeft="@+id/register_username"
+            android:layout_below="@+id/register_username"
+            android:layout_marginTop="28dp"
             android:ems="12"
             android:textSize="20dp"
             android:hint="Password"
-            android:password="true" >
-
-            
-        </EditText>
+            android:password="true" />
 
         <Button
-            android:id="@+id/register"
+            android:id="@+id/btn_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/login"
-            android:layout_alignBottom="@+id/login"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="85dp"
+            android:layout_below="@+id/register_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22dp"
             android:textSize="20dp"
             android:text="注册" />
-
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/et_password"
-            android:layout_marginLeft="85dp"
-            android:layout_marginTop="24dp"
-            android:textSize="20dp"
-            android:text="登录" />
-
     </RelativeLayout>
 
 </LinearLayout>

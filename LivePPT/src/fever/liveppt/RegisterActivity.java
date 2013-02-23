@@ -28,54 +28,53 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Login_UI extends Activity implements OnClickListener {
+public class RegisterActivity extends Activity implements OnClickListener{
+	/**
+	 * 构造函数
+	 */
+	public RegisterActivity() {
+		// TODO Auto-generated constructor stub
+	}
 
-	private Button login, register,butLoginBack;
-	private EditText Username=null,Password=null;
+	private Button btnRegister,registerBack;
+	private EditText regUsername = null;
+	private EditText regPassword = null;
+	private static String Username;
+	private static String Password;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.login_ui);
-		login = (Button) this.findViewById(R.id.login);
-		register = (Button) this.findViewById(R.id.register);
-		butLoginBack=(Button )this.findViewById(R.id.btn_login_back);
-		Username = (EditText) this.findViewById(R.id.et_username);
-		Password = (EditText) this.findViewById(R.id.et_password);
-		login.setOnClickListener(new loginListener());
-		butLoginBack.setOnClickListener(this);
-		register.setOnClickListener(this);
+		setContentView(R.layout.register_ui);
+		btnRegister = (Button) this.findViewById(R.id.btn_register);
+		registerBack=(Button)this.findViewById(R.id.btn_register_back);
+		btnRegister.setOnClickListener(new registerListener());
+		registerBack.setOnClickListener(this);
+		regUsername=(EditText)this.findViewById(R.id.register_username);
+		regPassword=(EditText)this.findViewById(R.id.register_password);
+		Username = this.regUsername.getText().toString();
+		Password = this.regPassword.getText().toString();
+
 	}
 
-	/**
-	 * 登录按钮监听
-	 * @author Administrator
-	 *
-	 */
-	public class loginListener implements OnClickListener {
+	public class registerListener implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(Login_UI.this.Username.getText().toString()
-					.equals("")&&Login_UI.this.Password.getText().toString().equals("")){
-				Toast.makeText(getApplicationContext(), "username and password can't be empty!", Toast.LENGTH_SHORT).show();
-			}
-			else if(Login_UI.this.Username.getText().toString()
+			if (RegisterActivity.this.regUsername.getText().toString()
 					.equals("")) {
 				Toast.makeText(getApplicationContext(),
-						"username can't be empty!", Toast.LENGTH_SHORT).show();
-			} else if(Login_UI.this.Password.getText().toString().equals("")){
-				Toast.makeText(getApplicationContext(), "password can't be empty!", Toast.LENGTH_SHORT).show();
-			}else if (!CheckUsername(Login_UI.this.Username)) {
+						"password can't be empty!", Toast.LENGTH_SHORT).show();
+			} else if (!CheckUsername(RegisterActivity.this.regUsername)) {
 				Toast.makeText(getApplicationContext(), "Email Address Error!", Toast.LENGTH_SHORT)
 						.show();
 			} else {
 				String httpUrl = "http://liveppt.net/register";
-				String Username = Login_UI.this.Username.getText()
+				String Username = RegisterActivity.this.regUsername.getText()
 						.toString();
-				String Password = Login_UI.this.Password.getText()
+				String Password = RegisterActivity.this.regPassword.getText()
 						.toString();
 				Register(httpUrl, Username, Password);
 			}
@@ -136,20 +135,8 @@ public class Login_UI extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.btn_login_back:// 点击按钮
-			Intent intent1 = new Intent(this, PPT_upload.class);// 新意图
-			startActivity(intent1);
-			break;
-		case R.id.register:// 点击ImageSwitcher按钮
-			Intent intent2;
-			intent2 = new Intent();
-			intent2.setClass(this, RegisterActivity.class);
-			startActivity(intent2);
-			break;
-		default:
-			break;
-		}
+		Intent intent=new Intent(this,Login_UI.class);
+		startActivity(intent);
 	}
-		
+
 }

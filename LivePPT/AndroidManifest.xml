@@ -7,6 +7,9 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="9" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -26,6 +29,7 @@
         <activity android:name="PPT_upload" />
         <activity android:name="Meeting_List" />
         <activity android:name="Login_UI" />
+        <activity android:name="RegisterActivity" />
     </application>
 
 </manifest>

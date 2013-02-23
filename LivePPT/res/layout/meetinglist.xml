@@ -6,26 +6,29 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:background="#0FF000"
+        android:layout_height="40dp"
+        android:background="#EB8C1B"
         android:orientation="vertical" >
 
         <Button
             android:id="@+id/meeting_butn"
-            android:layout_width="30dp"
+            android:layout_width="40dp"
             android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="#0FF000"
-            android:text="+" />
+            android:background="#EB8C1B"
+            android:text="|  +" />
 
         <TextView
             android:id="@+id/meeting_tv"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="#EB8C1B"
+            android:textSize="20dp"
             android:text="我的会议" />
+
     </RelativeLayout>
 
     <ListView

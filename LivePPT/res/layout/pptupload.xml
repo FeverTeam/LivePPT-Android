@@ -5,23 +5,23 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/concel_butn"
+        android:id="@+id/upload_butn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cancel_butn"
+        android:layout_alignBottom="@+id/cancel_butn"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="90dp"
+        android:text="上传" />
+
+    <Button
+        android:id="@+id/cancel_butn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="74dp"
-        android:layout_marginRight="34dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginRight="90dp"
         android:text="取消" />
-
-    <Button
-        android:id="@+id/upload_butn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/concel_butn"
-        android:layout_alignBottom="@+id/concel_butn"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="36dp"
-        android:text="上传" />
 
 </RelativeLayout>
