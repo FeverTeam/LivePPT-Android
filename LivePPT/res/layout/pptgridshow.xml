@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="#EB8C1B"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/ppt_butn"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="#EB8C1B"
+            android:text="|  +" />
+
+           <TextView
+               android:id="@+id/ppt_tv"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerHorizontal="true"
+               android:layout_centerVertical="true"
+               android:background="#EB8C1B"
+               android:text="我的PPT"
+               android:textSize="20dp" />
+
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/ppt_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="383dp" />
+
+</LinearLayout>

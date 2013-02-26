@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#EB8C1B" >
+
+        <TextView
+            android:id="@+id/tv_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="#EB8C1B"
+            android:text="您还没有登录，请登录!" />
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+
+      <Button
+          android:id="@+id/btn_right"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentTop="true"
+          android:layout_marginRight="82dp"
+          android:layout_marginTop="44dp"
+          android:text="注册" />
+
+      <Button
+          android:id="@+id/btn_left"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBaseline="@+id/btn_right"
+          android:layout_alignBottom="@+id/btn_right"
+          android:layout_marginRight="61dp"
+          android:layout_toLeftOf="@+id/btn_right"
+          android:text="登录" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="fever.liveppt"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -7,10 +8,13 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="9" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_ppt"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -18,10 +22,14 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="PPT_Grid" />
+        <activity android:name="PPT_upload" />
+        <activity android:name="Meeting_List" />
+        <activity android:name="Login_UI" />
+        <activity android:name="RegisterActivity" />
     </application>
 
 </manifest>
