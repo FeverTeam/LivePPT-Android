@@ -5,11 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".Spinner" >
     
-    <TextView
-        android:id="@+id/tv_abourt"
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:textSize="20dp"
-        android:text=" "/>
+        android:layout_height="wrap_content"/>
     
 </RelativeLayout>

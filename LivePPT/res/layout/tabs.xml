@@ -7,8 +7,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:padding="3dp" >
+        android:orientation="vertical" >
 
         <FrameLayout
             android:id="@android:id/tabcontent"
@@ -20,25 +19,22 @@
                 android:id="@+id/tab_Live"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Live" />
+                android:background="@drawable/live_header"/>
 
-            <TextView
-                android:id="@+id/tab_more"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="更多" />
             
-        </FrameLayout>
 
+        </FrameLayout>
+        
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:tabStripEnabled="false"
             android:layout_alignBottom="@android:id/tabcontent" />
-    </RelativeLayout>
+
+        </RelativeLayout>
 
 </TabHost>
             
-           
 
        

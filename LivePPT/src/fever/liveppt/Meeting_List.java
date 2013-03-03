@@ -1,81 +1,113 @@
 package fever.liveppt;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class Meeting_List extends Activity implements OnClickListener {
+public class Meeting_List extends TabActivity implements OnClickListener {
 
 	public Meeting_List() {
 		// TODO Auto-generated constructor stub
 	}
 
 	private Button meeting_butn;
-	private Builder builder;
-
+	public TextView myMeeting;
+	private ListView lvLeader,lvJoin;
+	private static final String[] Info=new String[]{
+		"PPT1","PPT2","PPT3"
+	};//
+	//private Spinner spinnerLeader,spinnerJoin;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//é”å®šç«–å±
 		setContentView(R.layout.meetinglist);
 		meeting_butn = (Button) this.findViewById(R.id.meeting_butn);
-		meeting_butn.setOnClickListener(new View.OnClickListener() {
+		myMeeting=(TextView) this.findViewById(R.id.tv_mymeeting);
+		meeting_butn.setOnClickListener(myShowAlertDialog);
+		
+		/**
+		 * listviewçš„æ˜¾ç¤º
+		 */
+		lvLeader=(ListView)this.findViewById(R.id.lv_leader);
+		lvLeader.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,Info));
+		lvLeader.setOnItemClickListener(new OnItemClickListener(){ 
+			  
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					// TODO Auto-generated method stub
+					 if(Info[arg2].equals("PPT1")){
+						 Intent intent=new Intent(Meeting_List.this,AccountActivity.class);
+						 startActivity(intent);
+					 }
+					 else{
+						 Intent intent=new Intent(Meeting_List.this,AbourtActivity.class);
+						 startActivity(intent);
+					 }
+				} 
+	              
+	        }); 
+		
+    }
+    
+	
+    Button.OnClickListener myShowAlertDialog = new Button.OnClickListener()
+    {
+      public void onClick(View arg0)
+      {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				builder.setIcon(R.drawable.tip).setTitle("ÌáÊ¾")
-						.setMessage("Äú»¹Ã»ÓĞµÇÂ¼£¬ÇëµÇÂ¼ÔÙ½øĞĞÆäËû²Ù×÷£¡");
-				builder.setPositiveButton("µÇÂ¼",
-						new android.content.DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(Meeting_List.this).setTitle("è¯·é€‰æ‹©")
+        .setNegativeButton("åŠ å…¥ä¼šè®®", new DialogInterface.OnClickListener()
+        { 
+          public void onClick(DialogInterface d, int which)
+          { 
+        	  Intent intent1 = new Intent();
+				intent1.setClass(Meeting_List.this,
+						Login_UI.class);
+				startActivity(intent1);   
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// TODO Auto-generated method stub
+          } 
+        }).setPositiveButton("å‘èµ·ä¼šè®®", new DialogInterface.OnClickListener()
+        { 
+            public void onClick(DialogInterface d, int which)
+            { 
+            	Intent intent1 = new Intent();
+				intent1.setClass(Meeting_List.this,
+						Login_UI.class);
+				startActivity(intent1); 
+            } 
+          })
+        .show();
 
-								Intent intent1 = new Intent();
-								intent1.setClass(Meeting_List.this,
-										Login_UI.class);
-								startActivity(intent1);
-
-							}
-
-						});
-
-				builder.setNegativeButton("×¢²á",
-						new android.content.DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// TODO Auto-generated method stub
-								Intent intent2 = new Intent();
-								intent2.setClass(Meeting_List.this,
-										RegisterActivity.class);
-								startActivity(intent2);
-							}
-						});
-				builder.create().getWindow().setGravity(Gravity.BOTTOM);
-				builder.show();
-			}
-		});
-
-		builder = new AlertDialog.Builder(this);
+      } 
+    };
+  
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
-
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

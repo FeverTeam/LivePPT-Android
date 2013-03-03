@@ -30,6 +30,11 @@
         <activity android:name="Meeting_List" />
         <activity android:name="Login_UI" />
         <activity android:name="RegisterActivity" />
+        <activity android:name="MoreActivity" />
+        <activity android:name="AbourtActivity" />
+        <activity android:name="AccountActivity" />
+        <activity android:name="FileChooserActivity" />
+        <activity android:name="FileChooserAdapter" />
     </application>
 
 </manifest>

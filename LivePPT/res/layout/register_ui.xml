@@ -6,8 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#EB8C1B" >
+        android:layout_height="50dp"
+        android:background="@drawable/leftbackground"  >
 
         <TextView
             android:id="@+id/tv_register_header"
@@ -16,8 +16,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:textSize="20dp"
-            android:background="#EB8C1B"
-            android:text="注册" />
+            android:textColor="#FFFFFF"
+            android:text="注   册" />
         
         <Button
             android:id="@+id/btn_register_back"
@@ -26,7 +26,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/left_back"
-            android:text="(=" />
+            android:text="  " />
 
     </RelativeLayout>
 
@@ -43,7 +43,7 @@
             android:layout_marginTop="38dp"
             android:ems="12"
             android:textSize="20dp"
-            android:hint="EmailAddress" />
+            android:hint="邮箱" />
 
         <EditText
             android:id="@+id/register_password"
@@ -54,18 +54,19 @@
             android:layout_marginTop="28dp"
             android:ems="12"
             android:textSize="20dp"
-            android:hint="Password"
+            android:hint="密码"
             android:password="true" />
 
         <Button
             android:id="@+id/btn_register"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@+id/register_password"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22dp"
+            android:background="@drawable/btn_login_register"
             android:textSize="20dp"
-            android:text="注册" />
+            android:text="      注  册      " />
     </RelativeLayout>
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,39 +18,79 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
-
 import android.app.Activity;
+import android.app.AlertDialog.Builder;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Login_UI extends Activity implements OnClickListener {
 
 	private Button login, register,butLoginBack;
 	private EditText Username=null,Password=null;
-
+	private Builder builder;
+	private TextView tvRegister;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//ÈîÅÂÆöÁ´ñÂ±è
+		/**
+		 * ÂõΩÈôÖÂåñËØ≠Ë®Ä
+		 */
+		Resources resources = getResources();//
+		Configuration config = resources.getConfiguration();//
+		DisplayMetrics dm =resources.getDisplayMetrics();//
+		config.locale = Locale.SIMPLIFIED_CHINESE; //‰∏≠Êñá‰ΩúÊú¨Âú∞ËØ≠Ë®Ä
+		resources.updateConfiguration(config, dm);
+
+
+
 		setContentView(R.layout.login_ui);
+		RelativeLayout layout=(RelativeLayout)findViewById(R.id.progress_layout);
+		layout.setVisibility(View.GONE);
 		login = (Button) this.findViewById(R.id.login);
-		register = (Button) this.findViewById(R.id.register);
 		butLoginBack=(Button )this.findViewById(R.id.btn_login_back);
 		Username = (EditText) this.findViewById(R.id.et_username);
 		Password = (EditText) this.findViewById(R.id.et_password);
+		tvRegister=(TextView)this.findViewById(R.id.tv_register2);
+		String registerText="Á´ãÂç≥Ê≥®ÂÜå";
+		SpannableString spannableString=new SpannableString(registerText);
+		spannableString.setSpan(new ClickableSpan() {
+			
+			@Override
+			public void onClick(View widget) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(Login_UI.this,RegisterActivity.class);
+				startActivity(intent);
+			}
+		}, 0, registerText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		tvRegister.setText(spannableString);
+		tvRegister.setMovementMethod(LinkMovementMethod.getInstance());
 		login.setOnClickListener(new loginListener());
 		butLoginBack.setOnClickListener(this);
-		register.setOnClickListener(this);
+		
 	}
 
 	/**
-	 * µ«¬º∞¥≈•º‡Ã˝
+	 * loginListenerÁ±ª
 	 * @author Administrator
 	 *
 	 */
@@ -58,6 +99,7 @@ public class Login_UI extends Activity implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			
 			if(Login_UI.this.Username.getText().toString()
 					.equals("")&&Login_UI.this.Password.getText().toString().equals("")){
 				Toast.makeText(getApplicationContext(), "username and password can't be empty!", Toast.LENGTH_SHORT).show();
@@ -71,17 +113,19 @@ public class Login_UI extends Activity implements OnClickListener {
 			}else if (!CheckUsername(Login_UI.this.Username)) {
 				Toast.makeText(getApplicationContext(), "Email Address Error!", Toast.LENGTH_SHORT)
 						.show();
-			} else {
-				String httpUrl = "http://liveppt.net/register";
+			} else {				
+			
+				findViewById(R.id.progress_layout).setVisibility(View.VISIBLE);
+				String httpUrl = "http://liveppt.net/login";
 				String Username = Login_UI.this.Username.getText()
 						.toString();
 				String Password = Login_UI.this.Password.getText()
 						.toString();
-				Register(httpUrl, Username, Password);
+				Login(httpUrl, Username, Password);
 			}
 		}
 		
-		public void Register(String HttpUrl, String regUsername,
+		public void Login(String HttpUrl, String regUsername,
 				String regPassword) {
 			HttpPost httpResquest = new HttpPost(HttpUrl);
 			HttpClient httpclient = new DefaultHttpClient();
@@ -91,11 +135,14 @@ public class Login_UI extends Activity implements OnClickListener {
 			try {
 				httpResquest.setEntity(new UrlEncodedFormEntity(param,
 						HTTP.UTF_8));
+				
 				HttpResponse httpResponse = httpclient.execute(httpResquest);
-				Toast.makeText(getApplicationContext(), "linked...",
-						Toast.LENGTH_SHORT).show();
+				//HttpParams httpParameters = null;
+				//
+				// HttpConnectionParams.setConnectionTimeout(httpParameters, 3000); 
+
 				/**
-				 * Õ¯¬Á«Î«Û
+				 * 
 				 */
 				if (httpResponse.getStatusLine().getStatusCode() != 404) {
 					HttpEntity httpEntity = httpResponse.getEntity();
@@ -110,23 +157,35 @@ public class Login_UI extends Activity implements OnClickListener {
 					input.close();
 					String result = sb.toString();
 					Toast.makeText(getApplicationContext(), result,
-							Toast.LENGTH_LONG).show();
+							Toast.LENGTH_LONG).show();	
+							
+					Intent intent2=new Intent(Login_UI.this,PPT_upload.class);
+					startActivity(intent2);
+					Login_UI.this.finish();   
+
+					
 				}else{
-					Toast.makeText(getApplicationContext(), "¡¨Ω” ß∞‹!!", Toast.LENGTH_LONG).show();
+					//System.out.println("ÔøΩÔøΩ¬º ßÔøΩ‹£ÔøΩ");
+					Toast.makeText(getApplicationContext(), "ÁôªÂΩïÂ§±Ë¥•!!", Toast.LENGTH_LONG).show();
+					findViewById(R.id.progress_layout).setVisibility(View.GONE);
 				}
+			
 			} catch (ClientProtocolException e) {
-				Toast.makeText(getApplicationContext(), "¡¨Ω” ß∞‹!!", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "ËøûÊé•Â§±Ë¥•!!", Toast.LENGTH_LONG).show();
 				e.printStackTrace();
+				findViewById(R.id.progress_layout).setVisibility(View.GONE);
 			} catch (IOException e) {
 				e.printStackTrace();
-				Toast.makeText(getApplicationContext(), "Õ¯¬Á¡¨Ω”¥ÌŒÛ!!", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "ÁΩëÁªúÈîôËØØ!!", Toast.LENGTH_LONG).show();
+				findViewById(R.id.progress_layout).setVisibility(View.GONE);
+				
 
 			}
 		}
 	}
-	// ≈–∂œusername∏Ò Ω «∑Ò’˝»∑
+	// 
 	public boolean CheckUsername(EditText editName) {
-		String name = editName.getText().toString();// »°µ√ ‰»Îµƒƒ⁄»›
+		String name = editName.getText().toString();// 
 		if (name.matches("\\w+@\\w+\\.\\w+"))
 			return true;
 		else
@@ -137,15 +196,9 @@ public class Login_UI extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.btn_login_back:// µ„ª˜∞¥≈•
-			Intent intent1 = new Intent(this, PPT_upload.class);// –¬“‚Õº
-			startActivity(intent1);
-			break;
-		case R.id.register:// µ„ª˜ImageSwitcher∞¥≈•
-			Intent intent2;
-			intent2 = new Intent();
-			intent2.setClass(this, RegisterActivity.class);
-			startActivity(intent2);
+		case R.id.btn_login_back://
+		
+			this.finish();
 			break;
 		default:
 			break;

@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -17,9 +16,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -30,7 +29,7 @@ import android.widget.Toast;
 
 public class RegisterActivity extends Activity implements OnClickListener{
 	/**
-	 * ¹¹Ôìº¯Êý
+	 * æž„é€ å‡½æ•°
 	 */
 	public RegisterActivity() {
 		// TODO Auto-generated constructor stub
@@ -46,6 +45,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//
 		setContentView(R.layout.register_ui);
 		btnRegister = (Button) this.findViewById(R.id.btn_register);
 		registerBack=(Button)this.findViewById(R.id.btn_register_back);
@@ -94,7 +94,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 				Toast.makeText(getApplicationContext(), "linked...",
 						Toast.LENGTH_SHORT).show();
 				/**
-				 * ÍøÂçÇëÇó
+				 * 
 				 */
 				if (httpResponse.getStatusLine().getStatusCode() != 404) {
 					HttpEntity httpEntity = httpResponse.getEntity();
@@ -110,22 +110,25 @@ public class RegisterActivity extends Activity implements OnClickListener{
 					String result = sb.toString();
 					Toast.makeText(getApplicationContext(), result,
 							Toast.LENGTH_LONG).show();
+					
+					Intent intent4=new Intent(RegisterActivity.this,PPT_upload.class);
+					startActivity(intent4);
 				}else{
-					Toast.makeText(getApplicationContext(), "Á¬½ÓÊ§°Ü!!", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), "æ³¨å†Œå¤±è´¥!!", Toast.LENGTH_LONG).show();
 				}
 			} catch (ClientProtocolException e) {
-				Toast.makeText(getApplicationContext(), "Á¬½ÓÊ§°Ü!!", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "è¿žæŽ¥å¤±è´¥!!", Toast.LENGTH_LONG).show();
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-				Toast.makeText(getApplicationContext(), "ÍøÂçÁ¬½Ó´íÎó!!", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "ç½‘ç»œé”™è¯¯!!", Toast.LENGTH_LONG).show();
 
 			}
 		}
 	}
-	// ÅÐ¶Ïusername¸ñÊ½ÊÇ·ñÕýÈ·
+	// 
 	public boolean CheckUsername(EditText editName) {
-		String name = editName.getText().toString();// È¡µÃÊäÈëµÄÄÚÈÝ
+		String name = editName.getText().toString();//
 		if (name.matches("\\w+@\\w+\\.\\w+"))
 			return true;
 		else
@@ -135,8 +138,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Intent intent=new Intent(this,Login_UI.class);
-		startActivity(intent);
+		this.finish();
 	}
 
 }
