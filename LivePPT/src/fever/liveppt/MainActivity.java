@@ -24,7 +24,7 @@ public class MainActivity extends TabActivity implements OnClickListener {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.requestWindowFeature(Window.FEATURE_LEFT_ICON);
 		setContentView(R.layout.tabs);
-		this.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_ppt);
+		this.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ppt);
 		
 		TabHost tabhost = getTabHost();
 		tabhost.addTab(tabhost.newTabSpec("tab1").setIndicator("PPT")// Ìøµ½Meeting_List.class

@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_ppt"
+        android:icon="@drawable/ppt"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -27,6 +27,7 @@
         </activity>
         <activity android:name="PPT_Grid" />
         <activity android:name="PPT_upload" />
+        <activity android:name="FileChooserActivity"/>
         <activity android:name="Meeting_List" />
         <activity android:name="Login_UI" />
         <activity android:name="RegisterActivity" />

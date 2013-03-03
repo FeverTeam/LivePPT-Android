@@ -29,62 +29,71 @@
             />
 
     </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
 
-        <EditText
-            android:id="@+id/et_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="44dp"
-            android:ems="12"
-            android:textSize="20dp"
-            android:hint="EmailAddress">
-            <requestFocus /> 
-        </EditText>
-        
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/et_username"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="19dp"
-            android:ems="12"
-            android:textSize="20dp"
-            android:hint="Password"
-            android:password="true" >
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent" >
 
-            
-        </EditText>
+       <EditText
+           android:id="@+id/et_username"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentTop="true"
+           android:layout_marginLeft="30dp"
+           android:layout_marginTop="44dp"
+           android:ems="12"
+           android:hint="EmailAddress"
+           android:textSize="20dp" >
 
-        <Button
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/login"
-            android:layout_alignBottom="@+id/login"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="85dp"
-            android:textSize="20dp"
-            android:text="注册" />
+           <requestFocus />
+       </EditText>
 
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/et_password"
-            android:layout_marginLeft="85dp"
-            android:layout_marginTop="24dp"
-            android:textSize="20dp"
-            android:text="登录" />
+       <EditText
+           android:id="@+id/et_password"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentLeft="true"
+           android:layout_alignRight="@+id/et_username"
+           android:layout_below="@+id/et_username"
+           android:layout_marginLeft="30dp"
+           android:layout_marginTop="19dp"
+           android:ems="12"
+           android:hint="Password"
+           android:password="true"
+           android:textSize="20dp" />
 
-    </RelativeLayout>
+       <Button
+           android:id="@+id/register"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignBaseline="@+id/login"
+           android:layout_alignBottom="@+id/login"
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="85dp"
+           android:text="注册"
+           android:textSize="20dp" />
+
+       <Button
+           android:id="@+id/login"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/et_password"
+           android:layout_marginRight="25dp"
+           android:layout_marginTop="53dp"
+           android:layout_toLeftOf="@+id/register"
+           android:text="登录"
+           android:textSize="20dp" />
+
+       <CheckBox
+           android:id="@+id/savePass"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_above="@+id/register"
+           android:layout_alignLeft="@+id/et_password"
+           android:checked="false"
+           android:text="记住密码" />
+
+   </RelativeLayout>
 
 </LinearLayout>

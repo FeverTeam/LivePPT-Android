@@ -118,7 +118,7 @@ public class FileChooserActivity extends Activity {
 			    setResult(RESULT_OK , intent);
 			    finish();
 			}
-			else {   //鍏朵粬鏂囦欢.....
+			else {   
 				toast("The format of file is error");
 			}
 		}
