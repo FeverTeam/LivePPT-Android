@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="right" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/meeting_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/meeting_bubble_icon" />
+
+            <TextView
+                android:id="@+id/meeting_topic"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.35"
+                android:text="会议主题" />
+
+            <TextView
+                android:id="@+id/meeting_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:layout_weight="0.05"
+                android:text="会议ID:" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/meeting_founder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主持:" />
+
+    </LinearLayout>
+
+

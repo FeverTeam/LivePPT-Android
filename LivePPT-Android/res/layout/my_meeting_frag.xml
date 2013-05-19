@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fragmentbg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.1">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/myfoundedmeeting"
+            android:textColor="@color/lightGreen"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/num_of_founded_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="主持了x个会议" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/foundedListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" 
+        android:layout_weight="2"
+        android:cacheColorHint="#00000000">
+
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.1">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/myparticipateddmeeting"
+            android:textColor="@color/lightGreen"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/meetingProgressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/num_of_participated_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="参与了x个会议" />
+    </LinearLayout>
+    <ListView
+        android:id="@+id/participated_listView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" 
+        android:layout_weight="2"
+        android:cacheColorHint="#00000000">
+
+    </ListView>
+
+</LinearLayout>

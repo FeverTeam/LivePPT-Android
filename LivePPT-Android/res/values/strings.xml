@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">LivePPT</string>
+    <string name="emailHint">Email:</string>
+    <string name="passwordHint">Password:</string>
+    <string name="action_settings">Setting</string>
+    <string name="myppt">My PPT</string>
+    <string name="mymeeting">My Meeting</string>
+    <string name="myfoundedmeeting">我主持的会议</string>
+    <string name="myparticipateddmeeting">我参与的会议</string>
+</resources>
