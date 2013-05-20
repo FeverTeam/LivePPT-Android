@@ -41,9 +41,9 @@ public class myApp extends Application {
 	         HttpProtocolParams.setUseExpectContinue(params, true);	            
 	            // 超时设置
 	            /* 从连接池中取连接的超时时间 */
-	         ConnManagerParams.setTimeout(params, 1000);
+	         ConnManagerParams.setTimeout(params, 3000);
 	            /* 连接超时 */
-	         HttpConnectionParams.setConnectionTimeout(params, 2000);
+	         HttpConnectionParams.setConnectionTimeout(params, 4000);
 	            /* 请求超时 */
 	         HttpConnectionParams.setSoTimeout(params, 4000);
 	            

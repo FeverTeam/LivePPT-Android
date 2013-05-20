@@ -9,8 +9,9 @@ import com.app.adapter.PptAdapter;
 import com.app.base.PptFile;
 import com.app.httputils.HttpRequest;
 import com.app.httputils.myApp;
+import com.app.liveppt.PptRelapyActivity;
 import com.app.login.R;
-
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 /**
  * 显示PPT列表信息
@@ -67,7 +67,13 @@ public class MyPptListFrag extends Fragment {
 		
 		  switch (item.getItemId()) {
 		  case 1:
-		  Toast.makeText(getActivity(), app.localUser.getPpts().get(info.position).getPptId()+"", Toast.LENGTH_SHORT).show();
+			  Intent intent =new Intent(getActivity(), PptRelapyActivity.class);
+			  Bundle bundle =new Bundle();
+			         bundle.putLong("pptId",app.localUser.getPpts().get(info.position).getPptId());
+			         bundle.putInt("pageCount", app.localUser.getPpts().get(info.position).getPptPageCount());
+			         intent.putExtras(bundle);
+			         
+			  startActivity(intent);		
 		    return true;
 		  case 2:	
 			  Toast.makeText(getActivity(), "Coming soon...", Toast.LENGTH_SHORT).show();

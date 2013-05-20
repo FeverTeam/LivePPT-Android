@@ -47,7 +47,8 @@ public class HomeActivity extends FragmentActivity
 			@Override
 			public void onClick(View v) 
 			{				
-				pptfrag.refresh();		
+				pptfrag.refresh();
+				
 			}
 		});
 		mTabHost=(TabHost)findViewById(android.R.id.tabhost);		

@@ -45,15 +45,15 @@ public class HttpRequest {
 		} 
 		catch (UnsupportedEncodingException e) 
 		{			
-			strResult=e.getMessage().toString();
+			
 			e.printStackTrace();
 		} catch (ClientProtocolException e) 
 		{			
-			strResult=e.getMessage().toString();			
+						
 			e.printStackTrace();
 		} catch (IOException e) 
 		{			
-			strResult=e.getMessage().toString();
+			
 			e.printStackTrace();
 		}		
 		return strResult;
@@ -87,11 +87,11 @@ public class HttpRequest {
 			}
 		} catch (ClientProtocolException e) 
 		{
-			strResult=e.getMessage().toString();
+			
 			e.printStackTrace();
 		} catch (IOException e)
 		{	
-			strResult=e.getMessage().toString();
+
 			e.printStackTrace();
 		}
 		return strResult;

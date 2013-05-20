@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">LivePPT</string>
     <string name="emailHint">Email:</string>
     <string name="passwordHint">Password:</string>
@@ -7,4 +9,7 @@
     <string name="mymeeting">My Meeting</string>
     <string name="myfoundedmeeting">我主持的会议</string>
     <string name="myparticipateddmeeting">我参与的会议</string>
+    <string name="title_activity_ppt_relapy">PptRelapyActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

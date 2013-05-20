@@ -144,6 +144,7 @@ public class MyMeetingFrag extends Fragment {
 			meetingAd =new MeetingAdapter(getActivity().getApplicationContext(), list);
 			foundedListView.setAdapter(meetingAd);	
 			
+			
 		}		
 	}
 	
