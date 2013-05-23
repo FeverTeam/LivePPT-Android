@@ -7,11 +7,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.app.adapter.PptAdapter;
 import com.app.base.PptFile;
-import com.app.httputils.HttpRequest;
-import com.app.httputils.myApp;
-import com.app.liveppt.PptRelapyActivity;
-import com.app.login.R;
+import com.app.liveppt.PptReplayActivity;
+import com.app.liveppt.R;
+import com.app.utils.HttpRequest;
+import com.app.utils.MyToast;
+import com.app.utils.myApp;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,7 +29,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 /**
  * 显示PPT列表信息
  * @author Felix
@@ -45,20 +48,27 @@ public class MyPptListFrag extends Fragment {
         proBar=(ProgressBar)pptListView.findViewById(R.id.pptList_progressBar);
         new GetPptListTask().execute();  
         
-    this.registerForContextMenu(lv);
+        this.registerForContextMenu(lv);
         return pptListView;
-    } 			
+    } 	
+	
+	
+	/**
+	 * PPT列表上下文菜单
+	 */
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View arg1,ContextMenuInfo arg2)
-	{
-		
+	{		
 		menu.setHeaderTitle("");
 		menu.add(0, 1, 1, "打开PPT");		
-		menu.add(0, 2, 2, "删除");
-		menu.add(0, 3, 3,"PPT详情");
-		
+		menu.add(0, 2, 2, "删除");		
 	}
+	
+	
+	/**
+	 * 上下文菜单选项监听
+	 */
 	@Override
 	public boolean onContextItemSelected(MenuItem item) 
 	{
@@ -67,20 +77,31 @@ public class MyPptListFrag extends Fragment {
 		
 		  switch (item.getItemId()) {
 		  case 1:
-			  Intent intent =new Intent(getActivity(), PptRelapyActivity.class);
+		  {			  
+			 ConnectivityManager connectivityManager=(ConnectivityManager)getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+			 NetworkInfo net=connectivityManager.getActiveNetworkInfo();
+			 Log.i("连接方式:", net.getTypeName());			 
+			 if(net.getTypeName().equals("WIFI"))
+			 {			  
+			  Intent intent =new Intent(getActivity(), PptReplayActivity.class);
 			  Bundle bundle =new Bundle();
 			         bundle.putLong("pptId",app.localUser.getPpts().get(info.position).getPptId());
 			         bundle.putInt("pageCount", app.localUser.getPpts().get(info.position).getPptPageCount());
-			         intent.putExtras(bundle);
-			         
-			  startActivity(intent);		
-		    return true;
-		  case 2:	
-			  Toast.makeText(getActivity(), "Coming soon...", Toast.LENGTH_SHORT).show();
-			  return true;
-		  case 3:
-			  Toast.makeText(getActivity(), "Coming soon...", Toast.LENGTH_SHORT).show();
-		    return true;
+			         intent.putExtras(bundle);			         
+			  startActivity(intent);	
+			 }
+			 else
+			 {
+				 new MyToast().alert(getActivity().getApplicationContext(),"打开PPT将消耗较多流量，请连接WIFI");				
+			 }	
+			 return true;
+		  }		  
+		    
+		  case 2:
+		  {
+			  new MyToast().alert(getActivity().getApplicationContext(),"Coming soon...");
+			  return true;	 
+		  }
 		    
 		    default:
 		    	return super.onContextItemSelected(item);
@@ -94,7 +115,6 @@ public class MyPptListFrag extends Fragment {
 	 * 刷新PPT列表
 	 * @author Felix
 	 * 
-	 *
 	 */
 	
 	public void refresh()
@@ -183,8 +203,7 @@ public class MyPptListFrag extends Fragment {
 		 @Override
 		  protected void onProgressUpdate(String ...message)
 		  {
-			  Toast.makeText(getActivity().getApplicationContext(), message[0], Toast.LENGTH_LONG).show();
-			  
+			 new MyToast().alert(getActivity().getApplicationContext(),message[0]);			  
 		  }
 		 
 		 

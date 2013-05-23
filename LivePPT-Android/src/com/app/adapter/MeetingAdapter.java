@@ -3,7 +3,7 @@ package com.app.adapter;
 import java.util.List;
 
 import com.app.base.Meeting;
-import com.app.login.R;
+import com.app.liveppt.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

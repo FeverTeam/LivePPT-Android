@@ -1,6 +1,5 @@
 package com.app.base;
 
-import java.util.List;
 /**
  * 会议类
  * @author Felix
@@ -13,7 +12,6 @@ public class Meeting {
 	public User founder;
 	public String topic = "";
 	public Long currentPageIndex = (long) 1;
-	public List<Attender> attenders;
 	public Meeting(){};
 	
 	public Long getMeetingId()
@@ -35,11 +33,7 @@ public class Meeting {
 	public Long getCurrentPageIndex()
 	{
 		return currentPageIndex;
-	}
-	public List<Attender> getMeetingAttender()
-	{
-		return attenders;
-	}
+	}	
 	
 	public void setMeetingId(Long id)
 	{
@@ -61,8 +55,5 @@ public class Meeting {
 	{
 		this.currentPageIndex=currentPageIndex;
 	}
-	public void setMeetingAttender(List<Attender>attenders)
-	{
-		this.attenders=attenders;
-	}
+	
 }

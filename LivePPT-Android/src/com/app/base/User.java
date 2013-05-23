@@ -11,7 +11,7 @@ public class User {
 	public Long userId;
 	public List<PptFile> myPpts=null;
 	public List<Meeting> myFoundedMeeting=null;	
-	public List<Attender> myAttendents=null;
+	public List<Meeting> myParticipatedMeeting=null;
 	
 	
 	public User(String userName,Long userId)
@@ -73,13 +73,13 @@ public class User {
 		this.myFoundedMeeting=myFoundedMeeting;
 	}
 	
-	public List<Attender> getAttender()
+	public List<Meeting> getParticipatedMeeting()
 	{
-		return myAttendents;
+		return myParticipatedMeeting;
 	}
-	public void setAttender(List<Attender> myAttenders)
+	public void setParticipatedMeeting(List<Meeting> myAttenders)
 	{
-		this.myAttendents=myAttenders;
+		this.myParticipatedMeeting=myAttenders;
 	}
 	
 	

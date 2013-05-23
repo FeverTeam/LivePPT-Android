@@ -1,6 +1,6 @@
 package com.app.liveppt;
 
-import com.app.login.R;
+import com.app.liveppt.R;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

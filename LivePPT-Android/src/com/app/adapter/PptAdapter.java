@@ -3,7 +3,7 @@ package com.app.adapter;
 import java.util.List;
 
 import com.app.base.PptFile;
-import com.app.login.R;
+import com.app.liveppt.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +64,7 @@ public class PptAdapter extends BaseAdapter {
 		title.setText(ppt.getPptTitle());
 		
 		TextView status=(TextView)convertView.findViewById(R.id.ppt_status);
-		if(ppt.getPptStatus()==1)//改布尔型
+		if(ppt.getPptStatus())//改布尔型
 			status.setText("已转换");
 		else
 			status.setText("未转换");

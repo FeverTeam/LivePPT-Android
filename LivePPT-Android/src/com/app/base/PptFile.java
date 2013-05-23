@@ -7,14 +7,14 @@ public class PptFile {
 	 * @author Felix
 	 */
 	private Long pptId;	//id
-	private int pptStatus; //转换状态 0 1
+	private boolean pptStatus=false; //转换状态 
 	private int pptPageCount;//页码数
 	private Long pptSize;//ppt文件大小
 	private String pptTitle=""; //ppt名称
 	private String pptTime=""; //ppt生成时间
 	
 	public PptFile(){};
-	public PptFile(Long pptId,int pptStatus,int pptPageCount,Long pptSize,String pptTitle,String pptTime)
+	public PptFile(Long pptId,boolean pptStatus,int pptPageCount,Long pptSize,String pptTitle,String pptTime)
 	{
 		this.pptId=pptId;
 		this.pptStatus=pptStatus;
@@ -26,7 +26,7 @@ public class PptFile {
 	{
 		this.pptId=pptId;
 	}
-	public void setPptStatus(int pptStatus)
+	public void setPptStatus(boolean pptStatus)
 	{
 		this.pptStatus=pptStatus;
 	}
@@ -50,7 +50,7 @@ public class PptFile {
 	{
 		return pptId;
 	}
-	public int getPptStatus()
+	public boolean getPptStatus()
 	{
 		return pptStatus;
 	}

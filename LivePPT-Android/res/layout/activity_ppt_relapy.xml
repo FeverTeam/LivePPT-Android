@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context=".PptRelapyActivity" >
+    tools:context=".PptReplayActivity" >
 
     <ProgressBar
         android:id="@+id/progressBar_viewpager"

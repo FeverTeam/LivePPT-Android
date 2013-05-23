@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.app.login"
+    package="com.app.liveppt"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -15,16 +15,19 @@
         android:smallScreens="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
 
     <application
-        android:name="com.app.httputils.myApp"
+        android:name="com.app.utils.myApp"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name" >
 
         <!-- 登陆窗口程序 -->
         <activity
-            android:name="com.app.login.LoginActivity"
+            android:name="com.app.liveppt.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
@@ -43,9 +46,13 @@
         </activity>
         <!-- ppt浏览窗 -->
         <activity
-            android:name="com.app.liveppt.PptRelapyActivity"
+            android:name="com.app.liveppt.PptReplayActivity"
             android:label="@string/title_activity_ppt_relapy"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.app.liveppt.LiveWatchingMeetingActivity"
+            android:label="@string/title_activity_live_watching_meeting" >
         </activity>
     </application>
 

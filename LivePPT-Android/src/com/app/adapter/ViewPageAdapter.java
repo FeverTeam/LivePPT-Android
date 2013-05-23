@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 
 public class ViewPageAdapter extends PagerAdapter {
 
+	/**
+	 * ViewPager适配器
+	 * @author Felix
+	 */
 	private ArrayList<View> viewList=null;
 	public ViewPageAdapter(ArrayList<View> list)
 	{
@@ -40,8 +44,7 @@ public class ViewPageAdapter extends PagerAdapter {
      }  
 	@Override  
     public int getItemPosition(Object object)
-	{  
-        
+	{          
         return POSITION_NONE;  
     } 
 	

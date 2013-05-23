@@ -11,19 +11,31 @@ import com.app.adapter.MeetingAdapter;
 import com.app.base.Meeting;
 import com.app.base.PptFile;
 import com.app.base.User;
-import com.app.httputils.HttpRequest;
-import com.app.httputils.myApp;
-import com.app.login.R;
+import com.app.liveppt.LiveWatchingMeetingActivity;
+import com.app.liveppt.R;
+import com.app.utils.HttpRequest;
+import com.app.utils.MyToast;
+import com.app.utils.myApp;
+
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 
 public class MyMeetingFrag extends Fragment {
@@ -39,10 +51,12 @@ public class MyMeetingFrag extends Fragment {
 	{  		
         View meetingListView= inflater.inflate(R.layout.my_meeting_frag, container, false);
         numOfFounded=(TextView)meetingListView.findViewById(R.id.num_of_founded_text); 
-        numOfParticipated=(TextView)meetingListView.findViewById(R.id.num_of_participated_text);
-        foundedListView=(ListView)meetingListView.findViewById(R.id.foundedListView); 
+        numOfParticipated=(TextView)meetingListView.findViewById(R.id.num_of_participated_text);        
         participatedListView=(ListView)meetingListView.findViewById(R.id.participated_listView);
+        foundedListView=(ListView)meetingListView.findViewById(R.id.foundedListView); 
         proBar=(ProgressBar)meetingListView.findViewById(R.id.meetingProgressBar);
+        CreatMenuForFoundedList();
+        CreatMenuForParticipatedList();
         
         new getFoundedMeetingTask().execute();
         new getParticipatedMeetingTask().execute();
@@ -206,7 +220,8 @@ public class MyMeetingFrag extends Fragment {
 						meeting.setMeetingPpt(JSonParsePPT(temp.getJSONObject("ppt")));
 						meeting.setMeetingFounder(JSonParseFounder(temp.getJSONObject("founder")));
 						meetingList.add(meeting);
-					}				
+					}	
+					app.localUser.setParticipatedMeeting(meetingList);
 				}
 			} 
 			catch (JSONException e) 
@@ -295,6 +310,117 @@ public class MyMeetingFrag extends Fragment {
 		}
 		
 		return user;
+	}
+	
+	
+	
+	/**
+	 * 为主持会议列表创建长按上下文菜单
+	 * 
+	 */
+	
+	public void CreatMenuForFoundedList()
+	{
+		foundedListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() 
+		{
+			
+			@Override
+			public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) 
+			{
+				menu.add(0, 11, 1, "主持会议");
+				menu.add(0, 12, 2, "撤销会议");				
+			}			
+		} );
+		
+	}
+	
+	
+	
+	/**
+	 *  为参与会议列表创建长按上下文菜单
+	 *  
+	 */
+	public void CreatMenuForParticipatedList()
+	{
+		participatedListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() 
+		{			
+			@Override
+			public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) 
+			{
+				menu.add(0, 13, 1, "进入会议");
+				menu.add(0, 14, 2, "退出会议");				
+			}			
+		} );
+		
+	}
+	
+	
+	/**
+	 * 上下文菜单选项监听
+	 * 
+	 * 
+	 */
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) 
+	{
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        myApp app=(myApp)getActivity().getApplication();
+        
+        int pos=info.position;
+        ConnectivityManager connectivityManager=(ConnectivityManager)getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo net=connectivityManager.getActiveNetworkInfo();
+		Log.i("连接方式:", net.getTypeName());			 
+		
+		  switch (item.getItemId())
+		  {
+		  
+		  case 11:
+		  {	
+			 new MyToast().alert(getActivity().getApplicationContext(),"Coming soon...");			 
+			 return true;
+		  }		  
+		   
+		  
+		  case 12:
+		  {
+			  new MyToast().alert(getActivity().getApplicationContext(),"Coming soon...");
+			  return true;
+		  }
+			
+		  
+		  case 13:
+		  {
+				if (net.getTypeName().equals("WIFI")) 
+				{
+					Intent intent = new Intent(getActivity(),LiveWatchingMeetingActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putLong("pptId", app.localUser.getParticipatedMeeting().get(pos).getMeetingPpt().getPptId());
+					bundle.putInt("pageCount",app.localUser.getParticipatedMeeting().get(pos).getMeetingPpt().getPptPageCount());
+					bundle.putLong("meetingId",app.localUser.getParticipatedMeeting().get(pos).getMeetingId());
+					intent.putExtras(bundle);
+					startActivity(intent);
+				} 
+				else 
+				{
+					new MyToast().alert(getActivity().getApplicationContext(),"会议消耗较多流量，请先接入WIFI");
+				}
+				 return true;
+		 }	
+		  
+		  
+		  case 14:
+		  {
+			  new MyToast().alert(getActivity().getApplicationContext(),"Coming soon...");
+			  return true;
+		  }
+		    
+		  default:
+		    	return super.onContextItemSelected(item);
+		  
+		  
+		  }
+		  	
 	}
 
 }
