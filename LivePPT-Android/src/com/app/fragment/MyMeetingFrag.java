@@ -391,8 +391,8 @@ public class MyMeetingFrag extends Fragment {
 		  
 		  case 13:
 		  {
-				if (net.getTypeName().equals("WIFI")) 
-				{
+				//if (net.getTypeName().equals("WIFI")) 
+				//{
 					Intent intent = new Intent(getActivity(),LiveWatchingMeetingActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putLong("pptId", app.localUser.getParticipatedMeeting().get(pos).getMeetingPpt().getPptId());
@@ -400,11 +400,11 @@ public class MyMeetingFrag extends Fragment {
 					bundle.putLong("meetingId",app.localUser.getParticipatedMeeting().get(pos).getMeetingId());
 					intent.putExtras(bundle);
 					startActivity(intent);
-				} 
-				else 
-				{
-					new MyToast().alert(getActivity().getApplicationContext(),"会议消耗较多流量，请先接入WIFI");
-				}
+				//} 
+				//else 
+				//{
+				//	new MyToast().alert(getActivity().getApplicationContext(),"会议消耗较多流量，请先接入WIFI");
+				//}
 				 return true;
 		 }	
 		  

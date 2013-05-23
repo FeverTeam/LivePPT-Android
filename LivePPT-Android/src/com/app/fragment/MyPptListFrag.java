@@ -81,19 +81,19 @@ public class MyPptListFrag extends Fragment {
 			 ConnectivityManager connectivityManager=(ConnectivityManager)getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 			 NetworkInfo net=connectivityManager.getActiveNetworkInfo();
 			 Log.i("连接方式:", net.getTypeName());			 
-			 if(net.getTypeName().equals("WIFI"))
-			 {			  
+			// if(net.getTypeName().equals("WIFI"))
+			// {			  
 			  Intent intent =new Intent(getActivity(), PptReplayActivity.class);
 			  Bundle bundle =new Bundle();
 			         bundle.putLong("pptId",app.localUser.getPpts().get(info.position).getPptId());
 			         bundle.putInt("pageCount", app.localUser.getPpts().get(info.position).getPptPageCount());
 			         intent.putExtras(bundle);			         
 			  startActivity(intent);	
-			 }
-			 else
-			 {
-				 new MyToast().alert(getActivity().getApplicationContext(),"打开PPT将消耗较多流量，请连接WIFI");				
-			 }	
+			// }
+			// else
+			// {
+			//	 new MyToast().alert(getActivity().getApplicationContext(),"打开PPT将消耗较多流量，请连接WIFI");				
+			// }	
 			 return true;
 		  }		  
 		    
