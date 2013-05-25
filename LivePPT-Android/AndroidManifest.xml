@@ -16,8 +16,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>    
 
     <application
         android:name="com.app.utils.myApp"
@@ -48,11 +48,16 @@
         <activity
             android:name="com.app.liveppt.PptReplayActivity"
             android:label="@string/title_activity_ppt_relapy"
+            android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
+        
+        <!-- 直播会议窗口 -->
         <activity
             android:name="com.app.liveppt.LiveWatchingMeetingActivity"
-            android:label="@string/title_activity_live_watching_meeting" >
+            android:label="@string/title_activity_live_watching_meeting" 
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" 
+            android:screenOrientation="landscape">
         </activity>
     </application>
 

@@ -23,7 +23,7 @@ public class HomeActivity extends FragmentActivity
 	private static String TAB1 ="PPT";
 	private static String TAB2 ="会议";
 	private static String TAB3 ="帐号";
-	private static String TAB4 ="更多";
+	private static String TAB4 ="更多";	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

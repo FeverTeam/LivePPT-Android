@@ -1,8 +1,8 @@
 package com.app.liveppt;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.app.base.User;
 import com.app.liveppt.R;
+import com.app.model.User;
 import com.app.utils.HttpRequest;
 import com.app.utils.MyToast;
 import com.app.utils.myApp;
@@ -24,8 +24,8 @@ public class LoginActivity extends Activity
 	private Button mRegistButton;
 	private EditText emailInput;
 	private EditText passwordInput;
-	private ProgressBar progressBar;
-	private static String loginUrl ="http://live-ppt.com/app/login";
+	private ProgressBar progressBar;	
+	private static String loginUrl =HttpRequest.httpProtocol+HttpRequest.hostName+"/app/login";
 	private static String loginNameField="email";
 	private static String loginPasswordField="password";
 	/**

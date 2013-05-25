@@ -8,11 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.app.adapter.MeetingAdapter;
-import com.app.base.Meeting;
-import com.app.base.PptFile;
-import com.app.base.User;
 import com.app.liveppt.LiveWatchingMeetingActivity;
 import com.app.liveppt.R;
+import com.app.model.Meeting;
+import com.app.model.PptFile;
+import com.app.model.User;
 import com.app.utils.HttpRequest;
 import com.app.utils.MyToast;
 import com.app.utils.myApp;
@@ -92,7 +92,7 @@ public class MyMeetingFrag extends Fragment {
 		{
 			List<Meeting> meetingList=new ArrayList<Meeting>();
 			myApp app=(myApp)getActivity().getApplicationContext();
-			String Url ="http://live-ppt.com/app/getMyFoundedMeetings?userId="+app.getLocalUser().getUserId();
+			String Url =HttpRequest.httpProtocol+HttpRequest.hostName+"/app/getMyFoundedMeetings?userId="+app.getLocalUser().getUserId();
 			String strResult="";
 			JSONObject resInfo;
 			JSONArray data;
@@ -190,7 +190,7 @@ public class MyMeetingFrag extends Fragment {
 		{
 			List<Meeting> meetingList=new ArrayList<Meeting>();
 			myApp app=(myApp)getActivity().getApplicationContext();
-			String Url ="http://live-ppt.com/app/getMyAttendingMeetings?userId="+app.getLocalUser().getUserId();
+			String Url =HttpRequest.httpProtocol+HttpRequest.hostName+"/app/getMyAttendingMeetings?userId="+app.getLocalUser().getUserId();
 			String strResult="";
 			JSONObject resInfo;
 			JSONArray data;

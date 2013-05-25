@@ -1,4 +1,4 @@
-package com.app.base;
+package com.app.model;
 
 /**
  * 会议类

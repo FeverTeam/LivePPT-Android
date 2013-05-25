@@ -14,7 +14,15 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import android.util.Log;
+
 public class HttpRequest {
+	
+	
+	public static String httpProtocol="http://";
+	public static String hostName ="live-ppt.com";
+	public static String ws_port ="9000";
+	public static String ws_Protocol="ws://";
 	/**
 	 * 客户端POST请求
 	 * @param httpClient
@@ -41,19 +49,19 @@ public class HttpRequest {
 			else
 			{
 				strResult=response.getStatusLine().toString();				
-			}
+			}			
 		} 
 		catch (UnsupportedEncodingException e) 
 		{			
-			
+			Log.i("UnsupportedEncodingException",e.getMessage());
 			e.printStackTrace();
 		} catch (ClientProtocolException e) 
 		{			
-						
+			Log.i("ClientProtocolException", e.getMessage());			
 			e.printStackTrace();
 		} catch (IOException e) 
 		{			
-			
+			Log.i("IOException",e.getMessage());
 			e.printStackTrace();
 		}		
 		return strResult;
@@ -85,15 +93,17 @@ public class HttpRequest {
 			{
 				strResult=response.getStatusLine().toString();				
 			}
+			
 		} catch (ClientProtocolException e) 
 		{
-			
+			Log.i("ClientProtocolException", e.getMessage());			
 			e.printStackTrace();
 		} catch (IOException e)
-		{	
-
+		{
+			Log.i("IOException",e.getMessage());
 			e.printStackTrace();
-		}
+		}		
+         
 		return strResult;
 	}
 }

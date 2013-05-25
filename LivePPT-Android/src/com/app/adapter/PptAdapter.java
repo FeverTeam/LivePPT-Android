@@ -2,8 +2,9 @@ package com.app.adapter;
 
 import java.util.List;
 
-import com.app.base.PptFile;
 import com.app.liveppt.R;
+import com.app.model.PptFile;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,10 +65,17 @@ public class PptAdapter extends BaseAdapter {
 		title.setText(ppt.getPptTitle());
 		
 		TextView status=(TextView)convertView.findViewById(R.id.ppt_status);
-		if(ppt.getPptStatus())//改布尔型
+		if(ppt.getPptStatus())
+		{
 			status.setText("已转换");
+			status.setTextColor(context.getResources().getColor(R.color.blue));
+		}
+		   
 		else
+		{
 			status.setText("未转换");
+			status.setTextColor(context.getResources().getColor(R.color.darkred));
+		}
 		
 		TextView pages=(TextView)convertView.findViewById(R.id.pptPages);
 		pages.setText(ppt.getPptPageCount()+"页");			

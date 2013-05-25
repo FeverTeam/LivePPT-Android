@@ -6,9 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.app.adapter.PptAdapter;
-import com.app.base.PptFile;
 import com.app.liveppt.PptReplayActivity;
 import com.app.liveppt.R;
+import com.app.model.PptFile;
 import com.app.utils.HttpRequest;
 import com.app.utils.MyToast;
 import com.app.utils.myApp;
@@ -150,7 +150,7 @@ public class MyPptListFrag extends Fragment {
 		{		
 				List<PptFile> pptList=new ArrayList<PptFile>();
 				myApp app=(myApp)getActivity().getApplication();
-				String getListUrl="http://live-ppt.com/app/getPptList?userId="+app.localUser.getUserId();
+				String getListUrl=HttpRequest.httpProtocol+HttpRequest.hostName+"/app/getPptList?userId="+app.localUser.getUserId();
 				
 				HttpRequest httpRequest =new HttpRequest();
 				String strResult;
@@ -181,9 +181,8 @@ public class MyPptListFrag extends Fragment {
 						ppt.setPptTitle(temp.getString("title"));
 						ppt.setPptTime(temp.getString("time"));
 						ppt.setPptSize(temp.getLong("size"));
-						ppt.setPptPageCount(temp.getInt("pageCount"));
-					
-						//ppt.setPptStatus()
+						ppt.setPptPageCount(temp.getInt("pageCount"));					
+						ppt.setPptStatus(temp.getBoolean("isConverted"));
 						pptList.add(ppt);
 					}
 					app.localUser.setPpts(pptList);

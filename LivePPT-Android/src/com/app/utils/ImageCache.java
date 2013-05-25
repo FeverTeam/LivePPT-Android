@@ -5,26 +5,24 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.ref.SoftReference;
-import java.util.LinkedHashMap;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.os.StatFs;
 import android.support.v4.util.LruCache;
 import android.util.Log;
 
 public class ImageCache {
 	private LruCache<String, Bitmap> mBmpCache;
-	private LinkedHashMap<String, SoftReference<Bitmap>> mSoftBmpCache;
+
 	private LruCache<String, Long> mFileCache;
 	private File diskCacheDir;
 	private int maxMemory;
 	private int BMP_CACHE_SIZE;
-	private int BMP_SOFT_CACHE_SIZE ;
-	private int BMP_DISK_CACHE_SIZE ;
+	private int BMP_DISK_CACHE_SIZE;	
+	private final int MAX_DISK_CACHE_SIZE=50*1024;//单位 KB
+	
 	/**
 	 * 图片缓存处理类
 	 * @param context
@@ -33,29 +31,11 @@ public class ImageCache {
 	public ImageCache(Context context)
 	{			
 	   init(context);
-	}
+	}	
 	
-	
-	
-	@SuppressWarnings("serial")
+
 	private void init(Context context)
-    {
-		/**
-		 * 根据最大内存设置内存强引用缓存区的大小
-		 * 设置软引用内存区大小
-		 * 设置磁盘缓存大小
-		 *   
-		 */
-		maxMemory=((int)Runtime.getRuntime().maxMemory()/1024);		
-		BMP_CACHE_SIZE=maxMemory/4; //单位 KB
-		
-		BMP_SOFT_CACHE_SIZE = 40;
-		
-		BMP_DISK_CACHE_SIZE =4*1024;//单位 KB
-		
-		Log.i("maxMemory", maxMemory+"");
-		
-		
+    {		
 		/**
 		 * 设置磁盘缓存位置
 		 * 
@@ -66,13 +46,25 @@ public class ImageCache {
 		
 		
 		/**
+		 * 根据最大内存设置内存强引用缓存区的大小		
+		 * 根据存储环境可用空间设置合适的磁盘缓存大小
+		 *   
+		 */
+		maxMemory=((int)Runtime.getRuntime().maxMemory()/1024);		
+		BMP_CACHE_SIZE=maxMemory/4; //单位 KB	
+		
+		BMP_DISK_CACHE_SIZE =getCacheSize(diskCacheDir.getAbsolutePath());//单位 KB		
+		Log.i("BMP_CASH_SIZE", BMP_CACHE_SIZE+"");
+		Log.i("BMP_DISK_CASH_SIZE", BMP_DISK_CACHE_SIZE+"");
+		
+		
+		/**
 		 * 初始化内存强引用缓存		
 		 */
 		mBmpCache = new LruCache<String, Bitmap>(BMP_CACHE_SIZE) {
 			@Override
-			protected int sizeOf(String key, Bitmap value) {
-				
-				Log.i("图片大小:", value.getRowBytes()*value.getHeight()/1024+"KB");
+			protected int sizeOf(String key, Bitmap value) {				
+			
 				return value.getRowBytes()*value.getHeight()/1024;//单位 KB				
 			}
 			@Override
@@ -81,31 +73,7 @@ public class ImageCache {
 				putBitmapToDisk(key, oldValue);						
 				Log.i("LruCacheRemoved","内存强引用缓存转磁盘缓存");
 			}
-		};
-		
-		
-		
-		/**
-		 * 初始化内存软引用缓存
-		 * 
-		 */
-		mSoftBmpCache = new LinkedHashMap<String, SoftReference<Bitmap>>(BMP_SOFT_CACHE_SIZE, 0.75f, true){
-			@Override
-			public SoftReference<Bitmap> put(String key,SoftReference<Bitmap> value){
-				
-				return super.put(key, value);
-			}
-
-			@Override
-			protected boolean removeEldestEntry(LinkedHashMap.Entry<String, SoftReference<Bitmap>> eldest){
-				if (size()>BMP_SOFT_CACHE_SIZE){
-					
-					return true;
-				}
-				return false;
-			}
-		};
-		
+		};		
 		
 		
 		/**
@@ -118,21 +86,16 @@ public class ImageCache {
 			@Override
 			protected int sizeOf(String key, Long value) {
 				
-				return value.intValue()/1024;				
+				return value.intValue()/1024;//单位 KB				
 			}
 
-			@Override//磁盘缓存超出缓存上限则取对应的图片(LRU)存入软引用缓存
+			@Override
 			protected void entryRemoved(boolean evicted, String key,Long oldValue, Long newValue) {
 				
 				 File file=getFile(key);
 				 if(file!=null)
 				 {
-					 final SoftReference<Bitmap> bitmap =new SoftReference<Bitmap>(getBitmapFromDisk(key));
-						if(bitmap!=null)
-						{
-							mSoftBmpCache.put(key, bitmap);
-						} 
-						file.delete();
+					file.delete();
 				 }				 
 			}			
 		};
@@ -143,20 +106,18 @@ public class ImageCache {
 	
 	
 	/**
-	 * 获取磁盘缓存路径，优先使用外置缓存路径，没有则使用内置缓存路径
+	 * 获取磁盘缓存路径，优先使用SD卡缓存路径
 	 * @param context
 	 * @param name
 	 * @return 指定目录文件
-	 * @author Android Official Reference
+	 * @author Felix
 	 */
 	
 	private static File getDiskCacheDir(Context context, String name) 
-	{	    
-	    
-		final String cachePath =Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED||!Environment.isExternalStorageRemovable() 
-	                            ?context.getExternalCacheDir().getPath() : context.getCacheDir().getPath();
-	                            Log.i("缓存路径:", cachePath + File.separator + name);
-	                            new MyToast().alert(context, cachePath + File.separator + name);
+	{		
+		final String cachePath =Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)
+	                            ?context.getExternalCacheDir().getPath() : context.getCacheDir().getPath();	                            
+	                            
 	    return new File(cachePath + File.separator + name);
 	}
 	
@@ -200,7 +161,7 @@ public class ImageCache {
 			}
 			catch (FileNotFoundException e) 
 			{
-				Log.i("文件读写出错:","无法写入");
+				Log.i("文件读写出错:",e.getMessage());
 			  e.printStackTrace();
 			} catch (IOException e)
 			{
@@ -222,13 +183,14 @@ public class ImageCache {
 	 private boolean putBitmapToDisk(String key, Bitmap bitmap)
 	 {  
 	        File file = getFile(key);
-	        if(file!= null)//查看是否已存在 
-	        {              
+	        if(file!=null)//查看是否已存在 
+	        {  
+	        	Log.i("putBitmapToDisk","已存在");
 	           return true;  
 	        }        
 	        
 	        FileOutputStream fos = getOutputStream(key);//创建输出流
-	        boolean isSuccess = bitmap.compress(CompressFormat.JPEG, 100, fos);//转换图片至目标位置  
+	        boolean isSuccess = bitmap.compress(CompressFormat.PNG, 100, fos);//转换图片至目标位置  
 	        try 
 	        {
 				fos.flush();
@@ -241,11 +203,8 @@ public class ImageCache {
 			}  
 	          
 	        if(isSuccess)
-	        {  
-	            synchronized(mFileCache)
-	            {  
-	                mFileCache.put(key, getFile(key).length()); 
-	            }  
+	        {   
+	           mFileCache.put(key, getFile(key).length()); 	             
 	            return true;   
 	        }  
 	        return false;  
@@ -262,35 +221,33 @@ public class ImageCache {
 	  */
 	 
 	 private Bitmap getBitmapFromDisk(String key)
-	 { 
-		/*图片可回收
-		 BitmapFactory.Options opts;
-		opts = new BitmapFactory.Options();
-		opts.inPurgeable = true;
-		*/
-		
+	 { 	
 		File bitmapFile = getFile(key);
 		if (bitmapFile!= null) 
 		{
 			try 
-			{
-				Bitmap bitmap;
-				bitmap = BitmapFactory.decodeStream(new FileInputStream(bitmapFile), null,null);
+			{								
+				Bitmap bitmap = PptBitmapUtils.decodeBitapFromStream(new FileInputStream(bitmapFile),1);
 				if (bitmap != null)
 				{
-					mBmpCache.put(key, bitmap);
-					return bitmap;
+				   //mBmpCache.put(key, bitmap);	
+				   return bitmap;
 				}
 			} 
 			catch (FileNotFoundException e) 
 			{
-				Log.i("TAG", e.getMessage());
+				Log.i("FileNotFoundException", e.getMessage());
 				e.printStackTrace();
 			}
+			catch (OutOfMemoryError e) 
+			{
+				 Log.e("OutOfMemoryError", e.getMessage());
+				 e.printStackTrace();
+				 return null;
+		    }
 		}
 		return null;
-	 }
-	  
+	 }	  
 	 
 	 
 	 
@@ -305,11 +262,8 @@ public class ImageCache {
 	public boolean putBitmap(String key, Bitmap bitmap)
 	{  
         if(bitmap!= null)
-        {  
-            synchronized(mBmpCache)
-            {  
-            	mBmpCache.put(key, bitmap);  
-            }  
+        { 
+         	mBmpCache.put(key, bitmap);              
             return true;  
         }         
         return false;  
@@ -321,45 +275,27 @@ public class ImageCache {
 	/**
 	 * <外部调用接口>
 	 * 尝试从缓存中获取图片
-	 * 查找缓存顺序:内存强引用缓存-内存软引用缓存-磁盘缓存
+	 * 查找缓存顺序:内存强引用缓存-磁盘缓存
 	 * @param key
 	 * @return bitmap / null
 	 */	
 	
 	public Bitmap getBitmap(String key)
 	{  
-        synchronized(mBmpCache)
-        {  
-            final Bitmap bitmap = mBmpCache.get(key);  
-            if(bitmap != null)  
-                return bitmap;  
-        }  
-        //内存强引用缓存区不存在，查找软引用缓存区
-        synchronized(mSoftBmpCache)
-        {  
-            SoftReference<Bitmap> bmpReference = mSoftBmpCache.get(key);  
-            if(bmpReference!= null)
-            {  
-                final Bitmap bitmap =bmpReference.get();  
-                if(bitmap != null)
-                {
-                	Log.i("SoftReference", "从软引用缓存中找到图片");
-                	mBmpCache.put(key, bitmap);
-                	mSoftBmpCache.remove(key);                 	
-                    return bitmap; 
-                }                
-            }  
-        }
-        //软引用缓存区不存在，查找磁盘缓存
         
-			final Bitmap bitmap =getBitmapFromDisk(key);
-			if(bitmap!=null)
+            final Bitmap bitmap = mBmpCache.get(key);  
+            
+            if(bitmap != null)  
+                return bitmap;
+            
+       
+			final Bitmap bmp =getBitmapFromDisk(key);
+			if(bmp!=null)
 			{
 				Log.i("DiskCache", "从磁盘缓存找到图片");
-				return bitmap;
-				
-			}
-		
+				return bmp;				
+			}		
+			
         //找不到，返回空
         return null; 
     } 
@@ -372,17 +308,88 @@ public class ImageCache {
 	 * @author Felix
 	 */
 	public void clearCache()
-	{
-		mBmpCache.evictAll();
+	{		
+		mBmpCache.evictAll();			
+		if(deleteDir(diskCacheDir));
+	  Log.i("clearCache", "success");
+		
 	}	
 	
+	
+	
+	
+	/**
+	 * 清除目录下所有文件;
+	 * @param dir
+	 * @return T/F
+	 * @author Felix
+	 */
+	
+	public boolean deleteDir(File dir) 
+	{
+		if (dir.isDirectory()) 
+		{
+			String[] child = dir.list();			
+			for (int i = 0; i < child.length; i++) 
+			{
+				File tmp =new File(dir, child[i]);
+				if (tmp.exists()) 
+				{
+					tmp.delete();
+				}
+			}
+			if(dir.list().length==0)
+				return true;
+			else
+				return false;
+		}	
+		else
+			return false;
+		
+	}
+	
+	
+	/**
+	 * 获取空余存储空间
+	 * @param path
+	 * @return 未用空间大小(KB)
+	 * @author Felix
+	 */
+	
+	public long getFreeMemory(String path)
+	{
+		StatFs stat =new StatFs(path);
+		long blockSize =stat.getBlockSize();		
+		long availableBlocks=stat.getAvailableBlocks();		
+		return ((blockSize*availableBlocks)/1024);//单位 KB
+		
+	}
+	
+	/**
+	 * 设置合适的磁盘缓存大小
+	 * @param path
+	 * @return 合适的缓存大小(KB)
+	 * @author Felix
+	 * 
+	 */
+	
+	public int getCacheSize(String path)
+	{
+		long free=getFreeMemory(path);
+		if(free<MAX_DISK_CACHE_SIZE)
+		{
+			return (int) (free*0.8);
+		}
+		else
+		{
+			return MAX_DISK_CACHE_SIZE;
+		}	
+			
+	}
 	
 	public void setBmpCache(LruCache<String, Bitmap> mCache)
 	{
 	   this.mBmpCache=mCache;
-	}	
-	
-	
-	
+	}		
 
 }

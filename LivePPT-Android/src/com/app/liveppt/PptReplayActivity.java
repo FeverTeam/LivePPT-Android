@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.app.adapter.ViewPageAdapter;
 import com.app.liveppt.R;
-import com.app.utils.PptDownLoad;
+import com.app.utils.PptBitmapUtils;
 import com.app.utils.myApp;
 
 import android.net.TrafficStats;
@@ -75,11 +75,11 @@ public class PptReplayActivity extends Activity {
 			@SuppressWarnings("unchecked")
 			@Override
 			/**
-			 * 当前页处于倒数第二页或最后一页同时PPT未加载完成且没有预加载线程正在处理时执行预加载
+			 * 当前页处于倒数第三页至最后一页之间同时PPT未加载完成且没有预加载线程正在处理时执行预加载
 			 * 页面切换时更新当前页码
 			 */
 			public void onPageSelected(int position) {
-				if(position>=mViewPager.getAdapter().getCount()-2&&mViewPager.getAdapter().getCount()<pageCount&&!isUpdating)
+				if(position>=mViewPager.getAdapter().getCount()-3&&mViewPager.getAdapter().getCount()<pageCount&&!isUpdating)
 				{
 					new getPptTask().execute(mViewList);
 				}
@@ -130,7 +130,6 @@ public class PptReplayActivity extends Activity {
 		protected void onPreExecute()
 		{
 			isUpdating=true;
-			start=TrafficStats.getTotalRxBytes()+TrafficStats.getTotalTxBytes();
 		}
 		
 		/**
@@ -140,16 +139,15 @@ public class PptReplayActivity extends Activity {
 		protected synchronized ArrayList<View> doInBackground(ArrayList<View>...list) {	
 			
 			Bitmap bmp;			
-			for(int mark=pages;pages<=mark+2&&pages<=pageCount;pages++)
+			for(int mark=pages;pages<=mark+3&&pages<=pageCount;pages++)
 			{				
-				bmp=new PptDownLoad().downLoadBitmap(app.getHttpClient(), pptId, pages);
+				bmp=new PptBitmapUtils().downLoadBitmap(app.getHttpClient(), pptId, pages);
 				if(bmp==null)
 				  {
 					pages--;
 				  }
 				  else	
-				  {
-					  
+				  {					  
 					  Log.i("更新页码:", ""+pages);
 				      updateViewList(list[0], bmp);				      
 				      publishProgress(pages);
@@ -166,8 +164,7 @@ public class PptReplayActivity extends Activity {
 		 */
 		@Override
 		protected void onProgressUpdate(Integer...current)
-		{
-			
+		{			
 			if(current[0]==pageCount)
 			{
 				proBar.setVisibility(View.GONE);
@@ -177,8 +174,7 @@ public class PptReplayActivity extends Activity {
 			{
 				proBar.setProgress(current[0]);
 				proBarInfo.setText("共"+pageCount+"页,已加载"+current[0]+"页");
-			}
-			
+			}			
 		}
 		
 		/**
@@ -186,8 +182,7 @@ public class PptReplayActivity extends Activity {
 		 */
 		@Override
 		protected void onPostExecute(ArrayList<View> newList)
-		{
-		
+		{		
 			mViewPageAdapter.setList(newList);
 			if(mViewPager.getAdapter()==null)
 			{
@@ -197,9 +192,7 @@ public class PptReplayActivity extends Activity {
 			{
 				mViewPageAdapter.notifyDataSetChanged();			
 			}	
-			isUpdating=false;
-			finish=TrafficStats.getTotalRxBytes()+TrafficStats.getTotalTxBytes();
-			Log.i("流量消耗：",((finish-start)/1024)+"KB");
+			isUpdating=false;			
 		}
 		
 	}	

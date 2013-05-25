@@ -1,10 +1,5 @@
 package com.app.utils;
 
-
-
-import java.lang.ref.SoftReference;
-import java.util.LinkedHashMap;
-
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ClientConnectionManager;
@@ -21,19 +16,14 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
-import com.app.base.User;
+import com.app.model.User;
 
 import android.app.Application;
-import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
 
 public class myApp extends Application {
 	
 	private HttpClient httpclient;
-	public  User localUser;
-	
-	
-	
+	public  User localUser;	
 	/**
 	 * 
 	 * @return 全局HttpClient

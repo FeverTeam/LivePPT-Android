@@ -2,16 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RelativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:layout_height="match_parent"    
     android:orientation="vertical"
+    android:background="@drawable/fragmentbg"
     tools:context=".MyPptListFrag" >
 
     <ListView
         android:id="@+id/pptListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/fragmentbg"
+        
         android:cacheColorHint="#00000000">
     </ListView>
 
