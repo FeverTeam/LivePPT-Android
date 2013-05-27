@@ -2,6 +2,9 @@ package com.app.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +15,10 @@ import com.app.model.PptFile;
 import com.app.utils.HttpRequest;
 import com.app.utils.MyToast;
 import com.app.utils.myApp;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,9 +32,15 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 /**
  * 显示PPT列表信息
  * @author Felix
@@ -36,21 +48,88 @@ import android.widget.ProgressBar;
  */
 public class MyPptListFrag extends Fragment {
 	
-	PptAdapter pptad;
-	ListView lv;
-	ProgressBar proBar;	
+	private PptAdapter pptad;
+	private ListView lv;
+	private ProgressBar proBar;	
+	private Long pptId;
+	private String topic;
+	private myApp app;
+	private HttpRequest  httpRequest;
+	private MyMeetingFrag meetingfrag;
+	private View pptListView;
 	@Override  
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
 	{ 		
 		
-        View pptListView= inflater.inflate(R.layout.my_ppt_frag, container, false);        
-        lv=(ListView) pptListView.findViewById(R.id.pptListView);
-        proBar=(ProgressBar)pptListView.findViewById(R.id.pptList_progressBar);
-        new GetPptListTask().execute();  
-        
+        pptListView= inflater.inflate(R.layout.my_ppt_frag, container, false);      
+        init();        
+        new GetPptListTask().execute();        
         this.registerForContextMenu(lv);
         return pptListView;
     } 	
+	
+	/**
+	 * 初始化控件
+	 * @author Felix
+	 */
+	private void init()
+	{
+		lv=(ListView) pptListView.findViewById(R.id.pptListView);
+        proBar=(ProgressBar)pptListView.findViewById(R.id.pptList_progressBar);
+        app=(myApp)getActivity().getApplication();
+        httpRequest =new HttpRequest();
+        
+        lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,int position, long id) 
+			{
+				PptFile ppt =new PptFile(); 
+				ppt=app.localUser.getPpts().get(position);
+				showPptInfoDialog(ppt);
+				
+			}
+		});
+        
+        
+	}
+	
+	/**
+	 * 显示ppt信息的dialog
+	 * @author Felix
+	 */
+	
+	private void showPptInfoDialog(PptFile ppt)
+	{    
+	    View view=LayoutInflater.from(getActivity()).inflate(R.layout.ppt_info_dialog, null);
+	    TextView pptId_text=(TextView)view.findViewById(R.id.ppt_id_ppt_info_dialog);
+	    TextView pptTime_text=(TextView)view.findViewById(R.id.ppt_time_ppt_info_dialog);
+	    TextView pptTitle_text=(TextView)view.findViewById(R.id.ppt_title_ppt_info_dialog);
+	    TextView pptPage_text=(TextView)view.findViewById(R.id.ppt_page_ppt_info_dialog);
+	    TextView pptStatus_text=(TextView)view.findViewById(R.id.ppt_status_ppt_info_dialog);
+	    TextView pptOwner_text=(TextView)view.findViewById(R.id.ppt_owner_ppt_info_dialog);
+	    
+	    pptId_text.setText(ppt.getPptId().toString());
+	    pptTime_text.setText(ppt.getPptTime());
+	    pptTitle_text.setText(ppt.getPptTitle());
+	    pptPage_text.setText(ppt.getPptPageCount()+"");
+	    pptOwner_text.setText(app.localUser.getUserName());
+	    if(ppt.getPptStatus())
+	    {
+	    	pptStatus_text.setText("已转换");
+	    }
+	    else
+	    {
+	    	pptStatus_text.setText("未转换");
+	    }
+	    
+	    AlertDialog dialog=new AlertDialog.Builder(getActivity())
+	    .setTitle("PPT详情")
+	    .setView(view)
+	    .create();
+	    dialog.show();	   
+	}
+	
 	
 	
 	/**
@@ -61,8 +140,8 @@ public class MyPptListFrag extends Fragment {
 	public void onCreateContextMenu(ContextMenu menu, View arg1,ContextMenuInfo arg2)
 	{		
 		menu.setHeaderTitle("");
-		menu.add(0, 1, 1, "打开PPT");		
-		menu.add(0, 2, 2, "删除");		
+		menu.add(0, 1, 1, "浏览PPT");		
+		menu.add(0, 2, 2, "放入主持会议列表");		
 	}
 	
 	
@@ -72,8 +151,7 @@ public class MyPptListFrag extends Fragment {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) 
 	{
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-       myApp app=(myApp)getActivity().getApplication();
+		final AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		
 		  switch (item.getItemId()) {
 		  case 1:
@@ -98,8 +176,40 @@ public class MyPptListFrag extends Fragment {
 		  }		  
 		    
 		  case 2:
-		  {
-			  new MyToast().alert(getActivity().getApplicationContext(),"Coming soon...");
+		  {			  
+			  AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+			  final View dialogView=LayoutInflater.from(getActivity()).inflate(R.layout.found_new_meeting_dialog, null);
+			  final EditText topic_text=(EditText)dialogView.findViewById(R.id.meeting_topic_foundmeeting);
+			  builder.setView(dialogView);			
+			  builder.setPositiveButton("设置", new OnClickListener() 
+			  {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) 
+				{
+					pptId=app.localUser.getPpts().get(info.position).getPptId();
+					topic=topic_text.getText().toString().trim();
+					new foundNewMeetingTask().execute();					
+				}
+			});
+			  builder.setNegativeButton("取消", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) 
+					{
+						
+						
+					}
+				});
+			  
+			    AlertDialog mDialog =builder.create();	
+			    
+			    Window window = mDialog.getWindow();    
+			    
+			    WindowManager.LayoutParams lp = window.getAttributes();       
+		        lp.alpha = 0.8f; //透明度		               
+			    window.setAttributes(lp);				    
+			    mDialog.show();				    
 			  return true;	 
 		  }
 		    
@@ -118,7 +228,7 @@ public class MyPptListFrag extends Fragment {
 	 */
 	
 	public void refresh()
-	{
+	{		
 	  new GetPptListTask().execute();  
 	}	
 		
@@ -148,11 +258,10 @@ public class MyPptListFrag extends Fragment {
 		@Override
 		protected List<PptFile> doInBackground(Void... params)
 		{		
-				List<PptFile> pptList=new ArrayList<PptFile>();
-				myApp app=(myApp)getActivity().getApplication();
+				List<PptFile> pptList=new ArrayList<PptFile>();				
 				String getListUrl=HttpRequest.httpProtocol+HttpRequest.hostName+"/app/getPptList?userId="+app.localUser.getUserId();
 				
-				HttpRequest httpRequest =new HttpRequest();
+				
 				String strResult;
 				JSONObject resInfo;
 				
@@ -216,5 +325,65 @@ public class MyPptListFrag extends Fragment {
 			proBar.setVisibility(View.INVISIBLE);
 			lv.setAdapter(pptad);
 		}
+	}
+	
+	
+	
+	
+	/**
+	 * 添加新主持会议线程
+	 * @author Felix 
+	 */
+	
+	class foundNewMeetingTask extends AsyncTask<Void, Void,Boolean>
+	{
+
+		@Override
+		protected Boolean doInBackground(Void... params) 
+		{
+			String Url =HttpRequest.httpProtocol+HttpRequest.hostName+"/app/foundNewMeeting";
+			JSONObject jso;
+			String strResult;
+			ArrayList<NameValuePair> paramList =new ArrayList<NameValuePair>();
+			paramList.add(new BasicNameValuePair("pptId",pptId+""));
+			paramList.add(new BasicNameValuePair("userId", app.localUser.getUserId()+""));
+			paramList.add(new BasicNameValuePair("topic",topic));
+			strResult=httpRequest.HttpPostRequest(app.getHttpClient(), Url, paramList);
+			Log.i("发起会议", strResult);
+			
+			try
+			{
+				jso=new JSONObject(strResult);
+				if(jso.getBoolean("isSuccess"))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			} catch (JSONException e) 
+			{				
+				e.printStackTrace();
+			}	
+			return false;
+			
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean flag)
+		{
+			if(flag)
+			{
+				meetingfrag=(MyMeetingFrag)getActivity().getSupportFragmentManager().findFragmentById(R.id.meetingFrag);
+				meetingfrag.refresh();
+				new MyToast().alert(getActivity(), "成功添加会议");
+			}
+			else
+			{
+				new MyToast().alert(getActivity(), "添加失败，请重试");
+			}
+		}
+		
 	}
 }

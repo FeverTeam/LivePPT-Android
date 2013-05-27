@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"    
+    android:orientation="vertical" >
+    
+    
+    
+    
+
+     <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content" 
+         android:padding="5dp">
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+    
+        
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="名称:" />             
+    <TextView
+        android:id="@+id/ppt_title_ppt_info_dialog"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="15sp"
+        android:textColor="@color/orange"
+        android:text="TextView" />
+    </LinearLayout>
+
+     
+     
+     
+    <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:padding="5dp">
+     <TextView
+        android:id="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        
+        
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="时间:" />  
+    <TextView
+        android:id="@+id/ppt_time_ppt_info_dialog"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="15sp"
+        android:textColor="@color/orange"
+        android:text="TextView" />
+    </LinearLayout>
+
+    
+    
+    
+    
+    
+    <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content" 
+         android:padding="5dp">
+     <TextView
+        android:id="@+id/t3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+       
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="归属:" />  
+    <TextView
+        android:id="@+id/ppt_owner_ppt_info_dialog"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="15sp"
+        android:textColor="@color/orange"
+        android:text="TextView" />
+      </LinearLayout>
+    
+    
+    
+    
+    
+
+    <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content" 
+         android:padding="5dp">
+     <TextView
+        android:id="@+id/t4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="ID号:" />  
+    <TextView
+        android:id="@+id/ppt_id_ppt_info_dialog"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="15sp"
+        android:textColor="@color/orange"
+        android:text="TextView" />
+    </LinearLayout>
+
+    
+    
+    
+    
+    <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content" 
+         android:padding="5dp">
+     <TextView
+        android:id="@+id/t5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+     
+        
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="页数:" />  
+    <TextView
+        android:id="@+id/ppt_page_ppt_info_dialog"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="15sp"
+        android:textColor="@color/orange"
+        android:text="TextView" />
+    </LinearLayout>
+    
+    
+    
+    
+    
+    
+    
+    <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content" 
+         android:padding="5dp">
+     <TextView
+        android:id="@+id/t6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+      
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="状态:" />  
+     <TextView
+        android:id="@+id/ppt_status_ppt_info_dialog"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="15sp"
+        android:textColor="@color/orange"
+        android:text="TextView" />
+     
+     </LinearLayout>
+
+</LinearLayout>

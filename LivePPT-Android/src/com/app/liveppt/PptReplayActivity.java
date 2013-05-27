@@ -93,7 +93,6 @@ public class PptReplayActivity extends Activity {
 			public void onPageScrollStateChanged(int arg0) {}
 		});		  
 	}
-
 	
 	
 

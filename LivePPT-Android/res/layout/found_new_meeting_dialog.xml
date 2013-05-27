@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"             
+        android:padding="5dp"        
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/input_topic_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="请输入会议主题:"
+            android:textColor="@color/orange"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/meeting_topic_foundmeeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:hint="Topic:"
+            android:ems="15" />
+    </LinearLayout>
+
+

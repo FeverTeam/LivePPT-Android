@@ -429,5 +429,17 @@ public class MyMeetingFrag extends Fragment {
 		  }
 		  	
 	}
+	
+	
+	/**
+	 * 刷新会议列表
+	 * @author Felix
+	 * 
+	 */
+	public void refresh()
+	{
+		new getFoundedMeetingTask().execute();
+		new getParticipatedMeetingTask().execute();
+	}
 
 }
