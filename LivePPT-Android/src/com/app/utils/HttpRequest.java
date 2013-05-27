@@ -52,15 +52,18 @@ public class HttpRequest {
 			}			
 		} 
 		catch (UnsupportedEncodingException e) 
-		{			
+		{
+			if(e.getMessage()!=null)
 			Log.i("UnsupportedEncodingException",e.getMessage());
 			e.printStackTrace();
 		} catch (ClientProtocolException e) 
-		{			
+		{
+			if(e.getMessage()!=null)
 			Log.i("ClientProtocolException", e.getMessage());			
 			e.printStackTrace();
 		} catch (IOException e) 
-		{			
+		{	
+			if(e.getMessage()!=null)
 			Log.i("IOException",e.getMessage());
 			e.printStackTrace();
 		}		
@@ -96,10 +99,12 @@ public class HttpRequest {
 			
 		} catch (ClientProtocolException e) 
 		{
+			if(e.getMessage()!=null)
 			Log.i("ClientProtocolException", e.getMessage());			
 			e.printStackTrace();
 		} catch (IOException e)
 		{
+			if(e.getMessage()!=null)
 			Log.i("IOException",e.getMessage());
 			e.printStackTrace();
 		}		

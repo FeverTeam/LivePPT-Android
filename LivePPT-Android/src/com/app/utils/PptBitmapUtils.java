@@ -1,16 +1,13 @@
 package com.app.utils;
 
-import java.io.BufferedInputStream;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -27,8 +24,8 @@ public class PptBitmapUtils {
 	public  Bitmap downLoadBitmap(HttpClient client,Long pptId,int pageId)
 	{
 		
-		uri=HttpRequest.httpProtocol+HttpRequest.hostName+"/app/getPptPage/";
-		httpGet=new HttpGet(uri+pptId+"/"+pageId);
+		uri=HttpRequest.httpProtocol+HttpRequest.hostName+"/app/getPptPage?";
+		httpGet=new HttpGet(uri+"pptId="+pptId+"&"+"pageIndex="+pageId);
 		try 
 		{
 			response=client.execute(httpGet);
@@ -130,7 +127,7 @@ public class PptBitmapUtils {
 		 options.inPurgeable =true;
 		 options.inPreferQualityOverSpeed=true;
 		 options.inPreferredConfig=Config.RGB_565;
-		 try {
+		 /*try {
 
 				BitmapFactory.Options.class.getField("inNativeAlloc").setBoolean(options,true);
 
@@ -143,6 +140,7 @@ public class PptBitmapUtils {
 			} catch (NoSuchFieldException e) {
 				e.printStackTrace();
 			}
+			*/
 		        	 
 		 return BitmapFactory.decodeStream(new FlushedInputStream(inputStream), null, options);	
 		 

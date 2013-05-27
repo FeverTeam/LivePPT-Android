@@ -1,4 +1,4 @@
-package com.app.fragment;
+	package com.app.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.app.adapter.MeetingAdapter;
+import com.app.liveppt.LiveControlMeetingActivity;
 import com.app.liveppt.LiveWatchingMeetingActivity;
 import com.app.liveppt.R;
 import com.app.model.Meeting;
@@ -377,7 +378,13 @@ public class MyMeetingFrag extends Fragment {
 		  
 		  case 11:
 		  {	
-			 new MyToast().alert(getActivity().getApplicationContext(),"Coming soon...");			 
+			    Intent intent = new Intent(getActivity(),LiveControlMeetingActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putLong("pptId", app.localUser.getFoundedMeeting().get(pos).getMeetingPpt().getPptId());
+				bundle.putInt("pageCount",app.localUser.getFoundedMeeting().get(pos).getMeetingPpt().getPptPageCount());
+				bundle.putLong("meetingId",app.localUser.getFoundedMeeting().get(pos).getMeetingId());
+				intent.putExtras(bundle);
+				startActivity(intent);		 
 			 return true;
 		  }		  
 		   

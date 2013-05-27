@@ -16,8 +16,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
         android:name="com.app.utils.myApp"
@@ -51,13 +51,20 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
-        
+
         <!-- 直播会议窗口 -->
         <activity
             android:name="com.app.liveppt.LiveWatchingMeetingActivity"
-            android:label="@string/title_activity_live_watching_meeting" 
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" 
-            android:screenOrientation="landscape">
+            android:label="@string/title_activity_live_watching_meeting"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <!-- 主持会议窗口 -->
+        <activity
+            android:name="com.app.liveppt.LiveControlMeetingActivity"
+            android:label="@string/title_activity_live_control_meeting"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
     </application>
 

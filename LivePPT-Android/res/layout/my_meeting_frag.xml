@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fragmentbg"
+    android:background="@android:color/white"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/myfoundedmeeting"
-            android:textColor="@color/lightGreen"
+            android:textColor="@color/orange"
             android:textSize="20sp" />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/myparticipateddmeeting"
-            android:textColor="@color/lightGreen"
+            android:textColor="@color/orange"
             android:textSize="20sp" />
 
         <ProgressBar

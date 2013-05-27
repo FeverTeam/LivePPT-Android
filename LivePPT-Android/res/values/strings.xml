@@ -12,5 +12,6 @@
     <string name="title_activity_ppt_relapy">PptRelapyActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_live_watching_meeting">LiveWatchingMeetingActivity</string>
+    <string name="title_activity_live_control_meeting">LiveControlMeetingActivity</string>
 
 </resources>

@@ -16,12 +16,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
 public class LoginActivity extends Activity
 {
 	private Button mLoginButton;
-	private Button mRegistButton;
+	private TextView mRegistText;
 	private EditText emailInput;
 	private EditText passwordInput;
 	private ProgressBar progressBar;	
@@ -38,7 +39,7 @@ public class LoginActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);		
+		setContentView(R.layout.activitiy_login_new);		
 		init();
 	}	
 	
@@ -50,7 +51,7 @@ public class LoginActivity extends Activity
 	private void init()
 	{		
 		mLoginButton=(Button)findViewById(R.id.login_go_button);
-		mRegistButton=(Button)findViewById(R.id.login_register_button);
+		mRegistText=(TextView)findViewById(R.id.login_register_text);
 		emailInput=(EditText)findViewById(R.id.email_input);
 		passwordInput=(EditText)findViewById(R.id.password_input);
 		progressBar =(ProgressBar)findViewById(R.id.loginProgressBar);
@@ -67,7 +68,7 @@ public class LoginActivity extends Activity
 			}
 		});				
 		
-		mRegistButton.setOnClickListener(new OnClickListener() 
+		mRegistText.setOnClickListener(new OnClickListener() 
 		{		
 			/**
 			 * 注册监听
@@ -137,7 +138,7 @@ public class LoginActivity extends Activity
 					}
 					else
 					{
-						publishProgress(resInfo.getJSONObject("data").getString("message"));
+						publishProgress(resInfo.getString("message"));
 					}
 				} 
 				catch (JSONException e) 

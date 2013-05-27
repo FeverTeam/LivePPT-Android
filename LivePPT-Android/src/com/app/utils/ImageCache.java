@@ -21,7 +21,7 @@ public class ImageCache {
 	private int maxMemory;
 	private int BMP_CACHE_SIZE;
 	private int BMP_DISK_CACHE_SIZE;	
-	private final int MAX_DISK_CACHE_SIZE=50*1024;//单位 KB
+	private final int MAX_DISK_CACHE_SIZE=100*1024;//单位 KB
 	
 	/**
 	 * 图片缓存处理类
@@ -34,7 +34,7 @@ public class ImageCache {
 	}	
 	
 
-	private void init(Context context)
+	public void init(Context context)
     {		
 		/**
 		 * 设置磁盘缓存位置
@@ -304,19 +304,40 @@ public class ImageCache {
 	
 	/**
 	 * <外部调用接口>
-	 * 释放内存强引用缓存
+	 * 清除磁盘所有文件缓存
 	 * @author Felix
 	 */
-	public void clearCache()
-	{		
-		mBmpCache.evictAll();			
+	public void clearAllDiskCache()
+	{				
 		if(deleteDir(diskCacheDir));
-	  Log.i("clearCache", "success");
+	  Log.i("clearDiskCache", "success");
+		
+	}	
+	
+	/**
+	 * <外部调用接口>
+	 * 清除磁盘非指定pptId的文件缓存
+	 * @author Felix
+	 */
+	public void clearDiskCache(String pptId)
+	{				
+		if(deleteDir(diskCacheDir,pptId));
+	  Log.i("clearDiskCache", "success");
 		
 	}	
 	
 	
 	
+	/**
+	 * 释放内存缓存至磁盘缓存中
+	 * @author Felix
+	 */
+	
+	public void clearMemCache()
+	{
+		mBmpCache.evictAll();
+		Log.i("clearMemCache", "Done");
+	}	
 	
 	/**
 	 * 清除目录下所有文件;
@@ -335,6 +356,39 @@ public class ImageCache {
 				File tmp =new File(dir, child[i]);
 				if (tmp.exists()) 
 				{
+					tmp.delete();
+				}
+			}
+			if(dir.list().length==0)
+				return true;
+			else
+				return false;
+		}	
+		else
+			return false;
+		
+	}
+	
+	
+	/**
+	 * 清除目录下所有非指定pptId的文件;
+	 * @param dir
+	 * @return T/F
+	 * @author Felix
+	 */
+	
+	public boolean deleteDir(File dir,String pptId) 
+	{
+		if (dir.isDirectory()) 
+		{
+			String[] child = dir.list();			
+			for (int i = 0; i < child.length; i++) 
+			{
+				File tmp =new File(dir, child[i]);
+				if (tmp.exists()&&!tmp.getName().substring(0, tmp.getName().indexOf("-")).equals(pptId)) 
+				{
+					Log.i("文件pptId",tmp.getName().substring(0, tmp.getName().indexOf("-")));
+					Log.i("删除", tmp.getName());
 					tmp.delete();
 				}
 			}

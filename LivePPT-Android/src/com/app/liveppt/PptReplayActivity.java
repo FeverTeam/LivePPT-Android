@@ -1,13 +1,10 @@
 package com.app.liveppt;
-
 import java.util.ArrayList;
-
 import com.app.adapter.ViewPageAdapter;
 import com.app.liveppt.R;
+import com.app.utils.ImageCache;
 import com.app.utils.PptBitmapUtils;
 import com.app.utils.myApp;
-
-import android.net.TrafficStats;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,41 +12,38 @@ import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class PptReplayActivity extends Activity {
 	
-	Long pptId;
-	boolean isUpdating;
-	int pages;
-	int pageCount;
-	Long start;
-	Long finish;
+	private Long pptId;
+	private boolean isUpdating;
+	private int pages;
+	private int pageCount;
+	private myApp app;	
+	private ArrayList<String> mViewList;	
+	private TextView pagesText;
+	private TextView proBarInfo;
+	private ProgressBar proBar;
+	private ViewPager mViewPager;
+	private ViewPageAdapter mViewPageAdapter;
+	private ImageCache mCache;
+	private getPptTask getTask;
 	
-	myApp app;	
-	ArrayList<View> mViewList;
-	Bitmap bmp;	
-	TextView pagesText;
-	TextView proBarInfo;
-	ProgressBar proBar;
-	ViewPager mViewPager;
-	ViewPageAdapter mViewPageAdapter;
-	
-
-	@SuppressWarnings("unchecked")
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ppt_relapy);
 		Bundle bundle=getIntent().getExtras();
 		       pptId=bundle.getLong("pptId");
-		       pageCount=bundle.getInt("pageCount");		
+		       pageCount=bundle.getInt("pageCount");		       
 		       init();		       
-		new getPptTask().execute(mViewList);		
+		       getTask=new getPptTask();
+		       getTask.execute();		
 	}
 	
 	/**
@@ -57,32 +51,37 @@ public class PptReplayActivity extends Activity {
 	 */
 	public void init()
 	{
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		 app =(myApp)getApplication();
 		 pages=1;
 		 isUpdating=false;
-	     mViewPageAdapter =new ViewPageAdapter();
-	     mViewList =new ArrayList<View>();
-	     mViewList.ensureCapacity(pageCount+1);
+		 mCache = new ImageCache(this);
+		 mCache.clearDiskCache(pptId.toString());
+		 mCache.init(this);
 	     
+	     mViewList =new ArrayList<String>();
+	     mViewPageAdapter =new ViewPageAdapter(mViewList, mCache,getLayoutInflater());
+	     mViewList.ensureCapacity(pageCount+1); 
 	     
 	     proBarInfo=(TextView)findViewById(R.id.proBar_info);
 	     pagesText=(TextView)findViewById(R.id.pages_text);
 	     proBar =(ProgressBar)findViewById(R.id.progressBar_viewpager);
 	     proBar.setMax(pageCount);
 	     mViewPager=(ViewPager)findViewById(R.id.myViewPager);		     
-	     mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+	     mViewPager.setOnPageChangeListener(new OnPageChangeListener() {			
 			
-			@SuppressWarnings("unchecked")
 			@Override
 			/**
 			 * 当前页处于倒数第三页至最后一页之间同时PPT未加载完成且没有预加载线程正在处理时执行预加载
 			 * 页面切换时更新当前页码
 			 */
 			public void onPageSelected(int position) {
+				
 				if(position>=mViewPager.getAdapter().getCount()-3&&mViewPager.getAdapter().getCount()<pageCount&&!isUpdating)
 				{
-					new getPptTask().execute(mViewList);
-				}
+					getTask=new getPptTask();
+					getTask.execute();
+				}				
 				pagesText.setText("第"+(position+1)+"页");
 				
 			}
@@ -92,37 +91,21 @@ public class PptReplayActivity extends Activity {
 			
 			@Override
 			public void onPageScrollStateChanged(int arg0) {}
-		});
-		  
+		});		  
 	}
 
 	
 	
-	
-	/**
-	 * 传入图片，更新ViewPager的适配器的View动态数组
-	 * @param list
-	 * @param bmp
-	 */
-	public void updateViewList(ArrayList<View> list,Bitmap bmp)
-	{
-		LayoutInflater inflater=getLayoutInflater(); 
-		View view =inflater.inflate(R.layout.pptviewpage_item, null);
-		ImageView iv=(ImageView)view.findViewById(R.id.image_ViewPage);
-		iv.setImageBitmap(bmp);
-		list.add(view);
-		
-	}	
-	
+
 
 	/**
 	 * 加载PPT的异步线程
 	 * @author Felix
 	 *
 	 */
-	class getPptTask extends AsyncTask<ArrayList<View>, Integer, ArrayList<View>>
+	
+	class getPptTask extends AsyncTask<Void, Integer,Void>
 	{
-
 		/**
 		 * 标识加载执行中
 		 */
@@ -136,35 +119,48 @@ public class PptReplayActivity extends Activity {
 		 * 后台加载PPT线程
 		 */
 		@Override
-		protected synchronized ArrayList<View> doInBackground(ArrayList<View>...list) {	
+		protected synchronized Void doInBackground(Void ...v) {			
+		
+			String key;
+			Bitmap bmp;		
 			
-			Bitmap bmp;			
-			for(int mark=pages;pages<=mark+3&&pages<=pageCount;pages++)
-			{				
-				bmp=new PptBitmapUtils().downLoadBitmap(app.getHttpClient(), pptId, pages);
-				if(bmp==null)
-				  {
-					pages--;
-				  }
-				  else	
-				  {					  
-					  Log.i("更新页码:", ""+pages);
-				      updateViewList(list[0], bmp);				      
-				      publishProgress(pages);
-				  }		  
-			}
-			
-			return mViewList;
-			
+			for(int mark=pages;pages<=mark+10&&pages<=pageCount;pages++)
+			{		
+				if (isCancelled()) 
+					return null;
+				key=pptId+"-"+pages;
+				bmp=mCache.getBitmap(key);
+				while(bmp==null)
+				{
+					Log.i("getPptTask", "不存在");
+					bmp=new PptBitmapUtils().downLoadBitmap(app.getHttpClient(), pptId,pages);
+				}
+				mCache.putBitmap(key, bmp);
+				mViewList.add(key);							      
+			    publishProgress(pages);					  
+			}			
+			return null;			
 		}
 		
 		
 		/**
 		 * 更新加载进度
+		 * 刷新UI
 		 */
 		@Override
 		protected void onProgressUpdate(Integer...current)
-		{			
+		{
+			mViewPageAdapter.setList(mViewList);
+			if(mViewPager.getAdapter()==null)
+			{
+				mViewPager.setAdapter(mViewPageAdapter);
+			}
+			else
+			{
+				mViewPageAdapter.notifyDataSetChanged();			
+			}
+			
+			
 			if(current[0]==pageCount)
 			{
 				proBar.setVisibility(View.GONE);
@@ -178,23 +174,31 @@ public class PptReplayActivity extends Activity {
 		}
 		
 		/**
-		 * 刷新ViewPager,取消加载执行中标识
+		 *取消加载执行中标识
 		 */
 		@Override
-		protected void onPostExecute(ArrayList<View> newList)
-		{		
-			mViewPageAdapter.setList(newList);
-			if(mViewPager.getAdapter()==null)
-			{
-				mViewPager.setAdapter(mViewPageAdapter);
-			}
-			else
-			{
-				mViewPageAdapter.notifyDataSetChanged();			
-			}	
-			isUpdating=false;			
-		}
-		
+		protected void onPostExecute(Void v)
+		{				
+		   isUpdating=false;			
+		}		
 	}	
+	
+	
+	
+	
+	/**退出处理
+	 * 终结异步线程
+	 * 清除缓存文件
+	 * 
+	 */
+	@Override
+	   protected void onDestroy() 
+	  {
+		  if (getTask != null && getTask.getStatus()!= AsyncTask.Status.FINISHED)
+	            getTask.cancel(true);	       
+		   mCache.clearMemCache();    	  		     
+	       Log.i("PptReplayActivity", "onDestory");	       
+	       super.onDestroy();
+	   }
 
 }

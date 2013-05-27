@@ -10,6 +10,7 @@ import de.tavendo.autobahn.WebSocketHandler;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
@@ -53,9 +54,12 @@ public class LiveWatchingMeetingActivity extends Activity {
      */
 	public void init()
 	{
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		pptImag=(ImageView)findViewById(R.id.live_Watching_imageView);
 	    app=(myApp)getApplicationContext();
-	    mCache = new ImageCache(getApplicationContext());	    
+	    mCache = new ImageCache(this);
+	    mCache.clearDiskCache(pptId.toString());
+	    mCache.init(this);
 	    isUpdating=false;
 	    toPreLoad=false;
 	    toReLoad=false;
@@ -298,7 +302,7 @@ public class LiveWatchingMeetingActivity extends Activity {
 				if(flag!=page)
 				{
 					flag=page;
-					reLoadPage=page+1;
+					reLoadPage=page-1;
 				}
 				String key=pptId+"-"+reLoadPage;
 				bmp= mCache.getBitmap(key);		    
@@ -362,8 +366,8 @@ public class LiveWatchingMeetingActivity extends Activity {
 		  if (preloadTask != null && preloadTask.getStatus() != AsyncTask.Status.FINISHED)
 			  preloadTask.cancel(true);
 	       
-	       mCache.clearCache();      	      
-	       Log.i("退出", "onDestory");
+	       mCache.clearMemCache();      	      
+	       Log.i("LiveWatch", "onDestory");
 	       if (mConnection.isConnected()) 
 	       {
 	          mConnection.disconnect();
