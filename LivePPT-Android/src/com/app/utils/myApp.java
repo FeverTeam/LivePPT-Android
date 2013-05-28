@@ -57,9 +57,7 @@ public class myApp extends Application {
 	    }		 
 		 return httpclient;
 	}
-	
-	
-	    
+		    
 	    
 
 	public void setLocalUser(User user)

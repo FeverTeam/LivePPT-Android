@@ -252,8 +252,11 @@ public class MyMeetingFrag extends Fragment {
 		protected void onPostExecute(List<Meeting> list)
 		{
 			proBar.setVisibility(View.INVISIBLE);
-			meetingAd =new MeetingAdapter(getActivity().getApplicationContext(), list);
-			participatedListView.setAdapter(meetingAd);	
+			if(list!=null)
+			{
+			  meetingAd =new MeetingAdapter(getActivity().getApplicationContext(), list);
+			  participatedListView.setAdapter(meetingAd);	
+			}
 			
 		}		
 	}

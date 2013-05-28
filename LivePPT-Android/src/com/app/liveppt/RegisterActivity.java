@@ -93,6 +93,7 @@ public class RegisterActivity extends Activity {
 				{
 					Intent intent =new Intent(RegisterActivity.this, LoginActivity.class);
 					startActivity(intent);
+					finish();
 					
 				}
 				

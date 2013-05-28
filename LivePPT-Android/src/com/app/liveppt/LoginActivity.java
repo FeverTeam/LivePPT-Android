@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import com.app.liveppt.R;
 import com.app.model.User;
 import com.app.utils.HttpRequest;
+import com.app.utils.MySharedPreferences;
 import com.app.utils.MyToast;
 import com.app.utils.myApp;
 import android.os.AsyncTask;
@@ -41,6 +42,7 @@ public class LoginActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activitiy_login_new);		
 		init();
+		
 	}	
 	
 	
@@ -54,7 +56,10 @@ public class LoginActivity extends Activity
 		mRegistText=(TextView)findViewById(R.id.login_register_text);
 		emailInput=(EditText)findViewById(R.id.email_input);
 		passwordInput=(EditText)findViewById(R.id.password_input);
-		progressBar =(ProgressBar)findViewById(R.id.loginProgressBar);
+		progressBar =(ProgressBar)findViewById(R.id.loginProgressBar);		
+		
+		emailInput.setText(MySharedPreferences.getShared(LoginActivity.this, "loginInfo", "email", false));		
+		passwordInput.setText(MySharedPreferences.getShared(LoginActivity.this,"loginInfo", "password",true));	
 		
 		mLoginButton.setOnClickListener(new OnClickListener() 
 		{			
@@ -133,9 +138,12 @@ public class LoginActivity extends Activity
 						String displayName=resInfo.getJSONObject("data").getString("displayName");
 						Long    userId=Long.parseLong(resInfo.getJSONObject("data").getString("userId"));
 					    User user =new User(displayName, userId);
-					    app.setLocalUser(user);					    				    
+					    app.setLocalUser(user);		
+					    MySharedPreferences.SaveShared(LoginActivity.this, "loginInfo", "email", email, false);
+					    MySharedPreferences.SaveShared(LoginActivity.this, "loginInfo", "password", password, true);
 						Intent intent = new Intent(LoginActivity.this,HomeActivity.class);				
-					    startActivity(intent);		
+					    startActivity(intent);	
+					    finish();
 					}
 					else
 					{

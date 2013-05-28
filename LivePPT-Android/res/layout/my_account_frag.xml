@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffeeeeee" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"      
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/logout"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:clickable="true"
+           
+            android:background="@drawable/normal_selector_top"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="注销"
+                android:textColor="@color/orange"
+                android:textSize="20sp" />
+        </LinearLayout>
+        
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_line" />
+
+        <LinearLayout
+            android:id="@+id/exit_application"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"          
+            android:clickable="true"
+            android:background="@drawable/normal_selector_mid"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="退出"
+                android:textColor="@color/orange"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_line" />
+
+        <LinearLayout
+            android:id="@+id/setting_password"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+          
+            android:clickable="true"
+            android:background="@drawable/normal_selector_bottom"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="修改密码"
+                android:textColor="@color/orange"
+                android:textSize="20sp" />
+        </LinearLayout>
+   
+    
+    
+    </LinearLayout>
+
+
+</RelativeLayout>
