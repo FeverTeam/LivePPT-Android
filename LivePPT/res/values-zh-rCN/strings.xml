@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">LivePPT</string>
-    <string name="action_settings">设置</string>
-    <string name="hello_world">国际化</string>
-    <string name="EmailAdrress">邮箱</string>
-    <string name="Password">密码</string>
-</resources>
