@@ -67,6 +67,7 @@ public class MeetingAdapter extends BaseAdapter{
 		
 		TextView meetingId=(TextView)convertView.findViewById(R.id.meeting_id);
 		meetingId.setText("会议ID:"+meeting.getMeetingId());
+
 		TextView founder=(TextView)convertView.findViewById(R.id.meeting_founder);
 		founder.setText("主持:"+meeting.getMeetingFounder().getUserName());			
 		return convertView;
