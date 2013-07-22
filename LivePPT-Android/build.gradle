@@ -3,17 +3,19 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.android.tools.build:gradle:0.4'
     }
 }
 apply plugin: 'android'
 
 dependencies {
+    compile files('D:/Java/jre7/lib/apache-mime4j-0.6.jar')
+    compile files('D:/Java/jre7/lib/httpmime-4.0.jar')
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "17"
+    compileSdkVersion 10
+    buildToolsVersion "10"
 
     defaultConfig {
         minSdkVersion 10
