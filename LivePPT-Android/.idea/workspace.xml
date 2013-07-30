@@ -49,6 +49,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -85,7 +86,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -98,10 +98,13 @@
       <file leaf-file-name="HomeActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/fever/liveppt/HomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="7" selection-start="4240" selection-end="4240" vertical-scroll-proportion="-1.305147" vertical-offset="2910" max-vertical-offset="3454">
+            <state line="63" column="35" selection-start="1853" selection-end="1853" vertical-scroll-proportion="0.5661765" vertical-offset="1078" max-vertical-offset="3696">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4638#4653#0" expanded="true" />
+                <element signature="e#1853#2234#0" expanded="true" />
+                <element signature="e#2223#2224#0" expanded="true" />
+                <element signature="e#2324#3321#0" expanded="true" />
+                <element signature="e#3310#3311#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -237,23 +240,23 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="preferences.sourceCode" />
-    <property name="FullScreen" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
   </component>
   <component name="RunManager" selected="Android Application.LivePPT-Android-学聪">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -503,8 +506,8 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19393939" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6712095" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32820514" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32820514" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -718,10 +721,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/fever/liveppt/HomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="7" selection-start="4240" selection-end="4240" vertical-scroll-proportion="-1.305147" vertical-offset="2910" max-vertical-offset="3454">
+        <state line="63" column="35" selection-start="1853" selection-end="1853" vertical-scroll-proportion="0.5661765" vertical-offset="1078" max-vertical-offset="3696">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4638#4653#0" expanded="true" />
+            <element signature="e#1853#2234#0" expanded="true" />
+            <element signature="e#2223#2224#0" expanded="true" />
+            <element signature="e#2324#3321#0" expanded="true" />
+            <element signature="e#3310#3311#0" expanded="true" />
           </folding>
         </state>
       </provider>

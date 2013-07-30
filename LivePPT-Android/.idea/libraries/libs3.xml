@@ -1,10 +1,10 @@
 <component name="libraryTable">
   <library name="libs">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/jackson-mapper-asl-1.9.7.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/autobahn-0.5.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/jackson-core-asl-1.9.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jackson-mapper-asl-1.9.7.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

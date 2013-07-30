@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lightGreen">#ccff66</color>
+    <color name="orange">#FF6633</color>
+    <color name="darkred">#FF0033</color>
+    <color name="blue">#3366FF</color>
+    <color name="RED">#fa091b</color>
+    <color name="window_bg">#ffeeeeee</color>
+    
+</resources>
