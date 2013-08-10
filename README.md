@@ -2,13 +2,15 @@ LivePPT-Android
 ==========================
 Android Client for LivePPT
 
-Note that:(2013/7/18)
+Note that:(2013/8/1)
 
 a. Min-SDK-version: 10 (Android 2.3.3)
 
-b. Android SDK Tools: We recommend Version 22.0 or higher.
+b. Target-SDK-version: 17(Android 4.2.2)
 
-c. Original Integrated Development Environments: Android Studio 0.2.x
+c. Android SDK Tools: We recommend Version 22.0 or higher.
+
+d. Original Integrated Development Environments: Android Studio 0.2.x
 
 
 
@@ -128,13 +130,13 @@ classpath 'com.android.tools.build:gradle:0.5.+' 【Android Studio 0.2.x 的新g
 
 
 ============================
-导入已有工程步骤（2013/7/18）
+导入已有工程步骤（2013/8/1）
 
 S1:File-Import Project
 
 S2:选择工程文件所在目录--OK
 
-S3:选择“Create Project From Existing Sources”--Next
+S3:选择“Create Project From Existing Sources”--Next【选第二个选项有可能报错】
 
 S4：“Next”到结束，覆盖提示选择确认。
 （完）
