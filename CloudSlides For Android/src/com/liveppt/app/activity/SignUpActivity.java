@@ -13,8 +13,10 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import com.liveppt.app.Define;
+import com.liveppt.app.Param;
 import com.liveppt.app.R;
-import com.liveppt.app.utils.HttpClient;
+import com.liveppt.app.utils.MyActivityManager;
+import com.liveppt.app.utils.MyHttpClient;
 import com.liveppt.app.utils.MyToast;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -38,6 +40,7 @@ public class SignUpActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_up);
+		MyActivityManager.getInstance().add(this);
 		setUpView();
 		init();
 	}
@@ -67,27 +70,27 @@ public class SignUpActivity extends Activity {
 			public void onClick(View v) {
 				if(!isComplete())
 				{
-					new MyToast().alert("请输入完整的注册信息");
+					MyToast.alert("请输入完整的注册信息");
 				}
 				else
 					if(!isSame())
 					{
-						new MyToast().alert("密码不一致，重新输入!");
+						MyToast.alert("密码不一致，重新输入!");
 					}
 					else
 					{
 						proBar.setVisibility(View.VISIBLE);
 						RequestParams params =new RequestParams();
-						params.put("email", email.getText().toString().trim());
-						params.put("password", password.getText().toString().trim());
-						params.put("displayName", displayName.getText().toString().trim());
-						HttpClient.post("/app/register", params, new JsonHttpResponseHandler(){
+						params.put(Param.SIGN_UP_EMAIL, email.getText().toString().trim());
+						params.put(Param.SIGN_UP_PASSWORD, password.getText().toString().trim());
+						params.put(Param.SIGN_UP_DISPALY_NAME, displayName.getText().toString().trim());
+						MyHttpClient.post("/app/register", params, new JsonHttpResponseHandler(){
 							@Override
 							public void onSuccess(JSONObject jso) {
 								proBar.setVisibility(View.GONE);
 								try 
 								{
-									new MyToast().alert(jso.getString("message"));
+									MyToast.alert(jso.getString("message"));
 									if(jso.getBoolean("isSuccess"))
 									{										
 										finish();

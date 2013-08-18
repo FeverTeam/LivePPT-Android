@@ -3,55 +3,81 @@ package com.liveppt.app.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
-import android.widget.Toast;
-
+import com.liveppt.app.Define;
 import com.liveppt.app.R;
+import com.liveppt.app.utils.MyActivityManager;
 
 public class HomeActivity extends Activity {
-	private Button joinUpBtn;
+	private Button signUpBtn;
+	private Button attendingBtn;
+	private Button foundingBtn;
+	private Button pptBtn;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		Button btn =(Button)findViewById(R.id.splash_attending_button);
-		joinUpBtn =(Button)findViewById(R.id.splash_join_button);
-		
-		btn.setOnTouchListener(new OnTouchListener() {
+		MyActivityManager.getInstance().add(this);
+		setupView();
+		initView();		
+	}
+	
+	private void setupView()
+	{
+		attendingBtn =(Button)findViewById(R.id.splash_attending_button);
+		signUpBtn =(Button)findViewById(R.id.splash_join_button);
+		foundingBtn =(Button)findViewById(R.id.splash_foudning_button);
+		pptBtn  =(Button)findViewById(R.id.splash_ppt_button);  		
+	}
+ 
+	private void initView()
+	{
+		//-------------加入会议---------------------------------
+		attendingBtn.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				switch(event.getAction())
-				{
-				       
-				  case MotionEvent.ACTION_DOWN: Toast.makeText(HomeActivity.this, "Get Your Finger Off!", Toast.LENGTH_SHORT).show();
-				       break;			       
-				 
-				  
-				  case MotionEvent.ACTION_UP :  Toast.makeText(HomeActivity.this, "Good!", Toast.LENGTH_SHORT).show();
-					
-				  
-				}
-				
-
-				return false;
+			public void onClick(View v) {
+				Intent intent =new Intent(HomeActivity.this,LoginActivity.class);
+				intent.putExtra("Goto", Define.LOGIN_JUMP_ATTENDING);
+				startActivity(intent);
+			}
+		});         
+		
+		//-------------发起会议---------------------------------
+		foundingBtn.setOnClickListener(new OnClickListener() {
+ 			
+ 			@Override
+ 			public void onClick(View v) {
+ 				Intent intent =new Intent(HomeActivity.this,LoginActivity.class);
+ 				intent.putExtra("Goto", Define.LOGIN_JUMP_FOUNDING);
+ 				startActivity(intent);
+ 			}
+ 		});	
+		
+		//-------------我的文稿--------------------------------- 
+		pptBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent =new Intent(HomeActivity.this, LoginActivity.class);
+				intent.putExtra("Goto", Define.LOGIN_JUMP_PPT);
+				startActivity(intent);
 			}
 		});
 		
-		joinUpBtn.setOnClickListener(new OnClickListener() {
+		//-------------注册---------------------------------
+       signUpBtn.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent intent =new Intent(HomeActivity.this, SignUpActivity.class);
 				startActivity(intent);
-				
 			}
-		});
-	}
-
+		});			
+	}	
+	
 }

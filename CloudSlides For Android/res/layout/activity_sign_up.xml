@@ -169,7 +169,8 @@
                  android:id="@+id/sign_up_button"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:background="@drawable/sign_up_button_selector"
+                 android:textColor="@android:color/white"
+                 android:background="@drawable/login_button_selector"
                  android:text="立刻 注册" />
 
              <ProgressBar

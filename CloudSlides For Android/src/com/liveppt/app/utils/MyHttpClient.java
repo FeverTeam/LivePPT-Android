@@ -4,7 +4,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-public class HttpClient {
+public class MyHttpClient {
 
 	  private static final String BASE_URL = "http://live-ppt.com";
 

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="lightGreen">#ccff66</color>
-    <color name="orange">#FF6633</color>
-    <color name="darkred">#FF0033</color>
-    <color name="blue">#3366FF</color>
-    <color name="RED">#fa091b</color>
-    <color name="window_bg">#ffeeeeee</color>
+<resources>   
+    <color name="dark_gray">#AAAAAA</color>
+    <color name="theme_light_green">#1BBC9B</color>
+    <color name="theme_bright_red">#F35B5B</color>
+    <color name="theme_blue">#20A8F3</color>
+    <color name="theme_orange">#FE6D3E</color>
+    <color name="sliding_menu_bg_color">#666b73</color>
+    <color name="sliding_item_pressed_color">#FE6D3E</color>    
     
+    <color name="sliding_item_child_color">#363333</color>  
 </resources>

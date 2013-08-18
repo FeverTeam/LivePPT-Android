@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.liveppt.app.R;
 import com.liveppt.app.adapter.IntroPageAdapter;
+import com.liveppt.app.utils.MyActivityManager;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ public class IntroActivity extends Activity {
 			
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intropage);
+		MyActivityManager.getInstance().add(this);
 		viewPager=(ViewPager)findViewById(R.id.intro_viewpager);
 		indicator=(LinearLayout)findViewById(R.id.intro_indicator);
 		viewList=new ArrayList<View>();

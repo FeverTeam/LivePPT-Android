@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/sliding_menu_bg_color" >
+    <ExpandableListView
+        android:id="@+id/slidig_menu_list"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:groupIndicator="@null"
+        android:dividerHeight="0.5dp"
+        android:divider="#000000"
+        android:childDivider="@color/theme_blue"
+        android:cacheColorHint="#00000000" >
+    </ExpandableListView>
+
+    <RelativeLayout
+        android:id="@+id/menu_bar"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:background="@drawable/menu_bar">
+
+        <Button
+            android:id="@+id/menu_share_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/menu_share_selector" />
+
+        <Button
+            android:id="@+id/menu_exit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"                 
+            android:layout_marginRight="10dp"       
+            android:background="@drawable/menu_exit_selector" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
