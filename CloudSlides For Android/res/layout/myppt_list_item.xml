@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/myppt_item_bg" >
+
+        <ImageView
+            android:id="@+id/my_ppt_item_pic"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ppt" />
+
+        <TextView
+            android:id="@+id/my_ppt_item_belong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/my_ppt_item_pic"
+            android:layout_toRightOf="@+id/my_ppt_item_pic"
+            android:text="归属: M."
+            android:textColor="@color/theme_bright_red" />
+
+        <TextView
+            android:id="@+id/my_ppt_item_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/my_ppt_item_ppt_id"
+            android:layout_below="@+id/my_ppt_item_ppt_id"
+            android:layout_marginTop="15dp"
+            android:text="状态: 已转换"
+            android:textColor="@color/theme_bright_red" />
+
+        <TextView
+            android:id="@+id/my_ppt_item_total_pages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/my_ppt_item_status"
+            android:layout_below="@+id/my_ppt_item_status"
+            android:layout_marginTop="15dp"
+            android:text="总页数: 20页"
+            android:textColor="@color/theme_bright_red" />
+
+        <TextView
+            android:id="@+id/my_ppt_item_ppt_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/my_ppt_item_belong"
+            android:layout_below="@+id/my_ppt_item_belong"
+            android:layout_marginTop="15dp"
+            android:text="编号: 23"
+            android:textColor="@color/theme_bright_red" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/my_ppt_item_belong"
+            android:layout_alignLeft="@+id/my_ppt_item_pic"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/my_ppt_item_title"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_weight="13.48"
+                android:gravity="center_vertical"
+                android:text="数据库课程设计数据库课程设计"
+                android:textColor="@android:color/black" />
+
+            <Button
+                android:id="@+id/my_ppt_delete_btn"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/myppt_delete_btn_selector" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/my_ppt_item_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/my_ppt_item_pic"
+            android:layout_toRightOf="@+id/my_ppt_item_pic"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/my_ppt_play_btn_selector" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

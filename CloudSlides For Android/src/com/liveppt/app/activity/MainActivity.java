@@ -25,7 +25,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		}
 		if (mContent == null)
 		{
-			mContent = new MyPptFragment();
+			mContent = new MyPptFragment(this);
 		}
 		getSupportFragmentManager()
 		.beginTransaction()
@@ -41,14 +41,24 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 	
 	
+	
+	/**
+	 * 侧拉菜单自动切换状态
+	 * @author Felix
+	 */
+	public void toggleMenu()
+	{
+		if(sm!=null)
+		sm.toggle();
+	}
+	
 	/**
 	 * 根据返回键切换slidingmenu
-	 * @author felix
+	 * @author Felix
 	 */
 	@Override
 	public void onBackPressed() {
-		if(sm!=null)
-		sm.toggle();
+		toggleMenu();
 		return;
 	}
 	

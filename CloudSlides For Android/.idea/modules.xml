@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CloudSlides For Android.iml" filepath="$PROJECT_DIR$/CloudSlides For Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/Slidingmenu-master/Slidingmenu-master.iml" filepath="$PROJECT_DIR$/library/Slidingmenu-master/Slidingmenu-master.iml" />
     </modules>
   </component>
 </project>

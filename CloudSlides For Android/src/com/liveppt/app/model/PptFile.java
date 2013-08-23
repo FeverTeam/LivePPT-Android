@@ -1,6 +1,7 @@
 package com.liveppt.app.model;
 
 public class PptFile {
+	
 	/**
 	 * PPT文件类
 	 * PPT文件信息的设置和查询
@@ -12,6 +13,7 @@ public class PptFile {
 	private Long pptSize;//ppt文件大小
 	private String pptTitle=""; //ppt名称
 	private String pptTime=""; //ppt生成时间
+	private String coverUrl="";//封面图地址
 	
 	public PptFile(){};
 	public PptFile(Long pptId,boolean pptStatus,int pptPageCount,Long pptSize,String pptTitle,String pptTime)
@@ -69,6 +71,13 @@ public class PptFile {
 	public String getPptTime()
 	{
 		return pptTime;
+	}
+	public String getCoverUrl() {
+		return coverUrl;
+	}
+	public void setCoverUrl(String coverUrl) 
+	{
+		this.coverUrl = coverUrl;
 	}
 
 }

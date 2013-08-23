@@ -13,7 +13,9 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 4.2.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="android-support-v4" level="project" />
+    <orderEntry type="library" exported="" name="libs" level="project" />
+    <orderEntry type="library" exported="" name="slidingmenu-master" level="project" />
+    <orderEntry type="module" module-name="Slidingmenu-master" exported="" />
   </component>
 </module>
 

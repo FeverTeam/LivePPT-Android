@@ -1,9 +1,17 @@
 package com.liveppt.app;
 
+import java.io.File;
+
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.liveppt.app.model.User;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
 public class HomeApp extends Application {	
 	
@@ -63,6 +71,29 @@ public class HomeApp extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		ApplicationInstance = this;
+		ApplicationInstance = this;		
+		initImageLoader(getApplicationContext());		
+	}
+	/**
+	 * 初始化imageloader
+	 * @param context
+	 * @author Felix
+	 */
+	
+	public static void initImageLoader(Context context) {
+		DisplayImageOptions options = new DisplayImageOptions.Builder()        
+        .cacheInMemory(true) 
+        .cacheOnDisc(true)
+        .showImageOnFail(R.drawable.ic_error)
+        .showStubImage(R.drawable.ic_loading)
+        .showImageForEmptyUri(R.drawable.ic_error)
+        .build();
+		
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+		.tasksProcessingOrder(QueueProcessingType.LIFO)
+		.defaultDisplayImageOptions(options)
+		.build();
+		
+		ImageLoader.getInstance().init(config);		
 	}
 }
