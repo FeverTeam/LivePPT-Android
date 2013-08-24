@@ -85,8 +85,8 @@
             <Button
                 android:id="@+id/my_ppt_delete_btn"
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/myppt_delete_btn_selector" />
 
