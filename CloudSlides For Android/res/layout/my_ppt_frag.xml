@@ -2,12 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/my_ppt_list_background" >
 
+    
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:layout_marginTop="-3dp"
+        android:id="@+id/myppt_listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:cacheColorHint="#00000000"
+        android:listSelector="#00000000"
+        android:dividerHeight="20dp"
+        android:divider="#00000000"
+        android:scrollbars="none"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"        
+        android:layout_below="@+id/myppt_top_bar_layout" >
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+    
     <RelativeLayout
         android:id="@+id/myppt_top_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:gravity="center_vertical"
         android:background="@drawable/myppt_top_bar">
 
@@ -28,32 +48,20 @@
             android:gravity="center_vertical"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:shadowColor="#202020"
+            android:shadowDy="-2.0"
+            android:shadowDx="0"
+            android:shadowRadius="2.0"
             android:text="我的文稿"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <View
             android:layout_width="2dp"
-            android:layout_height="60dp"
+            android:layout_height="42.5dp"
             android:layout_toRightOf="@+id/myppt_top_bar_btn"
             android:background="@drawable/divider" />
 
     </RelativeLayout>
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/myppt_listview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:cacheColorHint="#00000000"
-        android:listSelector="#00000000"
-        android:dividerHeight="20dp"
-        android:divider="#00000000"
-        android:scrollbars="none"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/myppt_top_bar_layout" >
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </RelativeLayout>

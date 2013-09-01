@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/splash_background"
+    android:background="@drawable/my_ppt_background"
     tools:context=".LoginActivity" >
 
     <LinearLayout
@@ -60,14 +60,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:text="Remember Me" />
+            android:layout_marginTop="10dp"
+            style="@style/MyCheckBox"
+            android:text="记住密码" />
 
         <CheckBox
             android:id="@+id/auto_login_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"            
             android:layout_marginLeft="30dp"
-            android:text="Auto Login" />
+            android:layout_marginTop="10dp"
+            style="@style/MyCheckBox"
+            android:text="自动登录" />
 
         <Button
             android:id="@+id/login_button"

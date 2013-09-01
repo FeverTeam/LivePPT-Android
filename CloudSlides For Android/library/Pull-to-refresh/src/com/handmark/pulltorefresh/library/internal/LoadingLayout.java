@@ -92,9 +92,9 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 				lp.gravity = scrollDirection == Orientation.VERTICAL ? Gravity.TOP : Gravity.LEFT;
 
 				// Load in labels
-				mPullLabel = context.getString(R.string.pull_to_refresh_from_bottom_pull_label);
-				mRefreshingLabel = context.getString(R.string.pull_to_refresh_from_bottom_refreshing_label);
-				mReleaseLabel = context.getString(R.string.pull_to_refresh_from_bottom_release_label);
+				mPullLabel = context.getString(R.string.pull_to_refresh_pull_label);
+				mRefreshingLabel = context.getString(R.string.pull_to_refresh_refreshing_label);
+				mReleaseLabel = context.getString(R.string.pull_to_refresh_release_label);
 				break;
 
 			case PULL_FROM_START:

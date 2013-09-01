@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cccccc"
+    android:orientation="vertical" >
+
+    <!-- bar -->
+    <RelativeLayout
+        android:id="@+id/more_top_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/myppt_top_bar">
+
+        <Button
+            android:id="@+id/more_top_bar_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/myppt_top_bar_btn_selector" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:shadowColor="#202020"
+            android:shadowDx="0"
+            android:shadowDy="-2.0"
+            android:shadowRadius="2.0"
+            android:text="更多"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+         <View
+            android:layout_width="2dp"
+            android:layout_height="42.5dp"
+            android:layout_toRightOf="@+id/more_top_bar_btn"
+            android:background="@drawable/divider" />
+
+    </RelativeLayout>
+   
+    <!--描述A  -->
+    <TextView
+        android:id="@+id/dec_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/more_change_psw_btn"
+        android:layout_below="@+id/more_top_bar_layout"
+        android:layout_marginTop="16dp"
+        android:textColor="#787878"
+        android:text="帐号相关" />
+    
+     <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
+            android:background="#787878"
+            android:layout_below="@+id/dec_text_1"/>
+     
+     
+     <!-- 修改密码 -->
+    <RelativeLayout
+        android:id="@+id/more_change_psw_btn"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:clickable="true"
+        android:background="@drawable/tableview_top_button_selector"
+        android:layout_below="@+id/more_top_bar_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"
+            android:text="修改密码" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right" />
+
+    </RelativeLayout>
+
+    <!-- 清理缓存 -->
+
+    <RelativeLayout
+        android:id="@+id/more_clear_cache_btn"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignLeft="@+id/more_change_psw_btn"
+        android:layout_alignRight="@+id/more_change_psw_btn"
+        android:layout_below="@+id/more_change_psw_btn"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/tableview_mid_button_selector"
+        android:clickable="true" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="清理缓存"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right" />
+
+        <TextView
+            android:id="@+id/more_cache_size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:textSize="15sp"
+            android:layout_toLeftOf="@+id/imageView1"
+            android:text="0KB" />
+
+    </RelativeLayout>
+    
+    <!-- 自动登录 -->
+    <RelativeLayout
+        android:id="@+id/more_auto_login_check_layout"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignLeft="@+id/more_clear_cache_btn"
+        android:layout_alignRight="@+id/more_clear_cache_btn"
+        android:layout_marginTop="1dp"
+        android:clickable="false"
+        android:layout_below="@+id/more_clear_cache_btn"
+        android:background="@drawable/tableview_bottom_button_selector">
+        
+        
+         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"
+            android:text="自动登录" />
+
+         <CheckBox
+             android:id="@+id/more_auto_login_check"
+             style="@style/MyCheckBox"
+             android:layout_width="20dp"
+             android:layout_height="20dp"
+             android:layout_marginRight="10dp"
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentTop="true" />
+        
+    </RelativeLayout>
+    
+    
+    
+    
+    
+    
+    <!-- 描述B -->
+    <TextView
+        android:id="@+id/dec_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/more_auto_login_check_layout"
+        android:layout_marginTop="15dp"
+        android:textColor="#787878"
+        android:layout_below="@+id/more_auto_login_check_layout"
+        android:text="软件相关" />
+     <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
+            android:background="#787878"
+            android:layout_below="@+id/dec_text_2"/>
+    
+
+     <!-- 软件相关 -->
+    <RelativeLayout
+        android:id="@+id/more_feedback_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_marginTop="50dp"
+        android:clickable="true"
+        android:layout_alignLeft="@+id/more_auto_login_check_layout"
+        android:layout_alignRight="@+id/more_auto_login_check_layout"
+        android:layout_below="@+id/more_auto_login_check_layout"
+        android:background="@drawable/tableview_top_button_selector">
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"
+            android:text="意见反馈" />      
+             <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right" />  
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/more_check_update_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_marginTop="1dp"
+        android:clickable="true"
+        android:layout_alignLeft="@+id/more_feedback_btn"
+        android:layout_alignRight="@+id/more_feedback_btn"
+        android:layout_below="@+id/more_feedback_btn"
+        android:background="@drawable/tableview_bottom_button_selector">
+           <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"
+            android:text="检查升级" />        
+             <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/right" />
+    </RelativeLayout>
+
+    
+    <!-- 注销 -->
+    <Button
+        android:id="@+id/more_logout_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:layout_alignLeft="@+id/more_check_update_btn"
+        android:layout_alignRight="@+id/more_check_update_btn"
+        android:layout_below="@+id/more_check_update_btn"
+        android:background="@drawable/common_button_red_selector"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:text="注销此帐号" />
+
+    
+</RelativeLayout>

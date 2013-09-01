@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+<RelativeLayout
+    android:id="@+id/normal_dialog_main_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:paddingBottom="20dp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:background="@drawable/bg_dialog" >
+
+    <TextView
+        android:id="@+id/normal_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="TITLE"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/normal_dialog_title"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="10dp"
+        android:alpha="0.3"
+        android:background="@color/dark_gray" />
+
+    <Button
+        android:id="@+id/normal_dialog_cancel_btn"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/normal_dialog_message"
+        android:background="@drawable/button_black_and_red_selector"
+        android:text="取消"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/normal_dialog_confirm_btn"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/normal_dialog_message"
+        android:background="@drawable/button_black_and_green_selector"
+        android:text="确定"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/normal_dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/view1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/theme_blue"
+        android:text="message"
+        android:textSize="18sp" />
+</RelativeLayout>
+
+</RelativeLayout>
