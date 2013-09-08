@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:background="@drawable/bg_dialog" >
+
+        <TextView
+            android:id="@+id/found_meeting_info_topic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/theme_blue"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:shadowColor="@android:color/darker_gray"
+            android:shadowDx="-1"
+            android:shadowDy="-1"
+            android:shadowRadius="2"
+            android:text="会议主题:xxxxxxxxxxxxxxxxxxxx" />
+
+        <TextView
+            android:id="@+id/found_meeting_info_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/found_meeting_info_topic"
+            android:textColor="@color/theme_blue"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:shadowColor="@android:color/darker_gray"
+            android:shadowDx="-1"
+            android:shadowDy="-1"
+            android:shadowRadius="2"
+            android:text="会议文稿:xxxxxxxxxxxxxxxxxxxxxxx" />
+
+        <TextView
+            android:id="@+id/found_meeting_info_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/found_meeting_info_file"
+            android:textColor="@color/theme_blue"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:shadowColor="@android:color/darker_gray"
+            android:shadowDx="-1"
+            android:shadowDy="-1"
+            android:shadowRadius="2"
+            android:text="    总页数:xxxxxxxxxxxxxxxxx" />
+
+        <TextView
+            android:id="@+id/found_meeting_info_meetingid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/found_meeting_info_page"
+            android:textColor="@color/theme_blue"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:shadowColor="@android:color/darker_gray"
+            android:shadowDx="-1"
+            android:shadowDy="-1"
+            android:shadowRadius="2"
+            android:text="会议编号:" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

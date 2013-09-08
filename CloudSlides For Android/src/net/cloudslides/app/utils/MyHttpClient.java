@@ -9,6 +9,7 @@ public class MyHttpClient {
 	  private static final String BASE_URL = "http://live-ppt.com";
 
 	  private static AsyncHttpClient client = new AsyncHttpClient();
+	  
 
 	  /**
 	   * GET Request
@@ -34,5 +35,9 @@ public class MyHttpClient {
 
 	  private static String getAbsoluteUrl(String relativeUrl) {
 	      return BASE_URL + relativeUrl;
+	  }
+	  public static AsyncHttpClient getClientInstance()
+	  {
+		  return client;
 	  }
 }

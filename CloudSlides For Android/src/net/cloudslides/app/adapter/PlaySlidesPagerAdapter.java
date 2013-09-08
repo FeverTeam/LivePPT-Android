@@ -78,7 +78,7 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 		
 		//------------------------------------------------------------------------
 		
-		for(i =position+1;i<urls.size()&&i<=position+5;i++)
+		for(i =position+1;i<urls.size()&&i<=position+3;i++)
 		{
 			ImageLoader.getInstance().loadImage(urls.get(i), new ImageLoadingListener() {
 			@Override
@@ -102,7 +102,7 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 
 		//------------------------------------------------------------------------
 		
-		for(j =position-1;j>=0&&j>=position-5;j--)
+		for(j =position-1;j>=0&&j>=position-3;j--)
 		{
 			ImageLoader.getInstance().loadImage(urls.get(j), new ImageLoadingListener() {
 				@Override

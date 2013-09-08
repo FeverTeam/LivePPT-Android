@@ -54,6 +54,5 @@ public class Meeting {
 	public void setCurrentPageIndex(Long currentPageIndex)
 	{
 		this.currentPageIndex=currentPageIndex;
-	}
-	
+	}	
 }

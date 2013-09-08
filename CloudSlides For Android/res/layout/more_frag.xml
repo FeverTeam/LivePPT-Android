@@ -281,6 +281,7 @@
         android:background="@drawable/common_button_red_selector"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:singleLine="true"
         android:text="注销此帐号" />
 
     

@@ -2,10 +2,13 @@ package net.cloudslides.app.fragment;
 
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
+import net.cloudslides.app.activity.FoundMeetingActivity;
 import net.cloudslides.app.activity.MainActivity;
 import net.cloudslides.app.utils.MyActivityManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.sax.StartElementListener;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -154,7 +157,7 @@ class MyExpandableListAdapter extends BaseExpandableListAdapter{
 		return true;
 	}
 	@Override
-	public View getChildView(int groupPosition, int childPosition,boolean isLastChild, View convertView, ViewGroup parent) {
+	public View getChildView(int groupPosition, final int childPosition,boolean isLastChild, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if(convertView==null)
 		{
@@ -172,6 +175,17 @@ class MyExpandableListAdapter extends BaseExpandableListAdapter{
 		holder.tv.setText(childName[groupPosition][childPosition]);
 		holder.icon.setImageResource(childIcon[groupPosition][childPosition]);
 		holder.indicator.setImageResource(R.drawable.menu_group_down);
+		convertView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(childPosition==0)
+				{
+					Intent intent =new Intent(menu.getActivity(), FoundMeetingActivity.class);
+					menu.getActivity().startActivity(intent);
+				}
+			}
+		});
 		return convertView;
 	}
 

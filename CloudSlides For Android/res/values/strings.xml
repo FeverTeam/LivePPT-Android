@@ -9,5 +9,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_play_slides">PlaySlidesActivity</string>
+    <string name="title_activity_found_meeting">FoundMeetingActivity</string>
+    <string name="title_activity_live_meeting">LiveMeetingActivity</string>
 
 </resources>

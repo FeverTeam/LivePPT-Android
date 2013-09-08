@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 public class MyPptFragment extends Fragment {
 	
@@ -247,15 +251,22 @@ public class MyPptFragment extends Fragment {
 			else
 			{
 				holder.cover.setImageResource(R.drawable.ic_error);
-			}
-			
+			}			
 			holder.play.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					Intent intent =new Intent(mActivity, PlaySlidesActivity.class);
-					intent.putExtra(Define.Intent_KEY_PPT_POSITION, position);
-					startActivity(intent);
+					if(!HomeApp.getLocalUser().getPpts().get(position).getPptStatus())
+					{
+						MyToast.alert("该文稿还未完成转换,请稍后重试...");
+					}
+					else
+					{
+						Intent intent =new Intent(mActivity, PlaySlidesActivity.class);
+						intent.putExtra(Define.Intent_KEY_PPT_POSITION, position);
+						startActivity(intent);
+					
+					}
 				}
 			});			
 			return convertView;

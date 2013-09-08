@@ -4,11 +4,14 @@ import net.cloudslides.app.model.User;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
@@ -81,16 +84,20 @@ public class HomeApp extends Application {
 	
 	public static void initImageLoader(Context context) {
 		DisplayImageOptions options = new DisplayImageOptions.Builder()        
-        .cacheInMemory(true) 
+        .cacheInMemory(true)         
         .cacheOnDisc(true)
+        //.imageScaleType(ImageScaleType.EXACTLY)
+        .bitmapConfig(Bitmap.Config.RGB_565)
         .showImageOnFail(R.drawable.ic_error)
         .showStubImage(R.drawable.empty_picture)
         .showImageForEmptyUri(R.drawable.ic_error)
         .build();
 		
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-		.tasksProcessingOrder(QueueProcessingType.FIFO)
+		.tasksProcessingOrder(QueueProcessingType.LIFO)
 		.defaultDisplayImageOptions(options)
+		.memoryCache(new WeakMemoryCache())
+		.threadPoolSize(5)		
 		.build();
 		Log.d("cache存储路径",StorageUtils.getCacheDirectory(getMyApplication()).getAbsolutePath());
 		ImageLoader.getInstance().init(config);		
