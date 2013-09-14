@@ -99,7 +99,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@drawable/right" />
+            android:src="@drawable/right_icon" />
 
     </RelativeLayout>
 
@@ -136,7 +136,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@drawable/right" />
+            android:src="@drawable/right_icon" />
 
         <TextView
             android:id="@+id/more_cache_size_text"
@@ -240,7 +240,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@drawable/right" />  
+            android:src="@drawable/right_icon" />  
     </RelativeLayout>
 
     <RelativeLayout
@@ -270,7 +270,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@drawable/right" />
+            android:src="@drawable/right_icon" />
     </RelativeLayout>
 
     
