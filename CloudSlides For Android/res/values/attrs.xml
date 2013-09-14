@@ -16,4 +16,8 @@
 
     <attr name="customAbsSpinnerStyle" format="reference" />
 
+     <declare-styleable name="SpotlightView">
+        <attr name="target" format="reference" />
+        <attr name="mask" format="reference" />
+	</declare-styleable>
 </resources>

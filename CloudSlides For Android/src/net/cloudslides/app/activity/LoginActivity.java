@@ -207,15 +207,16 @@ public class LoginActivity extends Activity {
 	 */
 	private void jump()
 	{
+		Intent intent = new Intent(this, MainActivity.class);
 		switch(jumpFlag)
 		{
-		case Define.LOGIN_JUMP_PPT: {MyToast.alert("Goto PPT");}break;
+		case Define.LOGIN_JUMP_PPT: {intent.putExtra("content",Define.LOGIN_JUMP_PPT);}break;
 		
-		case Define.LOGIN_JUMP_ATTENDING:{MyToast.alert("Goto Attending");}break;
+		case Define.LOGIN_JUMP_ATTENDING:{intent.putExtra("content",Define.LOGIN_JUMP_ATTENDING);}break;
 		
-		case Define.LOGIN_JUMP_FOUNDING:{MyToast.alert("Goto Founding");}break;
+		case Define.LOGIN_JUMP_FOUNDING:{intent.putExtra("content",Define.LOGIN_JUMP_FOUNDING);}break;
 		}		
-		startActivity(new Intent(this, MainActivity.class));
+		startActivity(intent);
 		finish();
 	}
 }

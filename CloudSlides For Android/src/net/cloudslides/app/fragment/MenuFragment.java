@@ -101,7 +101,7 @@ public class MenuFragment extends Fragment {
 
 class MyExpandableListAdapter extends BaseExpandableListAdapter{
 	
-	private String[]groupName={"会议列表","我的文稿","更多","关于"};
+	private String[]groupName={"会议相关","我的文稿","更多","关于"};
 	private String[][]childName={{"发起会议","加入会议"},{},{},{}};
 	
 	private int[] groupIcon={R.drawable.menu_meeting_icon,
@@ -174,7 +174,7 @@ class MyExpandableListAdapter extends BaseExpandableListAdapter{
 		
 		holder.tv.setText(childName[groupPosition][childPosition]);
 		holder.icon.setImageResource(childIcon[groupPosition][childPosition]);
-		holder.indicator.setImageResource(R.drawable.menu_group_down);
+		holder.indicator.setImageResource(R.drawable.down_indicator);
 		convertView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -183,6 +183,14 @@ class MyExpandableListAdapter extends BaseExpandableListAdapter{
 				{
 					Intent intent =new Intent(menu.getActivity(), FoundMeetingActivity.class);
 					menu.getActivity().startActivity(intent);
+				}
+				else if(childPosition==1)
+				{
+					Fragment content =new AttendingMeetingFragment((MainActivity)menu.getActivity());
+					if(content!=null)
+					{
+						menu.switchFragment(content);
+					}
 				}
 			}
 		});
@@ -212,16 +220,16 @@ class MyExpandableListAdapter extends BaseExpandableListAdapter{
 		{
 			if(isExpanded)
 			{
-				holder.indicator.setImageResource(R.drawable.menu_ex_group_down);
+				holder.indicator.setImageResource(R.drawable.down_indicator);
 			}
 			else
 			{
-				holder.indicator.setImageResource(R.drawable.menu_ex_group_right);
+				holder.indicator.setImageResource(R.drawable.right);
 			}				
 		}
 		else
 		{
-			holder.indicator.setImageResource(R.drawable.menu_group_right);
+			holder.indicator.setImageResource(R.drawable.right);
 		}		
 		convertView.setOnClickListener(new OnClickListener() {
 			

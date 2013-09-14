@@ -17,7 +17,7 @@ import android.view.MotionEvent;
 
 public class ZoomAbleViewPager extends ViewPager {
 
-	
+	private boolean canScroll=true;
 
 	public ZoomAbleViewPager(Context context) {
 		super(context);
@@ -29,8 +29,15 @@ public class ZoomAbleViewPager extends ViewPager {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		try {
-			return super.onInterceptTouchEvent(ev);
+		try 
+		{
+			if(this.canScroll)
+			{
+				return super.onInterceptTouchEvent(ev);
+			}else
+			{
+				return false;
+			}
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 			return false;
@@ -43,4 +50,22 @@ public class ZoomAbleViewPager extends ViewPager {
 		}
 		
 	}
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+	    if (this.canScroll) 
+	    {
+	        return super.onTouchEvent(event);
+	    }
+
+	    return false;
+	}
+
+	/**
+	 * 是否可以滑动
+	 * @param enabled
+	 * @author Felix
+	 */
+	public void setScrollEnabled(boolean enabled) {
+	    this.canScroll = enabled;
+	} 
 }

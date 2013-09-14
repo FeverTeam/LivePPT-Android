@@ -62,6 +62,10 @@
                <item name="android:windowBackground">@android:color/transparent</item> 
     </style>
   
+    <style name="mScaleAnimation" parent="android:Animation">        
+        <item name="android:windowEnterAnimation">@anim/scale_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_out</item>
+    </style>
     
 
 </resources>

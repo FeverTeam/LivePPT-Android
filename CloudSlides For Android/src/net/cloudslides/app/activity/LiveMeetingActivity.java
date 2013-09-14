@@ -193,7 +193,7 @@ public class LiveMeetingActivity extends Activity {
 			     public void onFailure(Throwable e, String response) 
 				{
 				  e.printStackTrace();
-				  Log.i("设置会议直播页onFailure返回:",response);
+				  Log.i("设置会议直播页onFailure返回:",response+"");
 				  setMeetingPage();
 			    }
 		  });

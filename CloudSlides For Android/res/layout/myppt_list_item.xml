@@ -22,6 +22,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="50dp"
             android:scaleType="fitXY"
+            android:background="@drawable/shadow_pic"
             android:src="@drawable/ppt" />
 
         <TextView
@@ -31,6 +32,11 @@
             android:layout_alignTop="@+id/my_ppt_item_pic"
             android:layout_toRightOf="@+id/my_ppt_item_pic"
             android:text="归属: M."
+            
+            android:shadowColor="@android:color/black"
+           	android:shadowDx="1"
+           	android:shadowDy="1.0"
+           	android:shadowRadius="2.0"
             android:textColor="@color/theme_bright_red" />
 
         <TextView
@@ -41,6 +47,10 @@
             android:layout_below="@+id/my_ppt_item_ppt_id"
             android:layout_marginTop="15dp"
             android:text="状态: 已转换"
+            android:shadowColor="@android:color/black"
+           	android:shadowDx="1"
+           	android:shadowDy="1.0"
+           	android:shadowRadius="2.0"
             android:textColor="@color/theme_bright_red" />
 
         <TextView
@@ -51,6 +61,10 @@
             android:layout_below="@+id/my_ppt_item_status"
             android:layout_marginTop="15dp"
             android:text="总页数: 20页"
+            android:shadowColor="@android:color/black"
+           	android:shadowDx="1"
+           	android:shadowDy="1.0"
+           	android:shadowRadius="2.0"
             android:textColor="@color/theme_bright_red" />
 
         <TextView
@@ -61,6 +75,10 @@
             android:layout_below="@+id/my_ppt_item_belong"
             android:layout_marginTop="15dp"
             android:text="编号: 23"
+            android:shadowColor="@android:color/black"
+           	android:shadowDx="1"
+           	android:shadowDy="1.0"
+           	android:shadowRadius="2.0"
             android:textColor="@color/theme_bright_red" />
 
         <LinearLayout
@@ -80,6 +98,12 @@
                 android:layout_weight="13.48"
                 android:gravity="center_vertical"
                 android:text="数据库课程设计数据库课程设计"
+                android:singleLine="true"
+                android:ellipsize="end"
+            	android:shadowColor="@android:color/white"
+           	 	android:shadowDx="2"
+           	 	android:shadowDy="2.0"
+           	 	android:shadowRadius="2.0"
                 android:textColor="@android:color/black" />
 
             <Button

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+
+    <RelativeLayout
+        android:id="@+id/attend_meeting_item_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/attending_meeting_item_backgroud" >
+
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true">
+            
+        <TextView
+            android:id="@+id/attending_meeting_item_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"                      
+            android:singleLine="true"
+            android:text="CloudSlides介绍文稿"
+            android:shadowColor="@android:color/darker_gray"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="5"
+            android:gravity="center_horizontal"
+            android:textColor="@color/topic_color_selelctor"
+            android:textSize="20sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/attending_meeting_item_topic"
+            android:layout_centerHorizontal="true" >
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/avatar_normal" />
+
+            <TextView
+                android:id="@+id/attending_meeting_founder_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/avatar"
+                android:layout_alignTop="@+id/avatar"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/avatar"
+                android:gravity="bottom"
+                android:paddingBottom="2dp"
+                android:text="JunHao Ho"
+                android:shadowColor="@android:color/white"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:shadowDx="0"
+                android:textColor="@android:color/darker_gray" />
+        </RelativeLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/attending_meeting_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:text="# 188"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

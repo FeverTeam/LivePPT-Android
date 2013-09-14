@@ -19,15 +19,19 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/menu_group_icon"
         android:text="Medium Text"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="2"
+        android:shadowDy="1"
+        android:shadowRadius="1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
         android:id="@+id/menu_group_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"        
         android:layout_centerVertical="true"
-        android:src="@drawable/menu_group_right" />
+        android:src="@drawable/right" />
 
 </RelativeLayout>

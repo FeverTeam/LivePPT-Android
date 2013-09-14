@@ -9,4 +9,6 @@
     <color name="sliding_item_pressed_color">#FE6D3E</color>    
     <color name="translucent">#9F404040</color><!-- 半透明 -->
     <color name="sliding_item_child_color">#363333</color>  
+
 </resources>
+

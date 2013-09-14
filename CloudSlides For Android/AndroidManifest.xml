@@ -67,7 +67,12 @@
         <activity
             android:name="net.cloudslides.app.activity.LiveMeetingActivity"
             android:label="@string/title_activity_live_meeting"
-            android:screenOrientation="landscape"  >
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="net.cloudslides.app.activity.AttendingMeetingActivity"
+            android:label="@string/title_activity_attending_meeting"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

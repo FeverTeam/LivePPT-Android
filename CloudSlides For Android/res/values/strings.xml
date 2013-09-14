@@ -11,5 +11,8 @@
     <string name="title_activity_play_slides">PlaySlidesActivity</string>
     <string name="title_activity_found_meeting">FoundMeetingActivity</string>
     <string name="title_activity_live_meeting">LiveMeetingActivity</string>
+    <string name="attending_meeting">进入会议</string>
+    <string name="quit_meeting">退出会议</string>
+    <string name="title_activity_attending_meeting">AttendingMeetingActivity</string>
 
 </resources>

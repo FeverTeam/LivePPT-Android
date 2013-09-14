@@ -170,17 +170,18 @@ public class MyPptFragment extends Fragment {
 		    @Override
 		    public void onFinish()
 		    {
+		    	if(xListview.isRefreshing())
+		    	{
+		    		xListview.onRefreshComplete();
+		    	}
 		    	new Handler().postDelayed(new Runnable() {
 					
 					@Override
-					public void run() {
-					loadingDialog.dismiss();
-					if(xListview.isRefreshing())
-			    	{
-			    		xListview.onRefreshComplete();
-			    	}
+					public void run() 
+					{
+						loadingDialog.dismiss();					
 					}
-				}, 1000);		    	
+				}, 700);		    	
 		    }
 		});
 	}
@@ -194,16 +195,6 @@ public class MyPptFragment extends Fragment {
 	 */
 	class ItemAdapter extends BaseAdapter {
 		
-		private class ViewHolder {
-			public TextView title;
-			public TextView user;
-			public TextView pptId;
-			public TextView status;
-			public TextView pages;					
-			public ImageView cover;
-			public Button play;
-		}
-
 		@Override
 		public int getCount() {
 			return HomeApp.getLocalUser().getPpts().size();
@@ -239,6 +230,7 @@ public class MyPptFragment extends Fragment {
 			{
 				holder = (ViewHolder) convertView.getTag();
 			}
+			holder.title.getPaint().setFakeBoldText(true);
 			holder.title.setText(HomeApp.getLocalUser().getPpts().get(position).getPptTitle()); 
 			holder.user.setText("归属:"+HomeApp.getLocalUser().getUserName());   
 			holder.pptId.setText("编号:"+HomeApp.getLocalUser().getPpts().get(position).getPptId()+""); 
@@ -272,4 +264,15 @@ public class MyPptFragment extends Fragment {
 			return convertView;
 		}
 	}
+	
+	static class ViewHolder {
+		public TextView title;
+		public TextView user;
+		public TextView pptId;
+		public TextView status;
+		public TextView pages;					
+		public ImageView cover;
+		public Button play;
+	}
+
 }

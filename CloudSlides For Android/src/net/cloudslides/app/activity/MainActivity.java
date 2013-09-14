@@ -1,9 +1,12 @@
 package net.cloudslides.app.activity;
 
+import net.cloudslides.app.Define;
 import net.cloudslides.app.R;
+import net.cloudslides.app.fragment.AttendingMeetingFragment;
 import net.cloudslides.app.fragment.MenuFragment;
 import net.cloudslides.app.fragment.MyPptFragment;
 import net.cloudslides.app.utils.MyActivityManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -13,21 +16,32 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 
 public class MainActivity extends SlidingFragmentActivity {
-	Fragment mContent;
-	SlidingMenu sm;
-
+	private Fragment mContent;
+	public SlidingMenu sm;
+	private int contentId;  
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		MyActivityManager.getInstance().add(this);
+		contentId=getIntent().getIntExtra("content",0);
 		if (savedInstanceState != null)
 		{
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		}
 		if (mContent == null)
 		{
-			mContent = new MyPptFragment(this);
+			switch(contentId)
+			{
+			case Define.LOGIN_JUMP_PPT:mContent = new MyPptFragment(this);break;
+			case Define.LOGIN_JUMP_ATTENDING:mContent = new AttendingMeetingFragment(this);break;
+			case Define.LOGIN_JUMP_FOUNDING:
+			{
+				mContent = new MyPptFragment(this);
+				Intent intent = new Intent(this,FoundMeetingActivity.class);
+				startActivity(intent);
+			}
+			}
 		}
 		getSupportFragmentManager()
 		.beginTransaction()
