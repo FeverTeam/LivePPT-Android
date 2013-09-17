@@ -15,11 +15,9 @@ import net.cloudslides.app.model.User;
 import net.cloudslides.app.utils.CustomProgressDialog;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -38,7 +36,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,7 +44,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -68,8 +64,6 @@ public class FoundMeetingActivity extends Activity {
     private ArrayList<PptFile> pptList;
     private GridView grid;
     private RelativeLayout bar;
-    private boolean isPress=false;
-    private int pos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +75,10 @@ public class FoundMeetingActivity extends Activity {
 		
 	}
 
+	/**
+	 * 绑定视图
+	 * @author Felix
+	 */
 	private void setupView()
 	{
 		cf = (CoverFlow)findViewById(R.id.found_meeting_coverFlow);
@@ -89,6 +87,10 @@ public class FoundMeetingActivity extends Activity {
     delete = (Button)findViewById(R.id.found_meeting_delete_btn);     
        bar = (RelativeLayout)findViewById(R.id.found_meeting_navigationbar);
  	}
+	/**
+	 * 初始化视图逻辑
+	 * @author Felix 
+	 */
 	private void initView()
 	{
 		meetings=new ArrayList<Meeting>();
@@ -457,12 +459,12 @@ public class FoundMeetingActivity extends Activity {
 	 */
 	private void showFoundMeetingDialog(final int position)
 	{
-		final Dialog dialog =new Dialog(this, R.style.mDialog);
-		View layout =LayoutInflater.from(this).inflate(R.layout.found_meeting_dialog,null);
-		Button cancel  = (Button)layout.findViewById(R.id.found_meeting_dialog_cancel_btn);
-		Button confirm = (Button)layout.findViewById(R.id.found_meeting_dialog_confirm_btn);
-		TextView   msg = (TextView)layout.findViewById(R.id.found_meeting_dialog_message);
-		final EditText  topic = (EditText)layout.findViewById(R.id.found_meeting_dialog_topic);
+		final Dialog dialog = new Dialog(this, R.style.mDialog);
+		        View layout = LayoutInflater.from(this).inflate(R.layout.found_meeting_dialog,null);
+		     Button cancel  = (Button)layout.findViewById(R.id.found_meeting_dialog_cancel_btn);
+		     Button confirm = (Button)layout.findViewById(R.id.found_meeting_dialog_confirm_btn);
+		       TextView msg = (TextView)layout.findViewById(R.id.found_meeting_dialog_message);
+	   final EditText topic = (EditText)layout.findViewById(R.id.found_meeting_dialog_topic);
 		
 		msg.setText(HomeApp.getLocalUser().getPpts().get(position).getPptTitle());
 		cancel.setOnClickListener(new OnClickListener() {
@@ -618,7 +620,7 @@ public class FoundMeetingActivity extends Activity {
 			if(convertView==null)
 			{
 				holder=new ViewHolder();
-				 convertView=LayoutInflater.from(FoundMeetingActivity.this).inflate(R.layout.found_meeting_gridview_item,null);
+			    convertView = LayoutInflater.from(FoundMeetingActivity.this).inflate(R.layout.found_meeting_gridview_item,null);
 				 holder.img = (ImageView)convertView.findViewById(R.id.grid_view_item_img);
 			   holder.title = (TextView)convertView.findViewById(R.id.grid_view_item_name);
 			   convertView.setTag(holder);

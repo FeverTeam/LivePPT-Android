@@ -1,7 +1,6 @@
 package net.cloudslides.app.activity;
 
 import java.util.ArrayList;
-
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
@@ -12,20 +11,13 @@ import net.cloudslides.app.widget.photoview.ZoomAbleViewPager;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-import android.widget.FrameLayout;
-
 import com.nostra13.universalimageloader.core.ImageLoader;
-
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
 
 public class AttendingMeetingActivity extends Activity {
 
-	private FrameLayout covert;
 	private ZoomAbleViewPager zoomPager;
 	private ArrayList<String> urls;
 	private PlaySlidesPagerAdapter adapter;
@@ -48,7 +40,10 @@ public class AttendingMeetingActivity extends Activity {
 		loadingDialog.setMessageTextColor(getResources().getColor(R.color.theme_light_green));
 		loadingDialog.show();
 	}
-	
+	/**
+	 * 退出前停止图片加载的所有任务
+	 * @author Felix
+	 */
 	@Override
 	public void onPause() 
 	{
@@ -67,7 +62,6 @@ public class AttendingMeetingActivity extends Activity {
 	}
 	private void setupView()
 	{
-		covert = (FrameLayout) findViewById(R.id.attending_meeting_covert_frame);
 		zoomPager = (ZoomAbleViewPager) findViewById(R.id.attending_meeting_viewpager);
 	}
 
@@ -76,9 +70,7 @@ public class AttendingMeetingActivity extends Activity {
 		adapter=new PlaySlidesPagerAdapter(urls,this);
 		zoomPager.setAdapter(adapter);	
 		zoomPager.setScrollEnabled(false);
-		adapter.notifyDataSetChanged();
-		
-		
+		adapter.notifyDataSetChanged();	
 	}
 	/**
 	 * 初始化PPT页面地址
@@ -116,7 +108,7 @@ public class AttendingMeetingActivity extends Activity {
 					mConnection.sendTextMessage(meetingId+"");//发送会议请求
 					MyToast.alert("正在进入会议...");	               
 	            }
-
+				
 	            @Override
 	            public void onTextMessage(String payload) //接收会议操控端反馈
 	            { 

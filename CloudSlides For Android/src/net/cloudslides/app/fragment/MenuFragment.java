@@ -8,7 +8,6 @@ import net.cloudslides.app.utils.MyActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.sax.StartElementListener;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,7 +89,6 @@ public class MenuFragment extends Fragment {
 			ma.switchContent(fragment);
 		}
 	}
-
 }
 
 /**

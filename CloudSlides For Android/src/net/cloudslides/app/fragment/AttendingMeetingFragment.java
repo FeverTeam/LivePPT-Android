@@ -2,7 +2,6 @@ package net.cloudslides.app.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.Param;
@@ -18,11 +17,9 @@ import net.cloudslides.app.model.User;
 import net.cloudslides.app.utils.CustomProgressDialog;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -60,7 +57,6 @@ public class AttendingMeetingFragment extends Fragment {
 	private AttendingMeetingAdapter adapter;
 	private Button join;
 	
-
 	public AttendingMeetingFragment(MainActivity a)
 	{
 		this.activity=a;
@@ -214,8 +210,7 @@ public class AttendingMeetingFragment extends Fragment {
 					}
 				}, 500);		    	
 		    }
-		});
-		
+		});		
 	}
 	/**
 	 * 获取参与会议的列表
@@ -321,10 +316,7 @@ public class AttendingMeetingFragment extends Fragment {
 			e.printStackTrace();
 		}		
 		return ppt;		
-	}
-	
-	
-	
+	}	
 	
 	/**
 	 * 解析JSON数组 data域的user对象
@@ -346,8 +338,7 @@ public class AttendingMeetingFragment extends Fragment {
 			Log.i("JSON解析Founder出错:", e.getMessage().toString());
 
             e.printStackTrace();
-		}
-		
+		}		
 		return user;
 	}
 	
@@ -513,17 +504,13 @@ public class AttendingMeetingFragment extends Fragment {
 			checkIfItemHasBeenMarkedAsDeleted(convertView, attendings.get(position));
 			return convertView;
 		}
-		// Loop around the list of deleted items
+		
 		private void checkIfItemHasBeenMarkedAsDeleted(View view, Meeting item) {
 			for (Meeting deletable : deleteableItems) {
 				deleteItemIfMarkedAsDeletable(view, item, deletable);
 			}
 		}
 
-		// Check if this row item has been marked to be deleted
-		// if it has we create a new animation
-		// attach a listener for when that animation ends
-		// then start the animation on our row
 		private void deleteItemIfMarkedAsDeletable(View view, Meeting item, Meeting deletable) {
 			if(itemIsDeletable(item, deletable)){
 				Animation anim = AnimationUtils.loadAnimation(activity,android.R.anim.slide_out_right);
@@ -533,14 +520,10 @@ public class AttendingMeetingFragment extends Fragment {
 			}
 		}
 
-		// The item is deletable if the ID for the fruit of this row matches
-		// the id of any fruit in our list of deleteable fruits
 		private boolean itemIsDeletable(Meeting item, Meeting deletable) {
 			return item.getMeetingId() == deletable.getMeetingId();
 		}
 
-		// This is our listener for when the delete animate completes
-		// We then update our data set (removing the fruit)
 		private void deleteOnAnimationComplete(Animation fadeout, final Meeting item) {
 			fadeout.setAnimationListener(new AnimationListener() {
 				@Override
@@ -557,7 +540,6 @@ public class AttendingMeetingFragment extends Fragment {
 			});
 		}
 
-		// actually do the animate on our row
 		private void animate(View view, Animation animation) {
 			view.startAnimation(animation);
 		}

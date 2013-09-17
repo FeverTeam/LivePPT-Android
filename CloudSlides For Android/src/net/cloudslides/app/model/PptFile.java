@@ -16,14 +16,6 @@ public class PptFile {
 	private String coverUrl="";//封面图地址
 	
 	public PptFile(){};
-	public PptFile(Long pptId,boolean pptStatus,int pptPageCount,Long pptSize,String pptTitle,String pptTime)
-	{
-		this.pptId=pptId;
-		this.pptStatus=pptStatus;
-		this.pptSize=pptSize;
-		this.pptTime=pptTime;
-		this.pptTitle=pptTitle;
-	}
 	public void setPptId(Long pptId)
 	{
 		this.pptId=pptId;

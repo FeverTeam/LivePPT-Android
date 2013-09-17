@@ -56,7 +56,7 @@ public class MySharedPreferences {
 	}
 	
 	/**
-	 * 可逆的加密算法
+	 * 可逆的简单加密算法
 	 * @param str
 	 * @return
 	 */

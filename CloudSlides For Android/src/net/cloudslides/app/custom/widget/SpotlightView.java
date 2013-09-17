@@ -13,7 +13,9 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-
+/**
+ *SpotLight控件
+ */
 public class SpotlightView extends View {
 	private int mTargetId;
 
@@ -22,12 +24,9 @@ public class SpotlightView extends View {
 	private float mMaskY;
 	private float mMaskScale;
 	private Matrix mShaderMatrix = new Matrix();
-
 	private Bitmap mTargetBitmap;
 	private final Paint mPaint = new Paint();
-
 	private AnimationSetupCallback mCallback;
-
 	public interface AnimationSetupCallback {
 		void onSetupAnimation(SpotlightView spotlight);
 	}
@@ -41,10 +40,7 @@ public class SpotlightView extends View {
 
 			int maskId = a.getResourceId(R.styleable.SpotlightView_mask, 0);
 			mMask = convertToAlphaMask(BitmapFactory.decodeResource(getResources(), maskId));
-
-			android.util.Log.d("Spotlight", "c=" + mMask.getConfig());
 		} catch (Exception e) {
-			android.util.Log.e("Spotlight", "Error while creating the view:", e);
 		} finally {
 			a.recycle();
 		}
@@ -147,7 +143,6 @@ public class SpotlightView extends View {
 	}
 
 	public float computeMaskScale(float d) {
-		// Let's assume the mask is square
 		return d / (float) mMask.getHeight();
 	}
 }

@@ -94,7 +94,10 @@ public class HomeActivity extends Activity {
 		});			
 	}	
 	
-	
+	/**
+	 * 展示spotlight
+	 * 低于4.1不支持
+	 */
 	private void showSpotLight()
 	{
 		Log.i("sdk",Build.VERSION.SDK_INT+"");
@@ -115,16 +118,19 @@ public class HomeActivity extends Activity {
 			findViewById(R.id.spotlight).setVisibility(View.GONE);
 		}
 	}
-	
+	/**
+	 * 创建spotlight轨迹动画
+	 * @param spotlight
+	 */
 	private void createAnimation(final SpotlightView spotlight) {
-		View top = findViewById(R.id.home_title);
-		View bottom = findViewById(R.id.splash_join_button);
+		View top = findViewById(R.id.home_title);//spot开始点
+		View bottom = findViewById(R.id.splash_join_button);//结束点
 
 		final float textHeight = bottom.getBottom() - top.getTop();
 		final float startX = top.getLeft();
 		final float startY = top.getTop() + textHeight / 2.0f;
 		final float endX = Math.max(top.getRight(), bottom.getRight());
-
+		
 		spotlight.setMaskX(endX);
 		spotlight.setMaskY(startY);
 
@@ -132,22 +138,23 @@ public class HomeActivity extends Activity {
 			@Override
 			public void run() {
 				ObjectAnimator moveLeft = ObjectAnimator.ofFloat(spotlight, "maskX", endX, startX);
-				moveLeft.setDuration(2000);
+				moveLeft.setDuration(2000);//左移动
 
 				float startScale = spotlight.computeMaskScale(textHeight);
 				ObjectAnimator scaleUp = ObjectAnimator.ofFloat(spotlight, "maskScale", startScale, startScale * 3.0f);
-				scaleUp.setDuration(2000);
+				scaleUp.setDuration(2000);//mask放大
 
 				ObjectAnimator moveCenter = ObjectAnimator.ofFloat(spotlight, "maskX", spotlight.getWidth() / 2.0f);
-				moveCenter.setDuration(1000);
+				moveCenter.setDuration(1000);//移到中间
 
 				ObjectAnimator moveUp = ObjectAnimator.ofFloat(spotlight, "maskY", spotlight.getHeight() / 2.0f);
-				moveUp.setDuration(1000);
+				moveUp.setDuration(1000);//上移动
 
 				ObjectAnimator superScale = ObjectAnimator.ofFloat(spotlight, "maskScale",
 						spotlight.computeMaskScale(Math.max(spotlight.getHeight(), spotlight.getWidth()) * 1.7f));
-				superScale.setDuration(2000);
+				superScale.setDuration(2000);//放大
 
+				//设置轨迹
 				AnimatorSet set = new AnimatorSet();
 				set.play(moveLeft).with(scaleUp);
 				set.play(moveCenter).after(scaleUp);
@@ -177,6 +184,5 @@ public class HomeActivity extends Activity {
 				});
 			}
 		});
-	}
-	
+	}	
 }

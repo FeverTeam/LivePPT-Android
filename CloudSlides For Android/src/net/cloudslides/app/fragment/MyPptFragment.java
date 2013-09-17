@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -34,9 +33,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 public class MyPptFragment extends Fragment {
 	
@@ -263,8 +259,7 @@ public class MyPptFragment extends Fragment {
 			});			
 			return convertView;
 		}
-	}
-	
+	}	
 	static class ViewHolder {
 		public TextView title;
 		public TextView user;
@@ -274,5 +269,4 @@ public class MyPptFragment extends Fragment {
 		public ImageView cover;
 		public Button play;
 	}
-
 }

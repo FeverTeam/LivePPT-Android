@@ -1,9 +1,7 @@
 package net.cloudslides.app.adapter;
 
 import java.util.ArrayList;
-
 import net.cloudslides.app.widget.photoview.PhotoView;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
@@ -24,12 +22,10 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 	private int i;
 	private int j;
 	
-	
 	public PlaySlidesPagerAdapter(ArrayList<String> urls,Context c)
 	{
 		this.urls=urls;
 		this.context=c;
-		
 	}
 
 	@Override
@@ -76,7 +72,7 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 		});	
 		
 		
-		//------------------------------------------------------------------------
+		//-----------------------向后预读取------------------------------
 		
 		for(i =position+1;i<urls.size()&&i<=position+3;i++)
 		{
@@ -100,7 +96,7 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 		}
 		
 
-		//------------------------------------------------------------------------
+		//------------------------向前预读取-----------------------------
 		
 		for(j =position-1;j>=0&&j>=position-3;j--)
 		{

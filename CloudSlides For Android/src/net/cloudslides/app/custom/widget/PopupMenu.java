@@ -32,13 +32,11 @@ public class PopupMenu {
     private Context mContext;
     private LayoutInflater mInflater;
     private WindowManager mWindowManager;
-
     private PopupWindow mPopupWindow;
     private View mContentView;
     private ListView mItemsView;
     private TextView mHeaderTitleView;
     private OnItemSelectedListener mListener;
-
     private List<MenuItem> mItems;
     private int mWidth = 240;
     private float mScale;
@@ -50,9 +48,7 @@ public class PopupMenu {
         DisplayMetrics metrics = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(metrics);
         mScale = metrics.scaledDensity;
-
         mItems = new ArrayList<MenuItem>();
-
         mPopupWindow = new PopupWindow(context);
         mPopupWindow.setTouchInterceptor(new OnTouchListener() {
 
@@ -70,7 +66,7 @@ public class PopupMenu {
     }
 
     /**
-     * Sets the popup's content.
+     * 设置popup的内容视图
      *
      * @param contentView
      */
@@ -83,12 +79,11 @@ public class PopupMenu {
     }
 
     /**
-     * Add menu item.
+     * 添加菜单组件
      *
-     * @param itemId
-     * @param titleRes
-     * @param iconRes
-     *
+     * @param itemId 标识号
+     * @param titleRes 标题
+     * @param iconRes 图标
      * @return item
      */
     public MenuItem add(int itemId, int titleRes) {
@@ -99,17 +94,13 @@ public class PopupMenu {
 
         return item;
     }
-
-    /**
-     * Show popup menu.
-     */
+    
     public void show() {
         show(null);
     }
 
     /**
-     * Show popup menu.
-     *
+     * 弹出popup菜单
      * @param anchor
      */
     public void show(View anchor) {
@@ -152,16 +143,15 @@ public class PopupMenu {
         mContentView.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
         int rootHeight = mContentView.getMeasuredHeight();
-        int screenHeight = mWindowManager.getDefaultDisplay().getHeight();
+        @SuppressWarnings("deprecation")
+		int screenHeight = mWindowManager.getDefaultDisplay().getHeight();
 
-        // Set x-coordinate to display the popup menu
         xPos = anchorRect.centerX() - mPopupWindow.getWidth() / 2;
 
         int dyTop = anchorRect.top;
         int dyBottom = screenHeight + rootHeight;
         boolean onTop = dyTop > dyBottom;
 
-        // Set y-coordinate to display the popup menu
         if (onTop) {
             yPos = anchorRect.top - rootHeight;
         } else {
@@ -193,7 +183,7 @@ public class PopupMenu {
     }
 
     /**
-     * Dismiss the popup menu.
+     * 隐藏popup菜单
      */
     public void dismiss() {
         if (mPopupWindow != null && mPopupWindow.isShowing()) {
@@ -202,7 +192,7 @@ public class PopupMenu {
     }
 
     /**
-     * Sets the popup menu header's title.
+     * 设置标题名称
      *
      * @param title
      */
@@ -213,7 +203,7 @@ public class PopupMenu {
     }
 
     /**
-     * Change the popup's width.
+     * 设置宽度
      *
      * @param width
      */
@@ -222,19 +212,13 @@ public class PopupMenu {
     }
 
     /**
-     * Register a callback to be invoked when an item in this PopupMenu has
-     * been selected.
+     * 选中子项回调
      *
      * @param listener
      */
     public void setOnItemSelectedListener(OnItemSelectedListener listener) {
         mListener = listener;
     }
-
-    /**
-     * Interface definition for a callback to be invoked when
-     * an item in this PopupMenu has been selected.
-     */
     public interface OnItemSelectedListener {
         public void onItemSelected(MenuItem item);
     }

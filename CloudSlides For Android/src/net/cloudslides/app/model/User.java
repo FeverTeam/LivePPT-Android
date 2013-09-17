@@ -12,15 +12,7 @@ public class User {
 	public List<PptFile> myPpts=null;
 	public List<Meeting> myFoundedMeeting=null;	
 	public List<Meeting> myParticipatedMeeting=null;
-	
-	
-	public User(String userName,Long userId)
-	{
-		this.userName=userName;		
-		this.userId=userId;
-	}
-	
-	
+
 	public User() {}
 	
 	public String getUserName()

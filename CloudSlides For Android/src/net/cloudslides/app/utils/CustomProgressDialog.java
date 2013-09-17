@@ -1,7 +1,4 @@
 package net.cloudslides.app.utils;
-
-
-
 import net.cloudslides.app.R;
 import android.app.Dialog;
 import android.content.Context;

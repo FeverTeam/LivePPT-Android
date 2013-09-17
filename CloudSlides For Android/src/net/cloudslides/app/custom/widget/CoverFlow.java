@@ -36,18 +36,17 @@ public class CoverFlow extends Gallery {
 	
     
     /**
-     * Get the Centre of the Coverflow
-     * 
-     * @return The centre of this Coverflow.
+     * 控件中间位置
+     * @return 位置
      */
     private int getCenterOfCoverflow() {
             return (getWidth() - getPaddingLeft() - getPaddingRight()) / 2 + getPaddingLeft();
     }
-
+    
     /**
-     * Get the Centre of the View
+     * 获得视图中心位置
      * 
-     * @return The centre of the given view.
+     * @return 中间位置
      */
     private static int getCenterOfView(View view) {
             return view.getLeft() + view.getWidth() / 2;
@@ -65,15 +64,6 @@ public class CoverFlow extends Gallery {
             final int childWidth = child.getWidth()+20;
             int rotationAngle = 0;
             t.clear();                
-            /*
-           if(child.isSelected())
-           {
-            ViewHelper.setAlpha(child, 1.0f);
-           }
-           else
-           {
-        	  ViewHelper.setAlpha(child, 0.5f);
-        	}*/
             t.setTransformationType(Transformation.TYPE_MATRIX);
             if (childCenter == mCoveflowCenter) {
                transformImageBitmap((View) child, t, 0);   
@@ -86,40 +76,14 @@ public class CoverFlow extends Gallery {
                     }
                     transformImageBitmap((View) child, t, rotationAngle);
             }
-            child.invalidate();//jelly bean or higher
+            child.invalidate();//支持 jelly bean 或更高版本
             return true;
     }
 
-    /**
-     * This is called during layout when the size of this view has changed. If
-     * you were just added to the view hierarchy, you're called with the old
-     * values of 0.
-     * 
-     * @param w
-     *            Current width of this view.
-     * @param h
-     *            Current height of this view.
-     * @param oldw
-     *            Old width of this view.
-     * @param oldh
-     *            Old height of this view.
-     */
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             mCoveflowCenter = getCenterOfCoverflow();
             super.onSizeChanged(w, h, oldw, oldh);
     }
-
-    /**
-     * Transform the Image Bitmap by the Angle passed
-     * 
-     * @param imageView
-     *            ImageView the ImageView whose bitmap we want to rotate
-     * @param t
-     *            transformation
-     * @param rotationAngle
-     *            the Angle by which to rotate the Bitmap
-     */
-    
     
     private void transformImageBitmap(View child, Transformation t,int rotationAngle) {
             mCamera.save();

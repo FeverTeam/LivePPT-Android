@@ -48,8 +48,10 @@ public class Define {
 	 */
 	public static final String APP_IS_FIRST_LAUNCH_KEY = "APP_IS_FIRST_LAUNCH_KEY";
 	
-	public static final String Intent_KEY_PPT_POSITION="pptPosition";
-	
+	/**
+	 * Intent KEY
+	 */
+	public static final String Intent_KEY_PPT_POSITION="pptPosition";	
 	public static final String Intent_KEY_MEETING_POSITION="meetingPosition";
 
 }

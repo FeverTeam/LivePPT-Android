@@ -1,4 +1,4 @@
-/*
+/**
  *  Android Wheel Control.
  *  https://code.google.com/p/android-wheel/
  *  
@@ -19,6 +19,7 @@
 
 package net.cloudslides.app.widget.wheel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -196,7 +197,8 @@ public class WheelScroller {
     }
     
     // animation handler
-    private Handler animationHandler = new Handler() {
+    @SuppressLint("HandlerLeak")
+	private Handler animationHandler = new Handler() {
         public void handleMessage(Message msg) {
             scroller.computeScrollOffset();
             int currY = scroller.getCurrY();

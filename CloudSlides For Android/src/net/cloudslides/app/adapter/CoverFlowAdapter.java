@@ -2,7 +2,6 @@ package net.cloudslides.app.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
@@ -18,20 +17,13 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader.TileMode;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.assist.LoadedFrom;
-import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
 
 public class CoverFlowAdapter extends BaseAdapter {
 	private List<Meeting> foundedMeetigs;
@@ -69,15 +61,15 @@ public class CoverFlowAdapter extends BaseAdapter {
 		String url = foundedMeetigs.get(position).getMeetingPpt().getCoverUrl();
 		Log.i("url", url);
 		i.setScaleType(ImageView.ScaleType.FIT_XY);
-		//ImageLoader.getInstance().displayImage(url, i);
 		getImage(i, url);
-	    i.setLayoutParams(new CoverFlow.LayoutParams(Define.WIDTH_PX*420/640,Define.HEIGHT_PX*7/10));
+	    i.setLayoutParams(new CoverFlow.LayoutParams(Define.WIDTH_PX*400/640,Define.HEIGHT_PX*6/10));
 		return i;
 	}
 	/**
 	 * 获取图片
-	 * @param iv
-	 * @param url
+	 * @param iv 图片显示的视图
+	 * @param url 图片地址
+	 * @author Felix
 	 */
 	private void getImage(ImageView iv , String url)
 	{
@@ -86,30 +78,19 @@ public class CoverFlowAdapter extends BaseAdapter {
         .cacheOnDisc(true)        
         .showImageOnFail(R.drawable.ic_error)
         .showStubImage(R.drawable.empty_picture)
-        .showImageForEmptyUri(R.drawable.ic_error)
-        .displayer(new BitmapDisplayer() {
-			
-			@Override
-			public Bitmap display(Bitmap bitmap, ImageView imageView,LoadedFrom loadedFrom) 
-			{
-				imageView.setImageBitmap(getReflection(bitmap));				
-				return bitmap;
-			}
-		})
+        .showImageForEmptyUri(R.drawable.ic_error)  
+        .bitmapConfig(Config.RGB_565)//控制图片大小节省内存防止配合coverflow出现的卡顿现象
         .build();		
 		ImageLoader.getInstance().displayImage(url, iv, options);
 	}
-	
-	
-	public float getScale(boolean focused, int offset) 
-	{
-		return Math.max(0, 1.0f / (float) Math.pow(2, Math.abs(offset)));
-	}
+
 	/**
 	 * 生成带镜面倒影的bitmap
 	 * @param originBitmap
 	 * @return bitmapWithReflection
-	 * @author Godknows
+	 * @author 
+	 * 考虑到体验的流畅感，以及Gallery的加载机制缺陷，不推荐使用此方法。
+	 * 仅保留此代码段作备用和记录 by Felix
 	 */
 	  
 	public Bitmap getReflection(Bitmap image)
@@ -136,8 +117,7 @@ public class CoverFlowAdapter extends BaseAdapter {
 	    bitmapWithReflection.getHeight() + reflectionGap, 0x80ffffff, 0x00ffffff,TileMode.CLAMP);
 	    paint.setShader(shader);
 	    paint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));
-	    canvas.drawRect(0, height, width,bitmapWithReflection.getHeight() + reflectionGap, paint);
-	    
+	    canvas.drawRect(0, height, width,bitmapWithReflection.getHeight() + reflectionGap, paint);	    
 	    return bitmapWithReflection;
 	       
 	 }

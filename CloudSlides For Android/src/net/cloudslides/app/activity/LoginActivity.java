@@ -1,6 +1,7 @@
 package net.cloudslides.app.activity;
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
+import net.cloudslides.app.Param;
 import net.cloudslides.app.R;
 import net.cloudslides.app.model.User;
 import net.cloudslides.app.utils.MyActivityManager;
@@ -140,9 +141,7 @@ public class LoginActivity extends Activity {
 							if(rememberCheck.isChecked()&&!ignoreCheck)
 							{
 								MySharedPreferences.SaveShared(Define.CONFINFO, Define.LOCAL_USER_INFO_IS_REMEMBER_ME, "true", false);				
-							}
-						
-						
+							}				
 						
 						if(autoLoginCheck.isChecked())
 						{
@@ -159,8 +158,7 @@ public class LoginActivity extends Activity {
 				catch (JSONException e) 
 				{
 					e.printStackTrace();
-				}			
-				
+				}				
 			}
 			@Override
 		     public void onFailure(Throwable e, String response) 
@@ -189,16 +187,15 @@ public class LoginActivity extends Activity {
 		try 
 		{
 			JSONObject jso =new JSONObject(response);
-			user.setUserId(jso.getJSONObject("data").getLong("userId"));
-			user.setUserEmail(jso.getJSONObject("data").getString("email"));
-			user.setUserName(jso.getJSONObject("data").getString("displayName"));
+			user.setUserId(jso.getJSONObject("data").getLong(Param.USER_ID_KEY));
+			user.setUserEmail(jso.getJSONObject("data").getString(Param.EMAIL_KEY));
+			user.setUserName(jso.getJSONObject("data").getString(Param.DISPLAY_NAME_KEY));
 			HomeApp.setLocalUser(user);
 		} 
 		catch (JSONException e) 
 		{
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 	/**
