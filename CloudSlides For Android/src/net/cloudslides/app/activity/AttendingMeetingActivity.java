@@ -11,6 +11,7 @@ import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import de.tavendo.autobahn.WebSocketConnection;
@@ -29,6 +30,7 @@ public class AttendingMeetingActivity extends Activity {
 	private long meetingId;
 	private int currPageIndex;
 	private CustomProgressDialog loadingDialog;
+	private boolean close=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -37,7 +39,7 @@ public class AttendingMeetingActivity extends Activity {
 		setupView();
 		initPptUrls();
 		start();
-		loadingDialog=CustomProgressDialog.createDialog(this, "正在连接服务器...", false);
+		loadingDialog=CustomProgressDialog.createDialog(this, "正在连接服务器...", true);
 		loadingDialog.setMessageTextColor(getResources().getColor(R.color.theme_light_green));
 		loadingDialog.show();
 	}
@@ -56,6 +58,7 @@ public class AttendingMeetingActivity extends Activity {
 	protected void onDestroy() 
 	{
 		super.onDestroy();
+		close=true;//人为断开socket
 		if(mConnection.isConnected())
 		{
 			mConnection.disconnect();
@@ -126,11 +129,23 @@ public class AttendingMeetingActivity extends Activity {
 
 	            @Override
 	            public void onClose(int code, String reason) 
-	            {               
-	               MyToast.alert("会议结束");
-	               Log.i("onClose", reason+"");
-	            }
-				
+	            {           
+	            	if(close)
+	            	{
+	            		MyToast.alert("会议结束");
+	 	               Log.i("onClose", reason+"");
+	            	}
+	            	else
+	            	{
+	            		new Handler().postDelayed(new Runnable() {
+							
+							@Override
+							public void run() {
+								start();//网络因素导致socket断开则每1秒检查一次后重连
+							}
+						}, 1000);	            		
+	            	}	               
+	            }				
 			});
 		} 
 		catch (WebSocketException e)
