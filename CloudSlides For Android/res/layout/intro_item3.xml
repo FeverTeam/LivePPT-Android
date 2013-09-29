@@ -20,7 +20,7 @@
             android:textColor="@android:color/white"
             android:background="@drawable/start_button_selector"
             android:layout_centerHorizontal="true"
-            android:text="马上开始Cloud Slides"
+            android:text="马上开始CloudSlides"
             android:textStyle="bold"/>
 
     </RelativeLayout>

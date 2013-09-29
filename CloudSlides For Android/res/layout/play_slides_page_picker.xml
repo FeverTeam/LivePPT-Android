@@ -48,7 +48,7 @@
 
     </RelativeLayout>
 
-    <net.cloudslides.app.widget.wheel.WheelView
+    <net.cloudslides.app.thirdlibs.widget.wheel.WheelView
         android:id="@+id/page_picker_wheel"
         android:layout_width="match_parent"
         android:layout_height="110dp"

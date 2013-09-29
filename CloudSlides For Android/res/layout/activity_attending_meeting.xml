@@ -5,7 +5,7 @@
     android:id="@+id/live_meeting_main_layout"
     android:background="#e2e2e2">
     
-    <net.cloudslides.app.widget.photoview.ZoomAbleViewPager
+    <net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/attending_meeting_viewpager"/>

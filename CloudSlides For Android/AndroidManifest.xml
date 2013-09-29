@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="net.cloudslides.app.HomeApp"
@@ -73,6 +74,26 @@
             android:name="net.cloudslides.app.activity.AttendingMeetingActivity"
             android:label="@string/title_activity_attending_meeting"
             android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="net.cloudslides.app.thirdlibs.filechooser.FileChooserActivity"
+            android:exported="false"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/choose_file"
+            android:theme="@style/ChooserTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="net.cloudslides.app.activity.ChangePasswordActivity"
+            android:label="@string/title_activity_change_password"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

@@ -287,6 +287,10 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:singleLine="true"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="2"
         android:text="注销此帐号" />
 
     

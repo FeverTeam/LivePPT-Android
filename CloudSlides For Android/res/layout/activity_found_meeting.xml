@@ -1,50 +1,177 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/found_meeting_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/light"
-    android:id="@+id/found_meeting_main_layout"
+    android:background="@drawable/repeat_bg_crabon"
     tools:context=".FoundMeetingActivity" >
-
-    <net.cloudslides.app.custom.widget.CoverFlow
-        android:id="@+id/found_meeting_coverFlow"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/found_meeting_navigationbar"
-        android:spacing="-30dp" />
 
     <RelativeLayout
         android:id="@+id/found_meeting_navigationbar"
         android:layout_width="match_parent"
-        android:layout_height="47dp"
-        android:background="@drawable/tabbar_background"
-        android:gravity="center_vertical"
+        android:layout_height="52dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/tabbar_background"
+        android:gravity="center_vertical" >
 
         <Button
             android:id="@+id/found_meeting_add_btn"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginLeft="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="2.5dp"
             android:background="@drawable/navigationbar_add_selector" />
 
         <Button
             android:id="@+id/found_meeting_delete_btn"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginRight="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/navigationbar_delete_selector"/>
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="2.5dp"
+            android:background="@drawable/navigationbar_delete_selector" />
 
         <Button
             android:id="@+id/found_meeting_start_btn"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="2.5dp"
             android:background="@drawable/navigationbar_start_selelctor" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/found_meeting_start_btn"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="32dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="发起新会仪" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/found_meeting_add_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="1dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="主持会议" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/found_meeting_delete_btn"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="35dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="删除会议" />
     </RelativeLayout>
+
+    <net.cloudslides.app.custom.widget.CoverFlow
+        android:id="@+id/found_meeting_coverFlow"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_above="@+id/found_meeting_navigationbar"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/line"
+        android:spacing="-30dp" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:background="@drawable/tabbar_background"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+        <TextView
+            android:id="@+id/found_meeting_info_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:shadowColor="@android:color/black"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/found_meeting_info_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/found_meeting_info_topic"
+            android:layout_marginLeft="10dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/found_meeting_info_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/found_meeting_info_file"
+            android:layout_marginLeft="10dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/found_meeting_info_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/found_meeting_info_id"
+            android:layout_marginLeft="10dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:layout_marginBottom="2dp"/>
+
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_below="@+id/found_meeting_coverFlow"
+        android:layout_height="1dp"
+        android:background="#ffffff"/>
+    <View 
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        android:layout_below="@+id/relativeLayout1"/>
 
 </RelativeLayout>

@@ -91,7 +91,11 @@ public class HomeActivity extends Activity {
 				Intent intent =new Intent(HomeActivity.this, SignUpActivity.class);
 				startActivity(intent);
 			}
-		});			
+		});		
+       attendingBtn.getPaint().setFakeBoldText(true);
+       	foundingBtn.getPaint().setFakeBoldText(true);
+       		 pptBtn.getPaint().setFakeBoldText(true);
+       	  signUpBtn.getPaint().setFakeBoldText(true);
 	}	
 	
 	/**

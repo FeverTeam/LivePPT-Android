@@ -6,10 +6,23 @@
     android:background="#e2e2e2"
     tools:context=".PlaySlidesActivity">
     
-    <net.cloudslides.app.widget.photoview.ZoomAbleViewPager
+    <net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/live_meeting_viewpager"/>
+    <FrameLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+
+        <Button
+            android:id="@+id/live_meeting_page_picker_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/page_btn_selector" />        
+    </FrameLayout>
     <FrameLayout 
         android:layout_width="match_parent"
         android:layout_height="match_parent"

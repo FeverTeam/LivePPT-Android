@@ -1,7 +1,8 @@
 package net.cloudslides.app.adapter;
 
 import java.util.ArrayList;
-import net.cloudslides.app.widget.photoview.PhotoView;
+
+import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;

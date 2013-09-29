@@ -267,6 +267,7 @@ class MyExpandableListAdapter extends BaseExpandableListAdapter{
 		{
 		case 1:return new MyPptFragment((MainActivity)menu.getActivity());
 		case 2:return new MoreFragment((MainActivity)menu.getActivity());
+		case 3:return new AboutFragment((MainActivity)menu.getActivity());
 		default :return null;
 		}
 	}

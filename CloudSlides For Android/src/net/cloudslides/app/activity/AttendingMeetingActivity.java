@@ -5,9 +5,10 @@ import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
 import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
+import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.utils.CustomProgressDialog;
+import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
-import net.cloudslides.app.widget.photoview.ZoomAbleViewPager;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -84,7 +85,9 @@ public class AttendingMeetingActivity extends Activity {
 		urls=new ArrayList<String>();
 		for(int i=1;i<=HomeApp.getLocalUser().getParticipatedMeeting().get(meetingPos).getMeetingPpt().getPptPageCount();i++)
 		{
-			String url ="http://live-ppt.com/getpptpage?pptid="+pptId+"&pageid="+i;
+			String url =MyHttpClient.BASE_URL+"/ppt/pageImage?pptId="+pptId+"&page="+i
+					+"&token="+HomeApp.getLocalUser().getToken()
+					+"&uemail="+HomeApp.getLocalUser().getUserEmail();
 			urls.add(url);			
 		}
 	}
@@ -96,7 +99,7 @@ public class AttendingMeetingActivity extends Activity {
 	public void start()
 	{
 		mConnection = new WebSocketConnection();
-		wsuri="ws://live-ppt.com:9000/viewWebsocket";		
+		wsuri=MyHttpClient.WS_URL+"/viewWebsocket";
 		try 
 		{
 			mConnection.connect(wsuri, new WebSocketHandler()

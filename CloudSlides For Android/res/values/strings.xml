@@ -14,5 +14,11 @@
     <string name="attending_meeting">进入会议</string>
     <string name="quit_meeting">退出会议</string>
     <string name="title_activity_attending_meeting">AttendingMeetingActivity</string>
+    <string name="empty_directory">空目录</string>
+    <string name="storage_removed">存储卡已移除或未挂载.</string>
+    <string name="choose_file">选择一个文件</string>
+    <string name="error_selecting_file">文件选择出错</string>
+    <string name="chooser_title">选择文件</string>
+    <string name="title_activity_change_password">ChangePasswordActivity</string>
 
 </resources>

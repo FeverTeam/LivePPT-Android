@@ -6,12 +6,13 @@ public class User {
 	 * 用户信息类
 	 */
 	public String userName="";	
-	public String userEmail="";
+	public String userEmail=null;
 	public String userPassword="";
 	public Long userId;
 	public List<PptFile> myPpts=null;
 	public List<Meeting> myFoundedMeeting=null;	
 	public List<Meeting> myParticipatedMeeting=null;
+	public String token=null;
 
 	public User() {}
 	
@@ -72,6 +73,14 @@ public class User {
 	public void setParticipatedMeeting(List<Meeting> myAttenders)
 	{
 		this.myParticipatedMeeting=myAttenders;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

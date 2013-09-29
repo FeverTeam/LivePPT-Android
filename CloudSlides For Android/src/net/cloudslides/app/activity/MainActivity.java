@@ -119,8 +119,5 @@ public class MainActivity extends SlidingFragmentActivity {
 				getSlidingMenu().showContent();
 			}
 		}, 50);
-	}	
-
-	
-
+	}
 }

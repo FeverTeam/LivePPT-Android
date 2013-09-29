@@ -3,7 +3,7 @@ package net.cloudslides.app;
 public class Param {
 	public static final String SIGN_UP_EMAIL ="email";
 	public static final String SIGN_UP_PASSWORD ="password";
-	public static final String SIGN_UP_DISPALY_NAME ="displayName";
+	public static final String SIGN_UP_DISPALY_NAME ="displayname";
 	
 	public static final String MEETING_ID_KEY ="meetingId";	
 	
@@ -32,5 +32,18 @@ public class Param {
 	public static final String TOPIC_KEY="topic";
 	
 	public static final String PAGE_INDEX="pageIndex";
+	
+	public static final String UEMAIL="uemail";
+	
+	public static final String TOKEN ="token";
+	
+	public static final String SEED = "seed";
+	
+	public static final String PASSWORD="password";
+	
+	public static final String PPTFILE = "pptFile";
 
+	public static final String OLDPASSWORD = "oldPassword";
+	
+	public static final String NEWPASSWORD = "newPassword";
 }

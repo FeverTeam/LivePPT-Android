@@ -6,9 +6,10 @@ import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
 import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
-import net.cloudslides.app.widget.photoview.ZoomAbleViewPager;
-import net.cloudslides.app.widget.wheel.ArrayWheelAdapter;
-import net.cloudslides.app.widget.wheel.WheelView;
+import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
+import net.cloudslides.app.thirdlibs.widget.wheel.ArrayWheelAdapter;
+import net.cloudslides.app.thirdlibs.widget.wheel.WheelView;
+import net.cloudslides.app.utils.MyHttpClient;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class PlaySlidesActivity extends Activity {
 	private ArrayList<String> urls;
 	private PlaySlidesPagerAdapter adapter;
 	private FrameLayout covert;
+	private Button pageBtn;
 	private int pptPos;
 	private long pptId;
 
@@ -50,16 +52,23 @@ public class PlaySlidesActivity extends Activity {
 	
 	private void setupView()
 	{
-		zoomPager=(ZoomAbleViewPager)findViewById(R.id.play_slides_flipview);
-		   covert=(FrameLayout)findViewById(R.id.play_slides_covert_frame);		
+		zoomPager = (ZoomAbleViewPager)findViewById(R.id.play_slides_flipview);
+		   covert = (FrameLayout)findViewById(R.id.play_slides_covert_frame);	
+		  pageBtn = (Button)findViewById(R.id.play_slides_page_picker_btn);
 	}
 	
 	
 	private void initView()
 	{
 		adapter=new PlaySlidesPagerAdapter(urls,this);
-		//flipView=new FlipViewController(this, FlipViewController.HORIZONTAL);
 		zoomPager.setAdapter(adapter);
+		pageBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showPickerDialog();
+			}
+		});
 	}
 	
 	
@@ -70,7 +79,9 @@ public class PlaySlidesActivity extends Activity {
 		urls=new ArrayList<String>();
 		for(int i=1;i<=HomeApp.getLocalUser().getPpts().get(pptPos).getPptPageCount();i++)
 		{
-			String url ="http://live-ppt.com/getpptpage?pptid="+pptId+"&pageid="+i;
+			String url =MyHttpClient.BASE_URL+"/ppt/pageImage?pptId="+pptId+"&page="+i
+					+"&token="+HomeApp.getLocalUser().getToken()
+					+"&uemail="+HomeApp.getLocalUser().getUserEmail();
 			urls.add(url);			
 		}
 	}

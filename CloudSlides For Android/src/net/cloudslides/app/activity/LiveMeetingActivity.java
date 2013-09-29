@@ -7,10 +7,10 @@ import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.Param;
 import net.cloudslides.app.R;
 import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
+import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
+import net.cloudslides.app.thirdlibs.widget.wheel.ArrayWheelAdapter;
+import net.cloudslides.app.thirdlibs.widget.wheel.WheelView;
 import net.cloudslides.app.utils.MyHttpClient;
-import net.cloudslides.app.widget.photoview.ZoomAbleViewPager;
-import net.cloudslides.app.widget.wheel.ArrayWheelAdapter;
-import net.cloudslides.app.widget.wheel.WheelView;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -36,6 +36,7 @@ public class LiveMeetingActivity extends Activity {
 	private ArrayList<String> urls;
 	private PlaySlidesPagerAdapter adapter;
 	private FrameLayout covert;
+	private Button pageBtn;
 	private int meetingPos;
 	private long pptId;
 	private long meetingId;
@@ -70,8 +71,9 @@ public class LiveMeetingActivity extends Activity {
 	
 	private void setupView()
 	{
-		zoomPager=(ZoomAbleViewPager)findViewById(R.id.live_meeting_viewpager);
-		   covert=(FrameLayout)findViewById(R.id.live_meeting_covert_frame);		
+		zoomPager = (ZoomAbleViewPager)findViewById(R.id.live_meeting_viewpager);
+		   covert = (FrameLayout)findViewById(R.id.live_meeting_covert_frame);	
+		  pageBtn = (Button)findViewById(R.id.live_meeting_page_picker_btn);
 	}
 	
 	
@@ -94,6 +96,13 @@ public class LiveMeetingActivity extends Activity {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {}
 		});
+		pageBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showPickerDialog();
+			}
+		});
 	}
 	
 	/**
@@ -108,7 +117,9 @@ public class LiveMeetingActivity extends Activity {
 		urls=new ArrayList<String>();
 		for(int i=1;i<=HomeApp.getLocalUser().getFoundedMeeting().get(meetingPos).getMeetingPpt().getPptPageCount();i++)
 		{
-			String url ="http://live-ppt.com/getpptpage?pptid="+pptId+"&pageid="+i;
+			String url = MyHttpClient.BASE_URL+"/ppt/pageImage?pptId="+pptId+"&page="+i
+					+"&token="+HomeApp.getLocalUser().getToken()
+					+"&uemail="+HomeApp.getLocalUser().getUserEmail();
 			urls.add(url);			
 		}
 	}
@@ -177,7 +188,7 @@ public class LiveMeetingActivity extends Activity {
 	   */
 	  private void setMeetingPage()
 	  {
-		  String url ="/app/setMeetingPageIndex";
+		  String url ="/meeting/setPage";
 		  
 		  RequestParams params = new RequestParams();
 		  params.put(Param.MEETING_ID_KEY, meetingId+"");

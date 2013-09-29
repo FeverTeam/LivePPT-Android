@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+    <View
+	android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:layout_below="@+id/about_top_bar_layout"
+    android:background="#8a8a8a" /> 
+    <!-- bar -->
+    <RelativeLayout
+        android:id="@+id/about_top_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/navigationbar_background">
+
+        <Button
+            android:id="@+id/about_top_bar_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/myppt_top_bar_btn_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:shadowColor="@android:color/black"
+            android:textColor="@color/theme_orange"
+            android:shadowDx="1"
+            android:shadowDy="1.0"
+            android:shadowRadius="2.0"
+            android:text="关于"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_below="@+id/about_top_bar_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/about_logo" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:text="CloudSlides"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="35sp"
+        android:shadowColor="@android:color/darker_gray"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="5"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        android:layout_centerHorizontal="true"
+        android:text="V 1.0.0 Beta" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp"
+        android:text="© Fever Team 2013" />
+
+    <TextView
+        android:id="@+id/about_email_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_marginBottom="35dp"
+        android:autoLink="email"
+        android:paddingLeft="20dp"
+        android:textColor="@android:color/black"
+        android:text="联系邮箱: cloudslides@Gmail.com" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/about_email_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:autoLink="web"
+        android:paddingLeft="20dp"
+        android:textColor="@android:color/black"
+        android:text="官方网站: http://cloudslides.net" />
+
+</RelativeLayout>

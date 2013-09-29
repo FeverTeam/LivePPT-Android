@@ -17,14 +17,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3" >
+        android:layout_weight="0.2" >
     </LinearLayout>
     <LinearLayout
         android:id="@+id/home_title"
         android:layout_width="match_parent"
         android:layout_height="0dp" 
         android:layout_weight="0.5"
-        android:background="@drawable/splash_title_text">
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textSize="48sp"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="2"
+            android:text="CloudSlides" />
+
     </LinearLayout>    
 
     <LinearLayout
@@ -37,11 +53,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:shadowColor="@android:color/white"
+            android:shadowColor="@android:color/black"
             android:shadowDx="0"
             android:shadowDy="1"
             android:shadowRadius="1"            
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:text="加入会议"
             android:background="@drawable/splash_attending_icon_selector" />
 
@@ -50,11 +66,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:shadowColor="@android:color/white"
+            android:shadowColor="@android:color/black"
             android:shadowDx="0"
             android:shadowDy="1"
             android:shadowRadius="1"            
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:background="@drawable/splash_founding_icon_selector"
             android:text="发起会议" />
 
@@ -69,11 +85,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:shadowColor="@android:color/white"
+            android:shadowColor="@android:color/black"
             android:shadowDx="0"
             android:shadowDy="1"
             android:shadowRadius="1"            
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:text="我的文稿"
             android:background="@drawable/splash_ppt_icon_selector" />
 
@@ -82,18 +98,27 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:shadowColor="@android:color/white"
+            android:shadowColor="@android:color/black"
             android:shadowDx="0"
             android:shadowDy="1"
             android:shadowRadius="1"            
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:background="@drawable/splash_join_icon_selector"
             android:text="注册" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3" >
+        android:layout_weight="0.2"
+        android:gravity="center_vertical|center_horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:textSize="12sp"
+            android:text="© Fever Team 2013" />
+
     </LinearLayout>
 
 </LinearLayout>

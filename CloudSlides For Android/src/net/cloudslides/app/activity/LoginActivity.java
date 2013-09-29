@@ -1,26 +1,29 @@
 package net.cloudslides.app.activity;
+import java.util.Locale;
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.Param;
 import net.cloudslides.app.R;
 import net.cloudslides.app.model.User;
+import net.cloudslides.app.utils.HmacSha1Signature;
 import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MySharedPreferences;
 import net.cloudslides.app.utils.MyToast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 /**
  * 登录界面
@@ -85,7 +88,9 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if(MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_HAS_LOGINED_KEY, false).equals("true")
-				   &&MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_AUTO_LOGIN, false).equals("true"))
+				   &&MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_AUTO_LOGIN, false).equals("true")
+				   &&emailEdt.getText().toString().trim().equals(MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_EMAIL_KEY, false))
+				   &&passwordEdt.getText().toString().trim().equals(MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_PASSWORD_KEY, true)))
 				{
 					email=MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_EMAIL_KEY, false);
 					password=MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_PASSWORD_KEY, true);
@@ -108,8 +113,15 @@ public class LoginActivity extends Activity {
 	 */
 	private void doLogin()
 	{   
-		String url = "/app/login?"+"email="+email+"&"+"password="+password;
-		MyHttpClient.get(url, null, new AsyncHttpResponseHandler(){
+		 String seed = String.valueOf(System.currentTimeMillis() / 1000);
+		String pswEnc= HmacSha1Signature.encryptHMAC_SHA(password,seed);
+		RequestParams params = new RequestParams();
+		params.put(Param.UEMAIL,email.toLowerCase(Locale.getDefault()).trim());
+		params.put(Param.PASSWORD,pswEnc);
+		params.put(Param.SEED,seed);
+		
+		String url = "/user/login";
+		MyHttpClient.post(url, params, new AsyncHttpResponseHandler(){
 			@Override
 			public void onStart()
 			{
@@ -118,11 +130,12 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onSuccess(String response)//请求成功
 			{
+				Log.i("登陆返回:",response+"");
 				progressDialog.dismiss();
 				try
 				{
 					JSONObject jso=new JSONObject(response);
-					if(!jso.getBoolean("isSuccess"))//登录失败
+					if(jso.getInt("retcode")!=0)//登录失败
 					{
 						MyToast.alert(jso.getString("message"));
 					}
@@ -187,9 +200,9 @@ public class LoginActivity extends Activity {
 		try 
 		{
 			JSONObject jso =new JSONObject(response);
-			user.setUserId(jso.getJSONObject("data").getLong(Param.USER_ID_KEY));
-			user.setUserEmail(jso.getJSONObject("data").getString(Param.EMAIL_KEY));
+			user.setUserEmail(email.toLowerCase(Locale.getDefault()).trim());
 			user.setUserName(jso.getJSONObject("data").getString(Param.DISPLAY_NAME_KEY));
+			user.setToken(jso.getJSONObject("data").getString(Param.TOKEN));
 			HomeApp.setLocalUser(user);
 		} 
 		catch (JSONException e) 

@@ -125,7 +125,7 @@ public class AttendingMeetingFragment extends Fragment {
 						switch(item.getItemId())
 						{
 						case 0:attendMeeting(position-1);break;
-						case 1:quitMeeting(position-1);break;						
+						case 1:showConfirmQuitMeetingDialog(meetings.get(position-1).getMeetingTopic(), position-1);break;		
 						}
 					}
 				});
@@ -148,10 +148,9 @@ public class AttendingMeetingFragment extends Fragment {
 	 */
 	private void quitMeeting(final int position)
 	{
-		String url ="/quitMeeting";
+		String url ="/meeting/quit";
 		RequestParams params = new RequestParams();
 		params.put(Param.MEETING_ID_KEY, HomeApp.getLocalUser().getParticipatedMeeting().get(position).getMeetingId()+"");
-		params.put(Param.USER_ID_KEY,HomeApp.getLocalUser().getUserId()+"");
 		MyHttpClient.post(url, params, new AsyncHttpResponseHandler()
 		{
 			CustomProgressDialog loadingDialog;		
@@ -172,7 +171,7 @@ public class AttendingMeetingFragment extends Fragment {
 				{
 					JSONObject jso =new JSONObject(response);
 					
-					if(!jso.getBoolean("isSuccess"))
+					if(jso.getInt("retcode")!=0)
 					{
 						MyToast.alert("退出会议失败");
 					}
@@ -218,7 +217,7 @@ public class AttendingMeetingFragment extends Fragment {
 	 */
 	private void getAttendDingList()
 	{
-		String url ="/app/getMyAttendingMeetings?userId="+HomeApp.getLocalUser().getUserId();
+		String url ="/meeting/myAttendingMeetings";
 		MyHttpClient.get(url, null, new AsyncHttpResponseHandler()
 		{
 			CustomProgressDialog loadingDialog;		
@@ -239,7 +238,7 @@ public class AttendingMeetingFragment extends Fragment {
 				{
 					JSONObject jso =new JSONObject(response);
 					
-					if(!jso.getBoolean("isSuccess"))
+					if(jso.getInt("retcode")!=0)
 					{
 						MyToast.alert("获取列表信息失败");
 					}
@@ -252,7 +251,7 @@ public class AttendingMeetingFragment extends Fragment {
 							jso=jsa.getJSONObject(i);
 							Meeting meeting = new Meeting();
 							meeting.setMeetingId(jso.getLong("meetingId"));
-							meeting.setMeetingTopic(jso.getString("topic"));						
+							meeting.setMeetingTopic(jso.getString("topic"));								
 							meeting.setMeetingPpt(JSonParsePPT(jso.getJSONObject("ppt")));
 							meeting.setMeetingFounder(JSonParseFounder(jso.getJSONObject("founder")));
 							meetings.add(meeting);
@@ -329,7 +328,6 @@ public class AttendingMeetingFragment extends Fragment {
 		User user =new User();
 		try 
 		{
-			user.setUserId(userObj.getLong("userId"));
 			user.setUserName(userObj.getString("displayName"));
 			user.setUserEmail(userObj.getString("email"));
 		} 
@@ -348,9 +346,8 @@ public class AttendingMeetingFragment extends Fragment {
 	 */
 	private void joinMeeting(String meetingId)
 	{
-		String url ="/app/joinMeeting";
+		String url = "/meeting/join";
 		RequestParams params = new RequestParams();
-		params.put(Param.USER_ID_KEY,HomeApp.getLocalUser().getUserId()+"");
 		params.put(Param.MEETING_ID_KEY, meetingId);
 		MyHttpClient.post(url, params, new AsyncHttpResponseHandler()
 		{
@@ -372,13 +369,13 @@ public class AttendingMeetingFragment extends Fragment {
 				{
 					JSONObject jso =new JSONObject(response);
 					
-					if(!jso.getBoolean("isSuccess"))
+					if(jso.getInt("retcode")!=0)
 					{
 						MyToast.alert("加入会议失败!");
 					}
 					else
 					{
-						MyToast.alert("已添加新会议.");
+						MyToast.alert("成功添加新会议.");
 						getAttendDingList();
 					}
 				} 
@@ -436,6 +433,41 @@ public class AttendingMeetingFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				joinMeeting(id.getText().toString().trim());
+				dialog.dismiss();
+			}
+		});
+		dialog.setContentView(layout);
+		dialog.show();		
+	}
+	/**
+	 * 弹出退出会议确认对话框
+	 * @param topic
+	 * @param meetingId
+	 * @author Felix
+	 */
+	private void showConfirmQuitMeetingDialog(String topic,final int position)
+	{
+		final Dialog dialog =new Dialog(activity, R.style.mDialog);
+		View layout =LayoutInflater.from(activity).inflate(R.layout.normal_dialog,null);
+		Button cancel  = (Button)layout.findViewById(R.id.normal_dialog_cancel_btn);
+		Button confirm = (Button)layout.findViewById(R.id.normal_dialog_confirm_btn);
+		TextView title = (TextView)layout.findViewById(R.id.normal_dialog_title);
+		TextView   msg = (TextView)layout.findViewById(R.id.normal_dialog_message);
+		msg.setText("即将退出会议: "+topic+" 是否确认?");
+		title.setText("退出会议");
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		confirm.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) 
+			{
+				quitMeeting(position);
 				dialog.dismiss();
 			}
 		});

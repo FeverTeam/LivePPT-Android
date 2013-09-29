@@ -2,9 +2,10 @@ package net.cloudslides.app.fragment;
 
 import net.cloudslides.app.Define;
 import net.cloudslides.app.R;
+import net.cloudslides.app.activity.ChangePasswordActivity;
 import net.cloudslides.app.activity.HomeActivity;
 import net.cloudslides.app.activity.MainActivity;
-import net.cloudslides.app.utils.FileUtils;
+import net.cloudslides.app.utils.MyFileUtils;
 import net.cloudslides.app.utils.MySharedPreferences;
 import net.cloudslides.app.utils.MyToast;
 import android.app.Dialog;
@@ -100,7 +101,7 @@ public class MoreFragment extends Fragment {
 		
 		
 		Log.i("cacheDir", StorageUtils.getCacheDirectory(activity).getAbsolutePath());
-		cacheSize.setText(FileUtils.fileLength(FileUtils.getFolderSize(StorageUtils.getCacheDirectory(activity))));
+		cacheSize.setText(MyFileUtils.fileLength(MyFileUtils.getFolderSize(StorageUtils.getCacheDirectory(activity))));
 		clearCache.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -112,14 +113,15 @@ public class MoreFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				MyToast.alert("coming soon.");
+				Intent intent = new Intent(activity, ChangePasswordActivity.class);
+				startActivity(intent);
 			}
 		});
 		feedback.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				MyToast.alert("...意见接受态度照旧...");
+				MyToast.alert("暂不开放此项功能");
 			}
 		});
 		
@@ -234,7 +236,7 @@ public class MoreFragment extends Fragment {
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			return FileUtils.DeleteFile(StorageUtils.getCacheDirectory(activity));
+			return MyFileUtils.DeleteFile(StorageUtils.getCacheDirectory(activity));
 			
 		}
 
@@ -244,7 +246,7 @@ public class MoreFragment extends Fragment {
 			if(result)
 			{
 				MyToast.alert("清理完毕");
-				cacheSize.setText(FileUtils.fileLength(FileUtils.getFolderSize(StorageUtils.getCacheDirectory(activity))));
+				cacheSize.setText(MyFileUtils.fileLength(MyFileUtils.getFolderSize(StorageUtils.getCacheDirectory(activity))));
 			}else
 			{
 				MyToast.alert("清理失败");				

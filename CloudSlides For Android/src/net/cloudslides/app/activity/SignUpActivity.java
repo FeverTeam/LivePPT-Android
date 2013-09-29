@@ -1,17 +1,20 @@
 package net.cloudslides.app.activity;
 
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import net.cloudslides.app.Define;
 import net.cloudslides.app.Param;
 import net.cloudslides.app.R;
+import net.cloudslides.app.utils.AESEnc;
 import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,8 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /**
@@ -79,38 +81,57 @@ public class SignUpActivity extends Activity {
 					if(!isSame())
 					{
 						MyToast.alert("密码不一致，重新输入!");
-					}
-					else
-					{
-						proBar.setVisibility(View.VISIBLE);
-						RequestParams params =new RequestParams();
-						params.put(Param.SIGN_UP_EMAIL, email.getText().toString().trim());
-						params.put(Param.SIGN_UP_PASSWORD, password.getText().toString().trim());
-						params.put(Param.SIGN_UP_DISPALY_NAME, displayName.getText().toString().trim());
-						MyHttpClient.post("/app/register", params, new JsonHttpResponseHandler(){
-							@Override
-							public void onSuccess(JSONObject jso) {
-								proBar.setVisibility(View.GONE);
-								try 
-								{
-									MyToast.alert(jso.getString("message"));
-									if(jso.getBoolean("isSuccess"))
-									{										
-										finish();
-									}
-									
-								} catch (JSONException e) 
-								{
+					}else
+						if(!isEmail())
+						{
+							MyToast.alert("Email地址无效!");
+						}
+						else
+						{
+							String seed = String.valueOf(System.currentTimeMillis() / 1000)+"000000";	
+							String pswEnc= AESEnc.encryptAES(password.getText().toString().trim(),seed);
+							proBar.setVisibility(View.VISIBLE);
+							RequestParams params =new RequestParams();
+							params.put(Param.UEMAIL, email.getText().toString().toLowerCase(Locale.getDefault()).trim());
+							params.put(Param.SIGN_UP_PASSWORD,pswEnc);
+							params.put(Param.SIGN_UP_DISPALY_NAME, displayName.getText().toString().trim());
+							params.put(Param.SEED, seed);
+							MyHttpClient.post("/user/register", params, new AsyncHttpResponseHandler(){
+
+								@Override
+								public void onSuccess(String response) {
+									Log.i("注册返回:",response);
+									try 
+									{
+										JSONObject jso =new JSONObject(response);
+										MyToast.alert(jso.getString("message"));
+										if(jso.getInt("retcode")==0)
+										{										
+											finish();
+										}
+										
+									} catch (JSONException e) 
+									{
+										e.printStackTrace();
+									}				                			              
+					            }
+								
+								@Override
+								public void onFailure(Throwable e) {
 									e.printStackTrace();
+									MyToast.alert("网络异常");								
 								}
-				                			              
-				            }
-						});
-					}								
+								
+								@Override
+								public void onFinish() {
+									proBar.setVisibility(View.GONE);
+								}
+
+							});
+						}													
 			}
 		});
-	}
-	
+	}	
 	
 	/**
 	 * 判断两次密码输入是否相等
@@ -149,5 +170,19 @@ public class SignUpActivity extends Activity {
 			return false;
 		}
 		return true;
+	}
+	/**
+	 * 检查是否为邮箱
+	 * @param email
+	 * @return True/False
+	 * @author Felix
+	 */
+	public boolean isEmail() 
+	{
+		String e =email.getText().toString().trim();
+		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+		Pattern p = Pattern.compile(str);
+		Matcher m = p.matcher(e);
+		return m.matches();
 	}
 }
