@@ -77,5 +77,12 @@
     <style name="fileChooserIcon">
         <item name="android:layout_marginLeft">@dimen/list_item_padding</item>
 	</style>
+	
+    <style name="progressBarHorizontal_blue" parent="android:Widget.ProgressBar.Horizontal">
+		<item name="android:indeterminateOnly">false</item>
+		<item name="android:progressDrawable">@drawable/progressbar_blue</item>
+		<item name="android:minHeight">5dip</item>
+		<item name="android:maxHeight">5dip</item>
+	</style>
 
 </resources>

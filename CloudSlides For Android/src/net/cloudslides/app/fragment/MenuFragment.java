@@ -1,10 +1,13 @@
 package net.cloudslides.app.fragment;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
 import net.cloudslides.app.activity.FoundMeetingActivity;
 import net.cloudslides.app.activity.MainActivity;
 import net.cloudslides.app.utils.MyActivityManager;
+import net.cloudslides.app.utils.QuickShare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,8 +40,7 @@ public class MenuFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setUpView();
-		initView();
-		
+		initView();	
 	}
 	
 	
@@ -57,16 +59,24 @@ public class MenuFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				//TO-DO
+
+				ShareSDK.initSDK(getActivity());	
+				String title = getString(R.string.share_title);
+				String  text = getString(R.string.share_text);
+				String  link = "http://cloudslides.net";
+				new QuickShare(getActivity(), title, text, link).share();
 			}
 		});
 		exit.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {				
+			public void onClick(View v) {	
+				removeAuth();
+				ShareSDK.stopSDK(getActivity());
 				Handler h = new Handler();
 				h.postDelayed(new Runnable() 
-				{
+				{		
+					
 					public void run() 
 					{
 						MyActivityManager.getInstance().exit();
@@ -75,6 +85,7 @@ public class MenuFragment extends Fragment {
 			}
 		});
 	}
+	
 	/**
 	 * 切换MainActivity的内容
 	 * @param fragment
@@ -89,18 +100,31 @@ public class MenuFragment extends Fragment {
 			ma.switchContent(fragment);
 		}
 	}
+	
+	private void removeAuth()
+	{
+		Platform[] list=ShareSDK.getPlatformList(getActivity());
+	
+		for(int i = 0 ; i < list.length;i++)
+		{
+			if(list[i].isValid())
+			{
+				list[i].removeAccount();
+			}
+		}
+	}
 }
 
 /**
- * 菜单适配器
+ * 侧拉菜单适配器
  * @author Felix
  *
  */
 
 class MyExpandableListAdapter extends BaseExpandableListAdapter{
 	
-	private String[]groupName={"会议相关","我的文稿","更多","关于"};
-	private String[][]childName={{"发起会议","加入会议"},{},{},{}};
+	private String[]groupName={"会议相关","我的PPT","更多","关于"};
+	private String[][]childName={{"主持会议","观看会议"},{},{},{}};
 	
 	private int[] groupIcon={R.drawable.menu_meeting_icon,
 			                 R.drawable.menu_myppt_icon,

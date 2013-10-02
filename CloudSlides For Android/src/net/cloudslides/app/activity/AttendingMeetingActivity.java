@@ -7,12 +7,16 @@ import net.cloudslides.app.R;
 import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.utils.CustomProgressDialog;
+import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
+import net.cloudslides.app.utils.MyVibrator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.nostra13.universalimageloader.core.ImageLoader;
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
@@ -31,11 +35,13 @@ public class AttendingMeetingActivity extends Activity {
 	private int currPageIndex;
 	private CustomProgressDialog loadingDialog;
 	private boolean close=false;
+	private boolean isSuccess=false;//是否连接成功
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_attending_meeting);
+		MyActivityManager.getInstance().add(this);
 		setupView();
 		initPptUrls();
 		start();
@@ -109,10 +115,12 @@ public class AttendingMeetingActivity extends Activity {
 			{
 				@Override
 	            public void onOpen() 
-				{				
+				{			
+					MyVibrator.doVibration(500);
 					loadingDialog.dismiss();
 					mConnection.sendTextMessage(meetingId+"");//发送会议请求
-					MyToast.alert("正在进入会议...");	               
+					MyToast.alert("连接成功");	 
+					isSuccess=true;
 	            }
 				
 	            @Override
@@ -132,11 +140,16 @@ public class AttendingMeetingActivity extends Activity {
 	            {           
 	            	if(close)
 	            	{
-	            		MyToast.alert("会议结束");
+	            		MyToast.alert("结束观看会议");
 	 	               Log.i("onClose", reason+"");
 	            	}
 	            	else
 	            	{
+	            		if(isSuccess)
+	            		{
+	            			Toast.makeText(AttendingMeetingActivity.this,"网络中断,正在努力重新建立连接...",Toast.LENGTH_LONG).show();
+	            			isSuccess=false;
+	            		}
 	            		new Handler().postDelayed(new Runnable() {
 							
 							@Override

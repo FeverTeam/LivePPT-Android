@@ -3,18 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff" >
+
     <View
-	android:layout_width="match_parent"
-    android:layout_height="0.5dp"
-    android:layout_below="@+id/about_top_bar_layout"
-    android:background="#8a8a8a" /> 
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/about_top_bar_layout"
+        android:background="#8a8a8a" />
     <!-- bar -->
+
     <RelativeLayout
         android:id="@+id/about_top_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/navigationbar_background">
+        android:background="@drawable/navigationbar_background"
+        android:gravity="center_vertical" >
 
         <Button
             android:id="@+id/about_top_bar_btn"
@@ -32,13 +34,12 @@
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:shadowColor="@android:color/black"
-            android:textColor="@color/theme_orange"
             android:shadowDx="1"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
             android:text="关于"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/theme_blue" />
     </RelativeLayout>
 
     <ImageView
@@ -54,28 +55,34 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/imageView1"
-        android:layout_centerHorizontal="true"
-        android:text="CloudSlides"
-        android:typeface="serif"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:textSize="35sp"
+        android:gravity="center_horizontal|center_vertical"
         android:shadowColor="@android:color/darker_gray"
         android:shadowDx="2"
         android:shadowDy="2"
-        android:shadowRadius="5"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:shadowRadius="2"
+        android:text="CloudSlides"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="15sp"
         android:layout_centerHorizontal="true"
-        android:text="V 1.0.0 Beta" />
+        android:shadowColor="@android:color/darker_gray"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:text="云幻灯"
+        android:textColor="@android:color/black"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/textView3"
@@ -87,18 +94,6 @@
         android:text="© Fever Team 2013" />
 
     <TextView
-        android:id="@+id/about_email_text"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_marginBottom="35dp"
-        android:autoLink="email"
-        android:paddingLeft="20dp"
-        android:textColor="@android:color/black"
-        android:text="联系邮箱: cloudslides@Gmail.com" />
-
-    <TextView
         android:id="@+id/textView4"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -107,7 +102,28 @@
         android:layout_marginBottom="10dp"
         android:autoLink="web"
         android:paddingLeft="20dp"
-        android:textColor="@android:color/black"
-        android:text="官方网站: http://cloudslides.net" />
+        android:text="官方网站: http://cloudslides.net"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/about_version_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:text="V 1.0.4 Beta" />
+
+    <TextView
+        android:id="@+id/about_email_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_marginBottom="35dp"
+        android:autoLink="email"
+        android:paddingLeft="20dp"
+        android:text="联系邮箱: cloudslides@gmail.com"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

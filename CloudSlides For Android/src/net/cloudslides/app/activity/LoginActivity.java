@@ -1,5 +1,6 @@
 package net.cloudslides.app.activity;
 import java.util.Locale;
+
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.Param;
@@ -10,18 +11,24 @@ import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MySharedPreferences;
 import net.cloudslides.app.utils.MyToast;
+import net.cloudslides.app.utils.MyVibrator;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -39,6 +46,7 @@ public class LoginActivity extends Activity {
 	private ProgressDialog progressDialog;
 	private String email;
 	private String password;
+	private TextView signUp;
 	private int jumpFlag;//标记登录成功后跳转到哪
 	private boolean ignoreCheck=false;//是否无视checkbox
 
@@ -69,6 +77,7 @@ public class LoginActivity extends Activity {
 		loginBtn=(Button)findViewById(R.id.login_button);
 		rememberCheck=(CheckBox)findViewById(R.id.remember_checkbox);
 		autoLoginCheck=(CheckBox)findViewById(R.id.auto_login_checkBox);
+		signUp = (TextView)findViewById(R.id.login_sign_up_text);
 		
 	}
 	/**
@@ -87,6 +96,10 @@ public class LoginActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				if(!checkIfComplete())
+				{
+					return;
+				}
 				if(MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_HAS_LOGINED_KEY, false).equals("true")
 				   &&MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_AUTO_LOGIN, false).equals("true")
 				   &&emailEdt.getText().toString().trim().equals(MySharedPreferences.getShared(Define.CONFINFO, Define.LOCAL_USER_INFO_EMAIL_KEY, false))
@@ -106,6 +119,32 @@ public class LoginActivity extends Activity {
 				doLogin();
 			}
 		});
+		signUp.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
+				startActivity(intent);
+				MyVibrator.doVibration(50);
+				finish();
+			}
+		});
+	}
+	
+	/**
+	 * 检查登录信息是否完整
+	 * @return 是否为空
+	 * @author Felix
+	 */
+	private boolean checkIfComplete()
+	{
+		if(emailEdt.getText().toString().trim().equals("")||passwordEdt.toString().trim().equals(""))
+		{
+			MyToast.alert("请填写完整的登录信息");
+			return false;
+		}
+		return true;
+		
 	}
 	/**
 	 * 登录操作
@@ -131,13 +170,13 @@ public class LoginActivity extends Activity {
 			public void onSuccess(String response)//请求成功
 			{
 				Log.i("登陆返回:",response+"");
-				progressDialog.dismiss();
 				try
 				{
 					JSONObject jso=new JSONObject(response);
 					if(jso.getInt("retcode")!=0)//登录失败
 					{
-						MyToast.alert(jso.getString("message"));
+						MyToast.alert(jso.getInt("retcode"));
+						progressDialog.dismiss();
 					}
 					else//登录成功
 					{
@@ -165,7 +204,14 @@ public class LoginActivity extends Activity {
 						{
 							MySharedPreferences.SaveShared(Define.CONFINFO, Define.LOCAL_USER_INFO_AUTO_LOGIN, "false", false);
 						}
-						jump();
+						new Handler().postDelayed(new Runnable() {
+							
+							@Override
+							public void run() {
+						    	progressDialog.dismiss();
+								jump();								
+							}
+						}, 1000);
 					}			
 				} 
 				catch (JSONException e) 
@@ -176,17 +222,11 @@ public class LoginActivity extends Activity {
 			@Override
 		     public void onFailure(Throwable e, String response) 
 			{
+		    	progressDialog.dismiss();
 				e.printStackTrace();
 				MyToast.alert("网络异常,登录失败!");
-		     }
-		    @Override
-		    public void onFinish()
-		    {
-		    	progressDialog.dismiss();
-		    }
-			
-		});
-		
+		     }			
+		});		
 	}
 	
 	/**

@@ -62,7 +62,7 @@ public class CoverFlowAdapter extends BaseAdapter {
 		Log.i("url", url);
 		i.setScaleType(ImageView.ScaleType.FIT_XY);
 		getImage(i, url);
-	    i.setLayoutParams(new CoverFlow.LayoutParams(Define.WIDTH_PX*400/640,Define.HEIGHT_PX*6/10));
+	    i.setLayoutParams(new CoverFlow.LayoutParams(Define.WIDTH_PX*420/640,Define.HEIGHT_PX*3/10));
 		return i;
 	}
 	/**
@@ -77,7 +77,7 @@ public class CoverFlowAdapter extends BaseAdapter {
         .cacheInMemory(true) 
         .cacheOnDisc(true)        
         .showImageOnFail(R.drawable.ic_error)
-        .showStubImage(R.drawable.empty_picture)
+        .showStubImage(R.drawable.empty_picture_144)
         .showImageForEmptyUri(R.drawable.ic_error)  
         .bitmapConfig(Config.RGB_565)//控制图片大小节省内存防止配合coverflow出现的卡顿现象
         .build();		

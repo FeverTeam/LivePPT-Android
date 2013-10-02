@@ -15,7 +15,7 @@ public class MyHttpClient {
 
 //	  public static final String BASE_URL = "http://192.168.103.1:9000";
 //	  public static final String WS_URL ="ws://192.168.103.1:9000";
-	public static final String BASE_URL = "http://cloudslides.net:9000";
+	public static final String BASE_URL = "http://cloudslides.net:80";
 	  public static final String WS_URL ="ws://cloudslides.net:9000";
 	  private static AsyncHttpClient client = new AsyncHttpClient();
 	  

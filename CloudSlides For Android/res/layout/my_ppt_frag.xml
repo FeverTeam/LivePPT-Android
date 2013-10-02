@@ -53,11 +53,11 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:shadowColor="@android:color/black"
-            android:textColor="@color/theme_orange"
+            android:textColor="@color/theme_blue"
             android:shadowDx="1"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
-            android:text="我的文稿"
+            android:text="我的PPT"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <!-- <View

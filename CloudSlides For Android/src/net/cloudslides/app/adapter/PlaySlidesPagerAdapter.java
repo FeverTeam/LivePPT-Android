@@ -2,6 +2,7 @@ package net.cloudslides.app.adapter;
 
 import java.util.ArrayList;
 
+import net.cloudslides.app.R;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView.ScaleType;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
@@ -22,7 +24,14 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 	private Context context;
 	private int i;
 	private int j;
-	
+	DisplayImageOptions options = new DisplayImageOptions.Builder()        
+    .cacheInMemory(true)         
+    .cacheOnDisc(true)
+    .bitmapConfig(Bitmap.Config.RGB_565)
+    .showImageOnFail(R.drawable.ic_error_landscape)
+    .showStubImage(R.drawable.empty_picture)
+    .showImageForEmptyUri(R.drawable.ic_error_landscape)
+    .build();
 	public PlaySlidesPagerAdapter(ArrayList<String> urls,Context c)
 	{
 		this.urls=urls;
@@ -53,7 +62,7 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup container, final int position) {
 		PhotoView iv=new PhotoView(context);
 		iv.setScaleType(ScaleType.FIT_XY);		
-		ImageLoader.getInstance().displayImage(urls.get(position), iv,new ImageLoadingListener() {
+		ImageLoader.getInstance().displayImage(urls.get(position), iv,options,new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {

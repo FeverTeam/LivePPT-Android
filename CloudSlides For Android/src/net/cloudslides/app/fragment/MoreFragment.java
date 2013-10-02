@@ -1,18 +1,20 @@
 package net.cloudslides.app.fragment;
 
 import net.cloudslides.app.Define;
+import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
 import net.cloudslides.app.activity.ChangePasswordActivity;
+import net.cloudslides.app.activity.FeedbackActivity;
 import net.cloudslides.app.activity.HomeActivity;
 import net.cloudslides.app.activity.MainActivity;
 import net.cloudslides.app.utils.MyFileUtils;
 import net.cloudslides.app.utils.MySharedPreferences;
 import net.cloudslides.app.utils.MyToast;
+import net.cloudslides.app.utils.MyUpdateManager;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +34,7 @@ public class MoreFragment extends Fragment {
 	private View layout;
 	private Button menu;
 	private Button logOut;
+	private TextView userInfo;
 	private TextView cacheSize;
 	private CheckBox autoLoginBox;
 	private MainActivity activity;
@@ -68,6 +71,7 @@ public class MoreFragment extends Fragment {
 		     upgrade = (RelativeLayout)layout.findViewById(R.id.more_check_update_btn);
 		    feedback = (RelativeLayout)layout.findViewById(R.id.more_feedback_btn);	
 		   changePsw = (RelativeLayout)layout.findViewById(R.id.more_change_psw_btn);
+		    userInfo = (TextView)layout.findViewById(R.id.more_user_info_text);
 	}
 	
 	private void initView()
@@ -101,6 +105,7 @@ public class MoreFragment extends Fragment {
 		
 		
 		Log.i("cacheDir", StorageUtils.getCacheDirectory(activity).getAbsolutePath());
+		userInfo.setText(HomeApp.getLocalUser().getUserName()+" "+"("+HomeApp.getLocalUser().getUserEmail()+")");
 		cacheSize.setText(MyFileUtils.fileLength(MyFileUtils.getFolderSize(StorageUtils.getCacheDirectory(activity))));
 		clearCache.setOnClickListener(new OnClickListener() {
 			
@@ -121,7 +126,8 @@ public class MoreFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				MyToast.alert("暂不开放此项功能");
+				Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+				startActivity(intent);
 			}
 		});
 		
@@ -130,13 +136,7 @@ public class MoreFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				MyToast.alert("正在检测最新版本...");
-				new Handler().postDelayed(new Runnable() {
-					
-					@Override
-					public void run() {
-						MyToast.alert("已经是最新版本.");
-					}
-				}, 1500);
+				new MyUpdateManager(getActivity()).checkUpdate(false);
 			}
 		});		
 	}

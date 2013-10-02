@@ -45,11 +45,11 @@
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:shadowColor="@android:color/black"
-            android:textColor="@color/theme_orange"
+            android:textColor="@color/theme_blue"
             android:shadowDx="1"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
-            android:text="加入会议"
+            android:text="观看会议"
             android:textAppearance="?android:attr/textAppearanceMedium" />
          <!-- <View
             android:layout_width="2dp"

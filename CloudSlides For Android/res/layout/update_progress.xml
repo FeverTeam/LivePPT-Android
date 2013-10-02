@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+<RelativeLayout
+    android:id="@+id/update_dialog_main_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:paddingBottom="10dp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:background="@drawable/shape_radius_rectangle" >
+
+    <TextView
+        android:id="@+id/update_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:shadowColor="@android:color/white"
+        android:shadowDx="-1"
+        android:shadowDy="-1"
+        android:shadowRadius="5"
+        android:textSize="18sp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="应用更新"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/update_dialog_title"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="10dp"
+        android:alpha="0.3"
+        android:background="@color/dark_gray" />
+
+    <TextView
+        android:id="@+id/update_dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/view1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@android:color/white"
+        android:shadowColor="@android:color/white"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textSize="18sp"
+        android:text="正在更新..."/>
+  
+  <ProgressBar
+  	android:id="@+id/update_dialog_progressbar"
+  	android:layout_width="match_parent"
+  	android:layout_height="25dp"
+  	style="@style/progressBarHorizontal_blue"
+  	android:layout_alignLeft="@+id/update_dialog_message"
+    android:layout_alignRight="@+id/update_dialog_message"
+    android:layout_below="@+id/update_dialog_message"
+    android:layout_marginTop="10dp"/>
+
+
+    <Button
+        android:id="@+id/update_dialog_cancel_btn"
+        android:layout_width="150dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/update_dialog_progressbar"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_black_and_red_selector"
+        android:text="取消更新"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
+
+</RelativeLayout>

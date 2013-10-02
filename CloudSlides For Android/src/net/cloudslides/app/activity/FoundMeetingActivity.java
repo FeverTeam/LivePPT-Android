@@ -11,6 +11,7 @@ import net.cloudslides.app.custom.widget.CoverFlow;
 import net.cloudslides.app.model.Meeting;
 import net.cloudslides.app.model.PptFile;
 import net.cloudslides.app.utils.CustomProgressDialog;
+import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
 import org.json.JSONArray;
@@ -21,6 +22,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,6 +47,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class FoundMeetingActivity extends Activity {
@@ -69,6 +72,7 @@ public class FoundMeetingActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_found_meeting);
+		MyActivityManager.getInstance().add(this);
 		setupView();
 		initView();
 		getFoundedMeeting(false);
@@ -248,12 +252,12 @@ public class FoundMeetingActivity extends Activity {
 						}
 						else
 						{
-							cf.setSelection(meetings.size()/2);
+							cf.setSelection(0);
 						}
 					}
 					else
 					{
-						Log.i("获取发起的会议列表","失败");
+						MyToast.alert(jso.getInt("retcode"));
 					}
 					
 				} catch (JSONException e) 
@@ -355,7 +359,7 @@ public class FoundMeetingActivity extends Activity {
 
 						if(jso.getInt("retcode")!=0)
 						{
-							MyToast.alert(jso.getString("message"));
+							MyToast.alert(jso.getInt("retcode"));
 						}
 						else
 						{
@@ -451,7 +455,7 @@ public class FoundMeetingActivity extends Activity {
 					
 					if(jso.getInt("retcode")!=0)
 					{
-						MyToast.alert("添加失败，请重试");
+						MyToast.alert(jso.getInt("retcode"));
 					}
 					else
 					{
@@ -507,8 +511,15 @@ public class FoundMeetingActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				foundNewMeeting(topic.getText().toString().trim(), HomeApp.getLocalUser().getPpts().get(position).getPptId());
-				dialog.dismiss();
+				if(topic.getText().toString().trim().equals(""))
+				{
+					MyToast.alert("会议主题不能为空");
+				}
+				else
+				{
+					foundNewMeeting(topic.getText().toString().trim(), HomeApp.getLocalUser().getPpts().get(position).getPptId());
+					dialog.dismiss();
+				}
 			}
 		});
 		dialog.setContentView(layout);
@@ -549,7 +560,7 @@ public class FoundMeetingActivity extends Activity {
 					
 					if(jso.getInt("retcode")!=0)
 					{
-						MyToast.alert("会议删除失败，请重试");
+						MyToast.alert(jso.getInt("retcode"));
 					}
 					else
 					{
@@ -621,6 +632,15 @@ public class FoundMeetingActivity extends Activity {
 	 *
 	 */
 	class GridAdapter extends BaseAdapter{
+		
+		DisplayImageOptions options = new DisplayImageOptions.Builder()        
+        .cacheInMemory(true)         
+        .cacheOnDisc(true)
+        .bitmapConfig(Bitmap.Config.RGB_565)
+        .showImageOnFail(R.drawable.ic_error)
+        .showStubImage(R.drawable.empty_picture_144)
+        .showImageForEmptyUri(R.drawable.ic_error)
+        .build();
 		
 		private List<PptFile> ppts;		
 		public GridAdapter(List<PptFile> list)

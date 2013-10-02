@@ -15,14 +15,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <TextView
             android:layout_gravity="center_horizontal|center_vertical"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:typeface="serif"
             android:textSize="48sp"
             android:shadowColor="@android:color/black"
@@ -30,6 +31,19 @@
             android:shadowDy="5"
             android:shadowRadius="2"
             android:text="CloudSlides" />
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:textColor="@android:color/white"
+            android:shadowColor="@android:color/black"
+            android:layout_marginBottom="1dp"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="2"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:text="云幻灯" />
         </LinearLayout>
 
     </LinearLayout>
@@ -46,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:hint="Email:"
+            android:hint="登录邮箱:"
             android:paddingLeft="5dp"
             android:singleLine="true"
             android:textColor="@android:color/white"
@@ -61,7 +75,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="20dp"            
-            android:hint="Password:"
+            android:hint="密码:"
             android:paddingLeft="5dp"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray"
@@ -75,7 +89,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             style="@style/MyCheckBox"
-            android:text="记住密码" />
+            android:text=" 记住密码" />
 
         <CheckBox
             android:id="@+id/auto_login_checkBox"
@@ -84,7 +98,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             style="@style/MyCheckBox"
-            android:text="自动登录" />
+            android:text=" 自动登录" />
 
         <Button
             android:id="@+id/login_button"
@@ -97,7 +111,7 @@
             android:textStyle="bold"
             android:background="@drawable/login_button_selector"
             android:textColor="@android:color/white"
-            android:text="Login" />
+            android:text="登录" />
 
     </LinearLayout>
 
@@ -105,7 +119,20 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/login_sign_up_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:clickable="true" 
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:text="没有账号？立刻注册!" />
 
     </LinearLayout>
 

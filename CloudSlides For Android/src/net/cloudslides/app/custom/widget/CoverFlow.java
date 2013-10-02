@@ -17,7 +17,7 @@ public class CoverFlow extends Gallery {
 
 	private Camera mCamera = new Camera();
     private int mMaxRotationAngle =60;
-    private int mMaxZoom =-60;  
+    private int mMaxZoom =-70;  
     private int mCoveflowCenter; 
     
     public CoverFlow(Context context) {

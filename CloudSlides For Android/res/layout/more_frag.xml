@@ -34,7 +34,7 @@
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:shadowColor="@android:color/black"
-            android:textColor="@color/theme_orange"
+            android:textColor="@color/theme_blue"
             android:shadowDx="1"
             android:shadowDy="1.0"
             android:shadowRadius="2.0"
@@ -47,14 +47,21 @@
             android:background="@drawable/divider" /> -->
 
     </RelativeLayout>
-   
-    <!--描述A  -->
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/more_top_bar_layout">
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">  
+        
+         <!--描述A  -->
     <TextView
         android:id="@+id/dec_text_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/more_change_psw_btn"
-        android:layout_below="@+id/more_top_bar_layout"
         android:layout_marginTop="16dp"
         android:textColor="#787878"
         android:text="帐号相关" />
@@ -68,18 +75,43 @@
             android:background="#787878"
             android:layout_below="@+id/dec_text_1"/>
      
-     
-     <!-- 修改密码 -->
-    <RelativeLayout
-        android:id="@+id/more_change_psw_btn"
+     <!-- 用户信息 -->
+     <RelativeLayout
+        android:id="@+id/more_user_info"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:clickable="false"
+        android:background="@drawable/tableview_top_button_selector">
+
+        <TextView
+            android:id="@+id/more_user_info_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"
+            android:text="M (cloudslides@gmail.com)" />
+
+
+    </RelativeLayout>
+     <!-- 修改密码 -->
+    <RelativeLayout
+        android:id="@+id/more_change_psw_btn"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:clickable="true"
-        android:background="@drawable/tableview_top_button_selector"
-        android:layout_below="@+id/more_top_bar_layout">
+        android:background="@drawable/tableview_mid_button_selector"
+        android:layout_below="@+id/more_user_info">
 
         <TextView
             android:layout_width="wrap_content"
@@ -291,7 +323,11 @@
         android:shadowDx="0"
         android:shadowDy="2"
         android:shadowRadius="2"
-        android:text="注销此帐号" />
+        android:text="登出当前帐号" />
+        
+    </RelativeLayout>
+   
+   </ScrollView>
 
     
 </RelativeLayout>

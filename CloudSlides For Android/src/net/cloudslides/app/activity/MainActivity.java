@@ -10,12 +10,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-
+import cn.sharesdk.framework.ShareSDK;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 
 public class MainActivity extends SlidingFragmentActivity {
+
+
+
 	private Fragment mContent;
 	public SlidingMenu sm;
 	private int contentId;  
@@ -47,16 +50,15 @@ public class MainActivity extends SlidingFragmentActivity {
 		.beginTransaction()
 		.replace(R.id.main_content_frame, mContent)
 		.commit();
-		initSlidingMenu();		
+		initSlidingMenu();	
+		ShareSDK.initSDK(this);	
 	}
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
-	}
-	
-	
+	}	
 	
 	/**
 	 * 侧拉菜单自动切换状态

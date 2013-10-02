@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Cloud Slides</string>
+    <string name="app_name">CloudSlides云幻灯</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
@@ -20,5 +20,75 @@
     <string name="error_selecting_file">文件选择出错</string>
     <string name="chooser_title">选择文件</string>
     <string name="title_activity_change_password">ChangePasswordActivity</string>
+
+    <!-- shareSDK -->
+    <string name="weibo_oauth_regiseter">应用授权</string>
+    <string name="website">http://www.shareSDK.cn</string>
+    <string name="weibo_upload_content">分享图片</string>
+    <string name="wechat_client_inavailable">目前您的微信版本过低或未安装微信，需要安装微信才能使用</string>
+    <string name="google_plus_client_inavailable">Google+ 版本过低或者没有安装，需要升级或安装Google+才能使用！</string>
+    <string name="qq_client_inavailable">QQ 版本过低或者没有安装，需要升级或安装QQ才能使用！</string>
+    <string name="sinaweibo">新浪微博</string>
+    <string name="tencentweibo">腾讯微博</string>
+    <string name="qzone">QQ空间</string>
+    <string name="wechat">微信好友</string>
+    <string name="wechatmoments">微信朋友圈</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="renren">人人网</string>
+    <string name="kaixin">开心网</string>
+    <string name="email">邮件</string>
+    <string name="shortmessage">信息</string>
+    <string name="sohumicroblog">搜狐微博</string>
+    <string name="sohusuishenkan">搜狐随身看</string>
+    <string name="neteasemicroblog">网易微博</string>
+    <string name="douban">豆瓣</string>
+    <string name="youdao">有道云笔记</string>
+    <string name="evernote">印象笔记</string>
+    <string name="linkedin">Linked In</string>
+    <string name="googleplus">Google+</string>
+    <string name="foursquare">FourSquare</string>
+    <string name="qq">QQ</string>
+
+    <!-- oneKeyShare -->
+
+    <string name="cancel">取消</string>
+    <string name="finish">完成</string>
+    <string name="sharing">分享操作正在后台进行…</string>
+    <string name="share_to">分享到</string>
+    <string name="share">分享</string>
+    <string name="multi_share">图文分享</string>
+    <string name="share_completed">分享成功</string>
+    <string name="share_canceled">分享已取消</string>
+    <string name="select_one_plat_at_least">请选择一个目标平台</string>
+    <string name="list_friends">%s的朋友</string>
+    <string name="share_failed">分享失败</string>
+
+    <!-- 分享描述文本 -->
+    <string name="share_title">CloudSlides云幻灯</string>
+    <string name="share_text">一款跨平台PPT云直播应用#在线PPT会议#没有投影仪,一样可以开会议;#易用#几乎无需学习,一切皆如你所愿;#跨平台#移动平台、PC平台双结合.#免费#高质量的服务,而且免费.</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
+    
+    <!-- 服务器请求返回码 -->
+    <string name="code_0">请求成功</string>
+    <!-- 通用 -->
+    <string name="code_101">参数异常</string>
+    <string name="code_102">服务器内部错误</string>
+    <string name="code_103">通信密钥不正确</string>
+    <string name="code_999">未知错误</string>
+    <!-- 用户 -->
+    <string name="code_201">相同的Email已注册</string>
+    <string name="code_202">该Email的用户未注册</string>
+    <string name="code_203">帐号与密码不配对</string>
+    <!-- PPT -->
+    <string name="code_301">指定的PPT不存在</string>
+    <string name="code_302">指定PPT的页码超出范围</string>
+    <string name="code_303">PPT未完成转换</string>
+    <string name="code_304">指定文件不是合法的PPT或PPTX格式</string>
+    <string name="code_305">指定的PPT并不属于您</string>
+    <string name="code_306">您没有权限操作该PPT</string>
+    <!-- 会议 -->
+    <string name="code_401">不存在指定的会议</string>
+    <string name="code_402">您没有权限进行相关的会议操作</string>
 
 </resources>

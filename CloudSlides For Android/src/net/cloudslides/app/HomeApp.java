@@ -84,10 +84,9 @@ public class HomeApp extends Application {
 		DisplayImageOptions options = new DisplayImageOptions.Builder()        
         .cacheInMemory(true)         
         .cacheOnDisc(true)
-        //.imageScaleType(ImageScaleType.EXACTLY)
         .bitmapConfig(Bitmap.Config.RGB_565)
         .showImageOnFail(R.drawable.ic_error)
-        .showStubImage(R.drawable.empty_picture)
+        .showStubImage(R.drawable.empty_picture_144)
         .showImageForEmptyUri(R.drawable.ic_error)
         .build();
 		

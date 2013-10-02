@@ -27,7 +27,7 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:textSize="25sp"
-                android:text="Sign Up" />
+                android:text="注册" />
 
             <TextView
                 android:id="@+id/sign_up_title_2"
@@ -54,18 +54,13 @@
             android:gravity="center_vertical"
             android:layout_weight="1"  >
 
-             <TextView
-                 android:id="@+id/sign_up_email_text"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:textColor="#888888"
-                 android:text="Email:" />
 
              <EditText
                  android:id="@+id/sign_up_email_edit_text"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content" 
-                 android:hint="输入登陆邮箱..."
+                 android:padding="3dp"
+                 android:hint="请输入登录邮箱:"
                  android:singleLine="true"
                  android:background="@drawable/sign_up_edit_text_selector">
              </EditText>             
@@ -79,18 +74,13 @@
             android:gravity="center_vertical"
             android:layout_weight="1"  >
              
-             <TextView
-                 android:id="@+id/sign_up_password_text"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:textColor="#888888"
-                 android:text="Password:" />
 
              <EditText
                  android:id="@+id/sign_up_password_edit_text"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:hint="输入登陆密码..."
+                 android:padding="3dp"
+                 android:hint="请输入密码:"
                  android:singleLine="true"
                  android:background="@drawable/sign_up_edit_text_selector"
                  android:inputType="textPassword" >
@@ -106,18 +96,13 @@
             android:gravity="center_vertical"
             android:layout_weight="1"  >
              
-              <TextView
-                 android:id="@+id/sign_up_confirm_password_text"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:textColor="#888888"
-                 android:text="Confirm Password:" />
 
              <EditText
                  android:id="@+id/sign_up_confirm_password_edit_text"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:hint="确认登陆密码..."
+                 android:padding="3dp"
+                 android:hint="确认密码:"
                  android:singleLine="true"
                  android:background="@drawable/sign_up_edit_text_selector"
                  android:inputType="textPassword" >
@@ -137,18 +122,13 @@
             android:gravity="center_vertical"
             android:layout_weight="1"  >
              
-              <TextView
-                 android:id="@+id/sign_up_display_name_text"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:textColor="#888888"
-                 android:text="Dispaly Name:" />
 
              <EditText
                  android:id="@+id/sign_up_display_name_edit_text"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content" 
-                 android:hint="输入用户名..."
+                 android:padding="3dp"
+                 android:hint="如何称呼您?"
                  android:singleLine="true"
                  android:background="@drawable/sign_up_edit_text_selector">
              </EditText>
@@ -171,7 +151,9 @@
                  android:layout_height="wrap_content"
                  android:textColor="@android:color/white"
                  android:background="@drawable/login_button_selector"
-                 android:text="立刻 注册" />
+            	 android:textSize="16sp"
+            	 android:textStyle="bold"
+                 android:text="立刻注册" />
 
              <ProgressBar
                  android:id="@+id/sign_up_pro_bar"

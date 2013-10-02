@@ -9,6 +9,7 @@ import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.thirdlibs.widget.wheel.ArrayWheelAdapter;
 import net.cloudslides.app.thirdlibs.widget.wheel.WheelView;
+import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
@@ -38,6 +39,7 @@ public class PlaySlidesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_play_slides);
+		MyActivityManager.getInstance().add(this);
 		setupView();
 		initPptUrls();
 		initView();
@@ -71,7 +73,10 @@ public class PlaySlidesActivity extends Activity {
 		});
 	}
 	
-	
+	/**
+	 * 初始化ppt图片地址
+	 * @author Felix
+	 */
 	private void initPptUrls()
 	{
 		pptPos=getIntent().getIntExtra(Define.Intent_KEY_PPT_POSITION, 0);

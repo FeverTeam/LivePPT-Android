@@ -6,9 +6,9 @@
     android:background="@drawable/intro_page_3" >
 
     <RelativeLayout
-        android:layout_height="0dip"
         android:layout_width="fill_parent"
-        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
         android:gravity="bottom" >
 
         <Button
@@ -20,7 +20,7 @@
             android:textColor="@android:color/white"
             android:background="@drawable/start_button_selector"
             android:layout_centerHorizontal="true"
-            android:text="马上开始CloudSlides"
+            android:text="马上开始CloudSlides!"
             android:textStyle="bold"/>
 
     </RelativeLayout>

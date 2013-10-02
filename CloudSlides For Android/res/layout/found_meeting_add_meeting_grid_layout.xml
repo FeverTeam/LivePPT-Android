@@ -11,11 +11,11 @@
         android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical|center_horizontal"
-        android:textColor="@color/theme_orange"
+        android:textColor="@android:color/white"
         android:shadowColor="@android:color/white"
-        android:shadowDx="-1"
-        android:shadowDy="-1"
-        android:shadowRadius="5"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
         android:textSize="18sp"
         android:text="请选择发起新会议的文稿" />
 

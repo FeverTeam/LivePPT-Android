@@ -46,4 +46,8 @@ public class Param {
 	public static final String OLDPASSWORD = "oldPassword";
 	
 	public static final String NEWPASSWORD = "newPassword";
+	
+	public static final String VERSIONCODE = "version_code";
+	
+	public static final String TEXT = "text";
 }

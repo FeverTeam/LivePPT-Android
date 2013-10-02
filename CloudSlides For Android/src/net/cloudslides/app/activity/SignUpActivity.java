@@ -104,10 +104,14 @@ public class SignUpActivity extends Activity {
 									try 
 									{
 										JSONObject jso =new JSONObject(response);
-										MyToast.alert(jso.getString("message"));
 										if(jso.getInt("retcode")==0)
-										{										
+										{		
+											MyToast.alert("注册成功!");
 											finish();
+										}
+										else
+										{
+											MyToast.alert(jso.getInt("retcode"));
 										}
 										
 									} catch (JSONException e) 

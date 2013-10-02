@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -142,6 +143,7 @@ public class AttendingMeetingFragment extends Fragment {
 		startActivity(intent);
 		
 	}
+	
 	/**
 	 * 退出会议
 	 * @author Felix
@@ -173,7 +175,7 @@ public class AttendingMeetingFragment extends Fragment {
 					
 					if(jso.getInt("retcode")!=0)
 					{
-						MyToast.alert("退出会议失败");
+						MyToast.alert(jso.getInt("retcode"));
 					}
 					else
 					{
@@ -211,6 +213,7 @@ public class AttendingMeetingFragment extends Fragment {
 		    }
 		});		
 	}
+	
 	/**
 	 * 获取参与会议的列表
 	 * @author Felix
@@ -240,7 +243,7 @@ public class AttendingMeetingFragment extends Fragment {
 					
 					if(jso.getInt("retcode")!=0)
 					{
-						MyToast.alert("获取列表信息失败");
+						MyToast.alert(jso.getInt("retcode"));
 					}
 					else
 					{
@@ -290,8 +293,7 @@ public class AttendingMeetingFragment extends Fragment {
 				}, 700);		    	
 		    }
 		});
-	}
-	
+	}	
 	
 	/**
 	 * 解析JSON数组 data域 的PPT对象
@@ -371,7 +373,7 @@ public class AttendingMeetingFragment extends Fragment {
 					
 					if(jso.getInt("retcode")!=0)
 					{
-						MyToast.alert("加入会议失败!");
+						MyToast.alert(jso.getInt("retcode"));
 					}
 					else
 					{
@@ -408,6 +410,7 @@ public class AttendingMeetingFragment extends Fragment {
 		    }
 		});
 	}
+	
 	/**
 	 * 弹出加入新会议的对话框
 	 * @param position
@@ -420,6 +423,7 @@ public class AttendingMeetingFragment extends Fragment {
 		Button cancel  = (Button)layout.findViewById(R.id.attend_meeting_dialog_cancel_btn);
 		Button confirm = (Button)layout.findViewById(R.id.attend_meeting_dialog_confirm_btn);
 		final EditText  id = (EditText)layout.findViewById(R.id.attend_meeting_dialog_meeting_id);
+		id.setInputType(InputType.TYPE_CLASS_NUMBER);
 		
 		cancel.setOnClickListener(new OnClickListener() {
 			
@@ -432,13 +436,21 @@ public class AttendingMeetingFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				joinMeeting(id.getText().toString().trim());
-				dialog.dismiss();
+				if(id.getText().toString().trim().equals(""))
+				{
+					MyToast.alert("会议编号不能为空");
+				}
+				else
+				{
+					joinMeeting(id.getText().toString().trim());
+					dialog.dismiss();
+				}
 			}
 		});
 		dialog.setContentView(layout);
 		dialog.show();		
 	}
+	
 	/**
 	 * 弹出退出会议确认对话框
 	 * @param topic
@@ -474,6 +486,7 @@ public class AttendingMeetingFragment extends Fragment {
 		dialog.setContentView(layout);
 		dialog.show();		
 	}
+	
 	/**
 	 * 会议列表适配器,以及退出会议动画效果
 	 * @author Felix

@@ -43,7 +43,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -52,23 +51,29 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MyPptFragment extends Fragment {
-	
 
 	//PPT和PPTX文件的ContentType
     public static final String PPT_CONTENTTYPE = "application/vnd.ms-powerpoint";
+    
     public static final String PPTX_CONTENTTYPE = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
 	
-	private Button menuBtn;
-	private Button uploadBtn;
-	private View layout;
-	private MainActivity mActivity;
-	private ArrayList<PptFile> pptList;
-	private ItemAdapter adapter;
-	private PullToRefreshListView xListview;
-	private static final int  REQUEST_CODE=0x1234;
+    private Button menuBtn;
 	
+    private Button uploadBtn;
 	
-	public MyPptFragment(MainActivity activity)
+    private View layout;
+	
+    private MainActivity mActivity;
+	
+    private ArrayList<PptFile> pptList;
+	
+    private ItemAdapter adapter;
+	
+    private PullToRefreshListView xListview;
+	
+    private static final int  REQUEST_CODE=0x1234;
+	
+    public MyPptFragment(MainActivity activity)
 	{		
 		this.mActivity=activity;		
 	}
@@ -82,9 +87,8 @@ public class MyPptFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setupView();
-		initView();		
+		initView();	
 		getPptList();
-		
 	}
 	@Override
 	public void onPause() 
@@ -117,7 +121,7 @@ public class MyPptFragment extends Fragment {
 				getPptList();				
 			}
 		});
-		xListview.setRefreshing();
+		
 		
 		uploadBtn.setOnClickListener(new OnClickListener() {
 			
@@ -135,9 +139,11 @@ public class MyPptFragment extends Fragment {
 				}			
 			}
 		});
-	}
-	
-	
+	}	
+	/**
+	 * 选中上传文件后返回
+	 * @author Felix
+	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) 
 	{
@@ -150,9 +156,17 @@ public class MyPptFragment extends Fragment {
 					{
 						final File file = FileUtils.getFile(uri);						
 						Log.i("选中文件:", file.getAbsolutePath()+"");
+						Log.i("文件大小:",file.length()/1024/1024+"MB");
 						if(MyFileUtils.getFileExtenSion(file).equals("ppt")||MyFileUtils.getFileExtenSion(file).equals("pptx"))
 						{
-							upLoadFile(file);							
+							if(file.length()/1024/1024>10)
+							{
+								MyToast.alert("文件不得大于10MB，请重新选择");
+							}
+							else
+							{
+								upLoadFile(file);							
+							}
 						}
 						else
 						{
@@ -222,7 +236,7 @@ public class MyPptFragment extends Fragment {
 					
 					if(jso.getInt("retcode")!=0)
 					{
-						MyToast.alert(jso.getString("message"));
+						MyToast.alert(jso.getInt("retcode"));
 					}
 					else
 					{
@@ -287,7 +301,7 @@ public class MyPptFragment extends Fragment {
 					
 					if(jso.getInt("retcode")!=0)
 					{
-						MyToast.alert(jso.getString("message"));
+						MyToast.alert(jso.getInt("retcode"));
 					}
 					else
 					{
@@ -377,7 +391,7 @@ public class MyPptFragment extends Fragment {
 					
 					if(jso.getInt("retcode")!=0)
 					{
-						MyToast.alert("删除文稿失败");
+						MyToast.alert(jso.getInt("retcode"));
 					}
 					else
 					{
@@ -491,7 +505,6 @@ public class MyPptFragment extends Fragment {
 				convertView = LayoutInflater.from(HomeApp.getMyApplication()).inflate(R.layout.myppt_list_item, parent, false);
 				holder = new ViewHolder();
 				holder.title = (TextView) convertView.findViewById(R.id.my_ppt_item_title);
-				holder.user  = (TextView) convertView.findViewById(R.id.my_ppt_item_belong);
 				holder.pptId = (TextView) convertView.findViewById(R.id.my_ppt_item_ppt_id);
 				holder.status= (TextView) convertView.findViewById(R.id.my_ppt_item_status);
 				holder.pages = (TextView) convertView.findViewById(R.id.my_ppt_item_total_pages);				
@@ -506,7 +519,6 @@ public class MyPptFragment extends Fragment {
 			}
 			holder.title.getPaint().setFakeBoldText(true);
 			holder.title.setText(HomeApp.getLocalUser().getPpts().get(position).getPptTitle()); 
-			holder.user.setText("归属:"+HomeApp.getLocalUser().getUserName());   
 			holder.pptId.setText("编号:"+HomeApp.getLocalUser().getPpts().get(position).getPptId()+""); 
 			holder.status.setText("状态:"+(HomeApp.getLocalUser().getPpts().get(position).getPptStatus()?"已转换":"未转换"));			
 			holder.pages.setText("总页数:"+HomeApp.getLocalUser().getPpts().get(position).getPptPageCount()+""); 
@@ -549,8 +561,7 @@ public class MyPptFragment extends Fragment {
 		}
 		
 		
-		
-		
+		//----------------删除动画------------------------------------------------
 		
 		private void checkIfItemHasBeenMarkedAsDeleted(View view, PptFile item) {
 			for (PptFile deletable : deleteableItems) {
