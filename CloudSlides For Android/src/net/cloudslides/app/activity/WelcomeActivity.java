@@ -24,6 +24,7 @@ public class WelcomeActivity extends Activity {
 				if (HomeApp.getMyApplication().isFirstLaunch()) 
 				{
 					Intent introIntent = new Intent(WelcomeActivity.this, IntroActivity.class);
+					HomeApp.getMyApplication().markLaunched();//标记应用已经启动过
 					startActivity(introIntent);
 					overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 

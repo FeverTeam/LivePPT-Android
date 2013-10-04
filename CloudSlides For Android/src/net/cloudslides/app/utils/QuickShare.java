@@ -40,7 +40,7 @@ public class QuickShare {
 	private int icon = R.drawable.ic_launcher;
 	
 	private String sizeName ="CloudSlides云幻灯";
-	private String sizeUrl  ="http://cloudslides.net";
+	private String sizeUrl  ="http://cloudslides.net/appDownload";
 	private String platForm =null;
 	public static String DEFAULT_IMG_PATH;
 	public static String DEFAULT_IMG_FILE_NAME = "/Pic4Share.jpg";

@@ -96,51 +96,59 @@
         android:id="@+id/relativeLayout1"
         android:background="@drawable/tabbar_background"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true" 
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/found_meeting_info_topic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/found_meeting_info_file"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:gravity="center_vertical"
             android:shadowColor="@android:color/black"
             android:shadowDy="1"
             android:shadowRadius="2"
+            android:singleLine="true"
             android:textColor="@android:color/white"
             android:textSize="17sp" />
+
         <TextView
             android:id="@+id/found_meeting_info_file"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/found_meeting_info_topic"
             android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
             android:shadowColor="@android:color/black"
             android:shadowDy="1"
             android:shadowRadius="2"
             android:singleLine="true"
-            android:ellipsize="end"
             android:textColor="@android:color/white"
-            android:textSize="17sp" />
+            android:textSize="17sp"/>
 
         <TextView
             android:id="@+id/found_meeting_info_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/found_meeting_info_file"
             android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
             android:shadowColor="@android:color/black"
             android:shadowDy="1"
             android:shadowRadius="2"
             android:singleLine="true"
-            android:ellipsize="end"
             android:textColor="@android:color/white"
             android:textSize="17sp" />
 
@@ -149,16 +157,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/found_meeting_info_id"
             android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
             android:shadowColor="@android:color/black"
             android:shadowDy="1"
             android:shadowRadius="2"
             android:singleLine="true"
-            android:ellipsize="end"
             android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:layout_marginBottom="2dp"/>
+            android:textSize="17sp" />
 
     </RelativeLayout>
     

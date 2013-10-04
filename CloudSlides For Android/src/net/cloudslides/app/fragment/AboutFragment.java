@@ -61,7 +61,7 @@ public class AboutFragment extends Fragment {
         {
 			PackageInfo info = pm.getPackageInfo(HomeApp.getMyApplication().getPackageName(), 0);
 
-	        version.setText("V"+info.versionName+"Beta");
+	        version.setText("V"+info.versionName+" Beta");
 		} catch (NameNotFoundException e1) {
 			e1.printStackTrace();
 		}

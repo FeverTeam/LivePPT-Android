@@ -63,7 +63,7 @@ public class MenuFragment extends Fragment {
 				ShareSDK.initSDK(getActivity());	
 				String title = getString(R.string.share_title);
 				String  text = getString(R.string.share_text);
-				String  link = "http://cloudslides.net";
+				String  link = "http://cloudslides.net/appDownload";
 				new QuickShare(getActivity(), title, text, link).share();
 			}
 		});
@@ -76,7 +76,6 @@ public class MenuFragment extends Fragment {
 				Handler h = new Handler();
 				h.postDelayed(new Runnable() 
 				{		
-					
 					public void run() 
 					{
 						MyActivityManager.getInstance().exit();
