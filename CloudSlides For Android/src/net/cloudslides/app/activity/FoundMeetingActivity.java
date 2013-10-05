@@ -11,7 +11,6 @@ import net.cloudslides.app.custom.widget.CoverFlow;
 import net.cloudslides.app.model.Meeting;
 import net.cloudslides.app.model.PptFile;
 import net.cloudslides.app.utils.CustomProgressDialog;
-import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
 import org.json.JSONArray;
@@ -21,6 +20,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.res.Configuration;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
@@ -72,11 +72,15 @@ public class FoundMeetingActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_found_meeting);
-		MyActivityManager.getInstance().add(this);
 		setupView();
 		initView();
 		getFoundedMeeting(false);
 		
+	}
+	 @Override
+	public void onConfigurationChanged(Configuration config)
+	{
+		 setContentView(R.layout.activity_found_meeting);
 	}
 
 	/**

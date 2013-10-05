@@ -7,11 +7,11 @@ import net.cloudslides.app.R;
 import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.utils.CustomProgressDialog;
-import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
 import net.cloudslides.app.utils.MyVibrator;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -41,7 +41,6 @@ public class AttendingMeetingActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_attending_meeting);
-		MyActivityManager.getInstance().add(this);
 		setupView();
 		initPptUrls();
 		start();
@@ -60,15 +59,22 @@ public class AttendingMeetingActivity extends Activity {
 		Log.i("onPause","stopImageLoader");
 		ImageLoader.getInstance().stop();
 	}
+
 	@Override
-	protected void onDestroy() 
+    protected void onDestroy() 
 	{
 		super.onDestroy();
-		close=true;//人为断开socket
+	    close=true;//人为断开socket
 		if(mConnection.isConnected())
 		{
 			mConnection.disconnect();
 		}
+	    System.gc();
+    }
+	 @Override
+	public void onConfigurationChanged(Configuration config)
+	{
+		 setContentView(R.layout.activity_attending_meeting);
 	}
 	private void setupView()
 	{
@@ -180,5 +186,4 @@ public class AttendingMeetingActivity extends Activity {
 			   temp=message.split("-");		   
 	    return Integer.parseInt(temp[1]);	
 	}
-	
 }

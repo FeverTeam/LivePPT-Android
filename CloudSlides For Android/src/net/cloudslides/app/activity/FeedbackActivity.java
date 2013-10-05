@@ -1,9 +1,7 @@
 package net.cloudslides.app.activity;
 
-import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.Param;
 import net.cloudslides.app.R;
-import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
 import android.app.Activity;
@@ -31,7 +29,6 @@ public class FeedbackActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feedback);
-		MyActivityManager.getInstance().add(this);
 		setupView();
 		initView();
 	}

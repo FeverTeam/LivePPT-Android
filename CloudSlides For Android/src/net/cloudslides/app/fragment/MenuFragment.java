@@ -25,11 +25,19 @@ import android.widget.TextView;
 public class MenuFragment extends Fragment {
 
 	private ExpandableListView exp;
+	
 	private MyExpandableListAdapter adapter;
+	
 	private View layout;
+	
 	private Button share;
+	
 	private Button exit;
 
+	public MenuFragment()
+	{
+		
+	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 
 	{
@@ -207,7 +215,7 @@ class MyExpandableListAdapter extends BaseExpandableListAdapter{
 				}
 				else if(childPosition==1)
 				{
-					Fragment content =new AttendingMeetingFragment((MainActivity)menu.getActivity());
+					Fragment content =new AttendingMeetingFragment();
 					if(content!=null)
 					{
 						menu.switchFragment(content);
@@ -288,9 +296,9 @@ class MyExpandableListAdapter extends BaseExpandableListAdapter{
 	{
 		switch(pos)
 		{
-		case 1:return new MyPptFragment((MainActivity)menu.getActivity());
-		case 2:return new MoreFragment((MainActivity)menu.getActivity());
-		case 3:return new AboutFragment((MainActivity)menu.getActivity());
+		case 1:return new MyPptFragment();
+		case 2:return new MoreFragment();
+		case 3:return new AboutFragment();
 		default :return null;
 		}
 	}

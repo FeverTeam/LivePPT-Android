@@ -7,6 +7,7 @@ import net.cloudslides.app.fragment.MenuFragment;
 import net.cloudslides.app.fragment.MyPptFragment;
 import net.cloudslides.app.utils.MyActivityManager;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -16,8 +17,6 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 
 public class MainActivity extends SlidingFragmentActivity {
-
-
 
 	private Fragment mContent;
 	public SlidingMenu sm;
@@ -36,11 +35,11 @@ public class MainActivity extends SlidingFragmentActivity {
 		{
 			switch(contentId)
 			{
-			case Define.LOGIN_JUMP_PPT:mContent = new MyPptFragment(this);break;
-			case Define.LOGIN_JUMP_ATTENDING:mContent = new AttendingMeetingFragment(this);break;
+			case Define.LOGIN_JUMP_PPT:mContent = new MyPptFragment();break;
+			case Define.LOGIN_JUMP_ATTENDING:mContent = new AttendingMeetingFragment();break;
 			case Define.LOGIN_JUMP_FOUNDING:
 			{
-				mContent = new MyPptFragment(this);
+				mContent = new MyPptFragment();
 				Intent intent = new Intent(this,FoundMeetingActivity.class);
 				startActivity(intent);
 			}
@@ -121,5 +120,11 @@ public class MainActivity extends SlidingFragmentActivity {
 				getSlidingMenu().showContent();
 			}
 		}, 50);
+	}
+	
+	 @Override
+	public void onConfigurationChanged(Configuration config)
+	{
+		 setContentView(R.layout.activity_main);
 	}
 }

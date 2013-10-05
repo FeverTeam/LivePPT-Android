@@ -63,8 +63,6 @@ public class MyPptFragment extends Fragment {
 	
     private View layout;
 	
-    private MainActivity mActivity;
-	
     private ArrayList<PptFile> pptList;
 	
     private ItemAdapter adapter;
@@ -73,10 +71,11 @@ public class MyPptFragment extends Fragment {
 	
     private static final int  REQUEST_CODE=0x1234;
 	
-    public MyPptFragment(MainActivity activity)
-	{		
-		this.mActivity=activity;		
-	}
+    public MyPptFragment()//必要
+    {
+    	
+    }
+    
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		layout =inflater.inflate(R.layout.my_ppt_frag, null);
@@ -111,7 +110,7 @@ public class MyPptFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				mActivity.toggleMenu();
+				((MainActivity)getActivity()).toggleMenu();
 			}
 		});
 		
@@ -221,7 +220,7 @@ public class MyPptFragment extends Fragment {
 			@Override
 			public void onStart()
 			{
-				loadingDialog=CustomProgressDialog.createDialog(mActivity, "正在上传文稿...", false);
+				loadingDialog=CustomProgressDialog.createDialog(getActivity(), "正在上传文稿...", false);
 				loadingDialog.setMessageTextColor(getResources().getColor(R.color.theme_light_green));
 				loadingDialog.show();
 			}
@@ -240,7 +239,7 @@ public class MyPptFragment extends Fragment {
 					}
 					else
 					{
-						Toast.makeText(mActivity, "上传成功,文稿正在转换中，请稍后刷新.", Toast.LENGTH_LONG).show();
+						Toast.makeText(getActivity(), "上传成功,文稿正在转换中，请稍后刷新.", Toast.LENGTH_LONG).show();
 						getPptList();						
 					}
 				} 
@@ -286,7 +285,7 @@ public class MyPptFragment extends Fragment {
 			@Override
 			public void onStart()
 			{
-				loadingDialog=CustomProgressDialog.createDialog(mActivity, "正在加载列表信息...", false);
+				loadingDialog=CustomProgressDialog.createDialog(getActivity(), "正在加载列表信息...", false);
 				loadingDialog.setMessageTextColor(getResources().getColor(R.color.theme_blue));
 				loadingDialog.show();
 			}
@@ -436,8 +435,8 @@ public class MyPptFragment extends Fragment {
 	 */
 	private void showConfirmDeletePptDialog(String name,final int position)
 	{
-		final Dialog dialog =new Dialog(mActivity, R.style.mDialog);
-		View layout =LayoutInflater.from(mActivity).inflate(R.layout.normal_dialog,null);
+		final Dialog dialog =new Dialog(getActivity(), R.style.mDialog);
+		View layout =LayoutInflater.from(getActivity()).inflate(R.layout.normal_dialog,null);
 		Button cancel  = (Button)layout.findViewById(R.id.normal_dialog_cancel_btn);
 		Button confirm = (Button)layout.findViewById(R.id.normal_dialog_confirm_btn);
 		TextView title = (TextView)layout.findViewById(R.id.normal_dialog_title);
@@ -540,7 +539,7 @@ public class MyPptFragment extends Fragment {
 					}
 					else
 					{
-						Intent intent =new Intent(mActivity, PlaySlidesActivity.class);
+						Intent intent =new Intent(getActivity(), PlaySlidesActivity.class);
 						intent.putExtra(Define.Intent_KEY_PPT_POSITION, position);
 						startActivity(intent);
 					

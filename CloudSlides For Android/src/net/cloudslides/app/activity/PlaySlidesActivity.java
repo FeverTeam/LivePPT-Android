@@ -9,7 +9,6 @@ import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.thirdlibs.widget.wheel.ArrayWheelAdapter;
 import net.cloudslides.app.thirdlibs.widget.wheel.WheelView;
-import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
@@ -39,19 +38,10 @@ public class PlaySlidesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_play_slides);
-		MyActivityManager.getInstance().add(this);
 		setupView();
 		initPptUrls();
 		initView();
 	}
-	@Override
-	public void onPause() 
-	{
-		super.onPause();
-		Log.i("onPause","stopImageLoader");
-		ImageLoader.getInstance().stop();
-	}
-	
 	private void setupView()
 	{
 		zoomPager = (ZoomAbleViewPager)findViewById(R.id.play_slides_flipview);
@@ -159,5 +149,12 @@ public class PlaySlidesActivity extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 	
-
+	
+    @Override
+    protected void onDestroy() {
+    super.onDestroy();
+    Log.i("onDestroy","stopImageLoader");
+    ImageLoader.getInstance().stop();
+    System.gc();
+    }
 }

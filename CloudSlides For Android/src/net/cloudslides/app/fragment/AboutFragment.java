@@ -22,14 +22,18 @@ import android.widget.TextView;
 public class AboutFragment extends Fragment {
 
 	private View layout;
-	private MainActivity activity;
+	
 	private Button menu;
+	
 	private TextView email;
+	
 	private TextView name;
+	
 	private TextView version;
-	public  AboutFragment(MainActivity a)
+	
+	public AboutFragment()
 	{
-		this.activity=a;
+		
 	}
 	
 	@Override
@@ -69,7 +73,7 @@ public class AboutFragment extends Fragment {
 		menu.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				activity.toggleMenu();
+				((MainActivity)getActivity()).toggleMenu();
 			}
 		});
 		email.setOnTouchListener(new OnTouchListener() {

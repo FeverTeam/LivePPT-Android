@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.Log;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -93,8 +92,7 @@ public class HomeApp extends Application {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
 		.tasksProcessingOrder(QueueProcessingType.LIFO)
 		.defaultDisplayImageOptions(options)
-		.memoryCache(new WeakMemoryCache())
-		.threadPoolSize(5)		
+		.threadPoolSize(3)		
 		.build();
 		Log.d("cache存储路径",StorageUtils.getCacheDirectory(getMyApplication()).getAbsolutePath());
 		ImageLoader.getInstance().init(config);		

@@ -9,7 +9,6 @@ import net.cloudslides.app.R;
 import net.cloudslides.app.utils.AESEnc;
 import net.cloudslides.app.utils.CustomProgressDialog;
 import net.cloudslides.app.utils.HmacSha1Signature;
-import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyToast;
 import android.app.Activity;
@@ -33,7 +32,6 @@ public class ChangePasswordActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_password);
-		MyActivityManager.getInstance().add(this);
 		setupView();
 		initView();
 	}

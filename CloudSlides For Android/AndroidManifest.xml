@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.cloudslides.app"
-    android:versionCode="3"
-    android:versionName="1.0.6" >
+    android:versionCode="4"
+    android:versionName="1.0.7" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -59,26 +59,31 @@
         <activity
             android:name="net.cloudslides.app.activity.MainActivity"
             android:label="@string/title_activity_main"
+            android:configChanges="orientation"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="net.cloudslides.app.activity.PlaySlidesActivity"
             android:label="@string/title_activity_play_slides"
+            android:configChanges="orientation"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="net.cloudslides.app.activity.FoundMeetingActivity"
             android:label="@string/title_activity_found_meeting"
+            android:configChanges="orientation"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="net.cloudslides.app.activity.LiveMeetingActivity"
             android:label="@string/title_activity_live_meeting"
+            android:configChanges="orientation"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="net.cloudslides.app.activity.AttendingMeetingActivity"
             android:label="@string/title_activity_attending_meeting"
+            android:configChanges="orientation"
             android:screenOrientation="landscape" >
         </activity>
         <activity

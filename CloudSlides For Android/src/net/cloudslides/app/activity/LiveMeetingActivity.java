@@ -1,7 +1,6 @@
 package net.cloudslides.app.activity;
 
 import java.util.ArrayList;
-
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.Param;
@@ -10,7 +9,6 @@ import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.thirdlibs.widget.wheel.ArrayWheelAdapter;
 import net.cloudslides.app.thirdlibs.widget.wheel.WheelView;
-import net.cloudslides.app.utils.MyActivityManager;
 import net.cloudslides.app.utils.MyHttpClient;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
@@ -33,6 +31,7 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class LiveMeetingActivity extends Activity {
+
 	private ZoomAbleViewPager zoomPager;
 	private ArrayList<String> urls;
 	private PlaySlidesPagerAdapter adapter;
@@ -48,7 +47,6 @@ public class LiveMeetingActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_live_meeting);
-		MyActivityManager.getInstance().add(this);
 		setupView();
 		initPptUrls();
 		initView();
@@ -212,5 +210,4 @@ public class LiveMeetingActivity extends Activity {
 		  });
 		  
 	  }
-
 }

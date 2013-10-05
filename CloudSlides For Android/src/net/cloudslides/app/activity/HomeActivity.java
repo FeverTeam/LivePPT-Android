@@ -5,7 +5,6 @@ import net.cloudslides.app.R;
 import net.cloudslides.app.custom.widget.SpotlightView;
 import net.cloudslides.app.custom.widget.SpotlightView.AnimationSetupCallback;
 import net.cloudslides.app.utils.MyActivityManager;
-import net.cloudslides.app.utils.MyUpdateManager;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
@@ -28,8 +27,6 @@ public class HomeActivity extends Activity {
 	private Button attendingBtn;
 	private Button foundingBtn;
 	private Button pptBtn;
-	private MyUpdateManager update;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +36,10 @@ public class HomeActivity extends Activity {
 		showSpotLight();
 		setupView();
 		initView();
-		
-		update = new MyUpdateManager(this);
-		update.checkUpdate(true);
-        
 	}
 	
 	@Override
 	protected void onPause() {
-		update.stopUpdateCheck();
 		super.onPause();
 	}
 	private void setupView()
@@ -66,7 +58,6 @@ public class HomeActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				update.stopUpdateCheck();
 				Intent intent =new Intent(HomeActivity.this,LoginActivity.class);
 				intent.putExtra("Goto", Define.LOGIN_JUMP_ATTENDING);
 				startActivity(intent);
@@ -78,7 +69,6 @@ public class HomeActivity extends Activity {
  			
  			@Override
  			public void onClick(View v) {
-				update.stopUpdateCheck();
  				Intent intent =new Intent(HomeActivity.this,LoginActivity.class);
  				intent.putExtra("Goto", Define.LOGIN_JUMP_FOUNDING);
  				startActivity(intent);
@@ -90,7 +80,6 @@ public class HomeActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				update.stopUpdateCheck();
 				Intent intent =new Intent(HomeActivity.this, LoginActivity.class);
 				intent.putExtra("Goto", Define.LOGIN_JUMP_PPT);
 				startActivity(intent);
@@ -102,7 +91,6 @@ public class HomeActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				update.stopUpdateCheck();
 				Intent intent =new Intent(HomeActivity.this, SignUpActivity.class);
 				startActivity(intent);
 			}

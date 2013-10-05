@@ -32,22 +32,30 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 public class MoreFragment extends Fragment {
 
 	private View layout;
+	
 	private Button menu;
+	
 	private Button logOut;
+	
 	private TextView userInfo;
+	
 	private TextView cacheSize;
+	
 	private CheckBox autoLoginBox;
-	private MainActivity activity;
+	
 	private RelativeLayout clearCache;
+	
 	private RelativeLayout upgrade;
+	
 	private RelativeLayout feedback;
+	
 	private RelativeLayout changePsw;
 	
-	public MoreFragment(MainActivity a)
+	public MoreFragment()//必要
 	{
-		this.activity=a;
+		
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		layout =inflater.inflate(R.layout.more_frag, null);
@@ -79,7 +87,7 @@ public class MoreFragment extends Fragment {
 		menu.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				activity.toggleMenu();
+				((MainActivity)getActivity()).toggleMenu();
 			}
 		});
 		
@@ -97,16 +105,16 @@ public class MoreFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				logout();
-				Intent intent =new Intent(activity,HomeActivity.class);
+				Intent intent =new Intent(getActivity(),HomeActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				startActivity(intent);
 			}
 		});
 		
 		
-		Log.i("cacheDir", StorageUtils.getCacheDirectory(activity).getAbsolutePath());
+		Log.i("cacheDir", StorageUtils.getCacheDirectory(getActivity()).getAbsolutePath());
 		userInfo.setText(HomeApp.getLocalUser().getUserName()+" "+"("+HomeApp.getLocalUser().getUserEmail()+")");
-		cacheSize.setText(MyFileUtils.fileLength(MyFileUtils.getFolderSize(StorageUtils.getCacheDirectory(activity))));
+		cacheSize.setText(MyFileUtils.fileLength(MyFileUtils.getFolderSize(StorageUtils.getCacheDirectory(getActivity()))));
 		clearCache.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -118,7 +126,7 @@ public class MoreFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(activity, ChangePasswordActivity.class);
+				Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -193,8 +201,8 @@ public class MoreFragment extends Fragment {
 	 */
 	private void showClearCacheDialog()
 	{
-		final Dialog dialog =new Dialog(activity, R.style.mDialog);
-		View layout =LayoutInflater.from(activity).inflate(R.layout.normal_dialog,null);
+		final Dialog dialog =new Dialog(getActivity(), R.style.mDialog);
+		View layout =LayoutInflater.from(getActivity()).inflate(R.layout.normal_dialog,null);
 		Button cancel  = (Button)layout.findViewById(R.id.normal_dialog_cancel_btn);
 		Button confirm = (Button)layout.findViewById(R.id.normal_dialog_confirm_btn);
 		TextView title = (TextView)layout.findViewById(R.id.normal_dialog_title);
@@ -236,7 +244,7 @@ public class MoreFragment extends Fragment {
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			return MyFileUtils.DeleteFile(StorageUtils.getCacheDirectory(activity));
+			return MyFileUtils.DeleteFile(StorageUtils.getCacheDirectory(getActivity()));
 			
 		}
 
@@ -246,7 +254,7 @@ public class MoreFragment extends Fragment {
 			if(result)
 			{
 				MyToast.alert("清理完毕");
-				cacheSize.setText(MyFileUtils.fileLength(MyFileUtils.getFolderSize(StorageUtils.getCacheDirectory(activity))));
+				cacheSize.setText(MyFileUtils.fileLength(MyFileUtils.getFolderSize(StorageUtils.getCacheDirectory(getActivity()))));
 			}else
 			{
 				MyToast.alert("清理失败");				

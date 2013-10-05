@@ -50,19 +50,23 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class AttendingMeetingFragment extends Fragment {
-	private MainActivity activity;
+	
 	private Button menuBtn;
+	
 	private View layout;
+	
 	private PullToRefreshListView list;
+	
 	private List<Meeting> meetings ;
+	
 	private AttendingMeetingAdapter adapter;
+	
 	private Button join;
 	
-	public AttendingMeetingFragment(MainActivity a)
+	public AttendingMeetingFragment()
 	{
-		this.activity=a;
+		
 	}
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		layout =inflater.inflate(R.layout.attend_meeting_frag, null);
@@ -90,7 +94,7 @@ public class AttendingMeetingFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				activity.toggleMenu();
+				((MainActivity)getActivity()).toggleMenu();
 			}
 		});
 		join.setOnClickListener(new OnClickListener() {
@@ -112,10 +116,10 @@ public class AttendingMeetingFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, final int position,long id) 
 			{
-				PopupMenu menu = new PopupMenu(activity);
+				PopupMenu menu = new PopupMenu(getActivity());
 		        menu.setHeaderTitle(meetings.get(position-1).getMeetingTopic());
 		        menu.add(0, R.string.attending_meeting)
-		            .setIcon(activity.getResources().getDrawable(R.drawable.menu_item_attending_icon));
+		            .setIcon(getActivity().getResources().getDrawable(R.drawable.menu_item_attending_icon));
 		        menu.add(1, R.string.quit_meeting)
 		        	.setIcon(getResources().getDrawable(R.drawable.menu_item_quit_icon));
 		        menu.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -138,7 +142,7 @@ public class AttendingMeetingFragment extends Fragment {
 	
 	private void attendMeeting(int pos)
 	{
-		Intent intent =new Intent(activity,AttendingMeetingActivity.class);
+		Intent intent =new Intent(getActivity(),AttendingMeetingActivity.class);
 		intent.putExtra(Define.Intent_KEY_MEETING_POSITION,pos);
 		startActivity(intent);
 		
@@ -160,7 +164,7 @@ public class AttendingMeetingFragment extends Fragment {
 			@Override
 			public void onStart()
 			{
-				loadingDialog=CustomProgressDialog.createDialog(activity, "正在退出会议...", false);
+				loadingDialog=CustomProgressDialog.createDialog(getActivity(), "正在退出会议...", false);
 				loadingDialog.setMessageTextColor(getResources().getColor(R.color.theme_bright_red));
 				loadingDialog.show();
 			}
@@ -228,7 +232,7 @@ public class AttendingMeetingFragment extends Fragment {
 			@Override
 			public void onStart()
 			{
-				loadingDialog=CustomProgressDialog.createDialog(activity, "正在加载列表信息...", false);
+				loadingDialog=CustomProgressDialog.createDialog(getActivity(), "正在加载列表信息...", false);
 				loadingDialog.setMessageTextColor(getResources().getColor(R.color.theme_blue));
 				loadingDialog.show();
 			}
@@ -260,7 +264,7 @@ public class AttendingMeetingFragment extends Fragment {
 							meetings.add(meeting);
 						}							
 						HomeApp.getLocalUser().setParticipatedMeeting(meetings);	
-						adapter =new AttendingMeetingAdapter(activity);
+						adapter =new AttendingMeetingAdapter(getActivity());
 						list.setAdapter(adapter);						
 						adapter.notifyDataSetChanged();					
 					}
@@ -358,7 +362,7 @@ public class AttendingMeetingFragment extends Fragment {
 			@Override
 			public void onStart()
 			{
-				loadingDialog=CustomProgressDialog.createDialog(activity, "正在添加会议...", true);
+				loadingDialog=CustomProgressDialog.createDialog(getActivity(), "正在添加会议...", true);
 				loadingDialog.setMessageTextColor(getResources().getColor(R.color.theme_blue));
 				loadingDialog.show();
 			}
@@ -418,8 +422,8 @@ public class AttendingMeetingFragment extends Fragment {
 	 */
 	private void showJoinMeetingDialog()
 	{
-		final Dialog dialog =new Dialog(activity, R.style.mDialog);
-		View layout =LayoutInflater.from(activity).inflate(R.layout.attending_meeting_dialog,null);
+		final Dialog dialog =new Dialog(getActivity(), R.style.mDialog);
+		View layout =LayoutInflater.from(getActivity()).inflate(R.layout.attending_meeting_dialog,null);
 		Button cancel  = (Button)layout.findViewById(R.id.attend_meeting_dialog_cancel_btn);
 		Button confirm = (Button)layout.findViewById(R.id.attend_meeting_dialog_confirm_btn);
 		final EditText  id = (EditText)layout.findViewById(R.id.attend_meeting_dialog_meeting_id);
@@ -459,8 +463,8 @@ public class AttendingMeetingFragment extends Fragment {
 	 */
 	private void showConfirmQuitMeetingDialog(String topic,final int position)
 	{
-		final Dialog dialog =new Dialog(activity, R.style.mDialog);
-		View layout =LayoutInflater.from(activity).inflate(R.layout.normal_dialog,null);
+		final Dialog dialog =new Dialog(getActivity(), R.style.mDialog);
+		View layout =LayoutInflater.from(getActivity()).inflate(R.layout.normal_dialog,null);
 		Button cancel  = (Button)layout.findViewById(R.id.normal_dialog_cancel_btn);
 		Button confirm = (Button)layout.findViewById(R.id.normal_dialog_confirm_btn);
 		TextView title = (TextView)layout.findViewById(R.id.normal_dialog_title);
@@ -558,7 +562,7 @@ public class AttendingMeetingFragment extends Fragment {
 
 		private void deleteItemIfMarkedAsDeletable(View view, Meeting item, Meeting deletable) {
 			if(itemIsDeletable(item, deletable)){
-				Animation anim = AnimationUtils.loadAnimation(activity,android.R.anim.slide_out_right);
+				Animation anim = AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_out_right);
 				anim.setDuration(500);
 				deleteOnAnimationComplete(anim, item);
 				animate(view, anim);
