@@ -1,6 +1,11 @@
 package net.cloudslides.app.thirdlibs.widget.photoview;
 
+import java.util.ArrayList;
+
+import net.cloudslides.app.utils.MyPathUtils;
+
 import android.content.Context;
+import android.graphics.Path;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -68,4 +73,56 @@ public class ZoomAbleViewPager extends ViewPager {
 	public void setScrollEnabled(boolean enabled) {
 	    this.canScroll = enabled;
 	} 
+	
+	/**
+	 * 设置是否可以画笔迹
+	 * @param isCanDraw
+	 */
+	public void setCanDraw(boolean isCanDraw)
+	{
+		PhotoView v =((PhotoView) this.findViewWithTag(this.getCurrentItem()));
+		if(null!=v)
+	    {
+			v.setCanDraw(isCanDraw);
+	    }
+	}
+	
+	/**
+	 * 清除笔迹
+	 * @param position
+	 */
+	public void cleanPath()
+	{
+		PhotoView v =((PhotoView) this.findViewWithTag(this.getCurrentItem()));
+		if(null!=v)
+	    {
+			v.cleanPath();
+	    }
+	}
+	/**
+	 * 返回是否处于放大状态
+	 * @return
+	 */
+	public boolean currentViewIsZoomIn()
+	{
+		PhotoView v =((PhotoView) this.findViewWithTag(this.getCurrentItem()));
+		if(null!=v)
+	    {
+			return v.getZoomState();
+	    }
+		return false;
+	}
+	/**
+	 * 绘制笔迹
+	 * @param points 坐标比例数组
+	 * @author Felix
+	 */
+	public void drawPathOnCurrentView(ArrayList<Integer> points)
+	{
+		PhotoView v =((PhotoView) this.findViewWithTag(this.getCurrentItem()));
+		if(null!=v)
+	    {
+			v.drawPath(MyPathUtils.createPath(points, this.findViewWithTag(this.getCurrentItem())));
+	    }
+	}
 }

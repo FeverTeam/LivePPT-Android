@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import net.cloudslides.app.R;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView;
+import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView.onDrawCompleteListener;
+import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView.onZoomViewListener;
+import net.cloudslides.app.utils.MyPathUtils;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Path;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -21,9 +25,19 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 public class PlaySlidesPagerAdapter extends PagerAdapter {
 	
 	private ArrayList<String> urls;
+	
 	private Context context;
+	
 	private int i;
+	
 	private int j;
+	
+	private PhotoView iv;
+	
+	private onDrawCompleteListener mOnDrawCompleteListener = null;
+	
+	private onZoomViewListener mZoomListener = null;
+	
 	DisplayImageOptions options = new DisplayImageOptions.Builder()        
     .cacheInMemory(true)         
     .cacheOnDisc(true)
@@ -60,8 +74,16 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 
 	@Override
 	public Object instantiateItem(ViewGroup container, final int position) {
-		PhotoView iv=new PhotoView(context);
-		iv.setScaleType(ScaleType.FIT_XY);		
+		iv=new PhotoView(context);
+		iv.setTag(position);
+		if(null!=mOnDrawCompleteListener)
+		{
+			iv.setOnDrawCompleteListener(mOnDrawCompleteListener);
+		}
+		if(null!=mZoomListener)
+		{
+			iv.setOnZoomViewListener(mZoomListener);
+		}
 		ImageLoader.getInstance().displayImage(urls.get(position), iv,options,new ImageLoadingListener() {
 			
 			@Override
@@ -135,5 +157,17 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 		 ((ViewPager) container).addView(iv);
 		 iv.invalidate();
 		 return iv;	
-	}	
+	}
+	
+	public void setOnDrawCompleteListener(onDrawCompleteListener listener)
+	{
+		mOnDrawCompleteListener=listener;
+	}
+	
+	public void setOnZoomViewListener(onZoomViewListener listener)
+	{
+		mZoomListener=listener;
+	}
+	
+
 }

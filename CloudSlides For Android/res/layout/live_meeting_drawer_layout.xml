@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="match_parent">
+<RelativeLayout 
+    android:layout_width="150dp"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:id="@+id/live_meeting_drawer_main_layout"
+    android:background="@drawable/repeat_bg_crabon">
+
+       <LinearLayout 
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="30dp"
+         android:gravity="center_horizontal"
+         android:layout_centerHorizontal="true"
+         android:orientation="vertical">
+       <Button
+         android:id="@+id/live_meeting_drawer_page_picker_btn"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:background="@drawable/page_btn_selector" />
+     
+          <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="3dp"
+         android:textColor="@android:color/white"
+         android:text="页码跳转" />
+        </LinearLayout>
+          
+    
+        <LinearLayout 
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="30dp"
+         android:gravity="center_horizontal"
+         android:layout_centerHorizontal="true"
+         android:layout_centerVertical="true"
+         android:orientation="vertical">
+     	<Button
+        android:id="@+id/live_meeting_drawer_clean_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clean" />
+     	
+		<TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="3dp"
+         android:textColor="@android:color/white"
+         android:text="清理笔迹" />
+        </LinearLayout>
+          
+    
+        <LinearLayout 
+            android:id="@+id/drawer_draw_layout"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="30dp"
+         android:gravity="center_horizontal"
+         android:layout_centerHorizontal="true"
+         android:layout_alignParentBottom="true"
+         android:orientation="vertical">
+		
+		 <CheckBox
+         android:id="@+id/live_meeting_drawer_draw_checkbox"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"/>
+     
+         <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="3dp"
+         android:textColor="@android:color/white"
+         android:text="绘画" />
+
+         </LinearLayout>     
+   
+</RelativeLayout>
+</FrameLayout>

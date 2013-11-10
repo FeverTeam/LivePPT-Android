@@ -30,10 +30,9 @@ public abstract class VersionedGestureDetector {
 	static final String LOG_TAG = "VersionedGestureDetector";
 	OnGestureListener mListener;
 
-	public static VersionedGestureDetector newInstance(Context context, OnGestureListener listener) {
+	public static VersionedGestureDetector newInstance(Context context,OnGestureListener listener) {
 		final int sdkVersion = Build.VERSION.SDK_INT;
 		VersionedGestureDetector detector = null;
-
 		if (sdkVersion < Build.VERSION_CODES.ECLAIR) {
 			detector = new CupcakeDetector(context);
 		} else if (sdkVersion < Build.VERSION_CODES.FROYO) {
