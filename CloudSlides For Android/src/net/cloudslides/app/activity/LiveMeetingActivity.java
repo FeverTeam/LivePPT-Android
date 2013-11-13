@@ -1,13 +1,14 @@
 package net.cloudslides.app.activity;
 
 import java.util.ArrayList;
-
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
+import net.cloudslides.app.adapter.CommunicationBoxAdapter;
 import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
 import net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer;
 import net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer.OnDrawerOpenListener;
+import net.cloudslides.app.model.ChatData;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView.onDrawCompleteListener;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView.onZoomViewListener;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
@@ -18,9 +19,9 @@ import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyPathUtils;
 import net.cloudslides.app.utils.MyToast;
 import net.cloudslides.app.utils.MyVibrator;
-
 import org.json.JSONArray;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
@@ -32,18 +33,21 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
@@ -53,6 +57,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import de.tavendo.autobahn.Wamp;
 import de.tavendo.autobahn.Wamp.CallHandler;
+import de.tavendo.autobahn.Wamp.EventHandler;
 import de.tavendo.autobahn.WampConnection;
 
 public class LiveMeetingActivity extends Activity {
@@ -68,6 +73,8 @@ public class LiveMeetingActivity extends Activity {
 	private Button pageBtn;
 	
 	private Button cleanBtn;
+	
+	private Button cBoxBtn;
 	
 	private CheckBox drawBtn;
 	
@@ -97,8 +104,37 @@ public class LiveMeetingActivity extends Activity {
 	
 	private LinearLayout drawLayout;
 	
-	private RelativeLayout slidingDrawerMainLayout;
+	private LinearLayout slidingDrawerMainLayout;
+	
+	private ListView communicationBoxLv;
+	
+	private View communicationBoxLayout;
 
+	private PopupWindow communicationBoxWindow;
+	
+	private ArrayList<String> communicationInfos = new ArrayList<String>();
+	
+	private CommunicationBoxAdapter cBoxAdapter;
+	
+	private TextView communicationBoxTitle;
+	
+	private TextView communicationBoxState;
+	
+	private Button cBoxBackBtn;
+	
+	private Button cBoxSayBtn; 
+	
+	private View saySomethingLayout;
+
+	private PopupWindow saySomethingWindow;
+	
+	private EditText saySomethingContent;
+	
+	private Button saySomethingSendBtn;
+	
+	private Button saySomethingNotSendBtn;
+	
+	private String chatTopicUri;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -159,8 +195,9 @@ public class LiveMeetingActivity extends Activity {
 		 cleanBtn = (Button)findViewById(R.id.live_meeting_drawer_clean_btn);
 	slidingDrawer = (MultiDirectionSlidingDrawer)findViewById(R.id.live_meeting_drawer);
 	   drawLayout = (LinearLayout)findViewById(R.id.drawer_draw_layout);
-	   slidingDrawerMainLayout = (RelativeLayout)findViewById(R.id.live_meeting_drawer_main_layout);
-	
+	   slidingDrawerMainLayout = (LinearLayout)findViewById(R.id.live_meeting_drawer_main_layout);
+	      cBoxBtn = (Button)findViewById(R.id.live_meeting_drawer_question_box_btn);
+	communicationBoxState = (TextView)findViewById(R.id.live_meeting_drawer_communication_box_state);
 	}
 	
 	
@@ -202,6 +239,17 @@ public class LiveMeetingActivity extends Activity {
 					slidingDrawer.animateClose();
 				}
 				isZoomIn=true;
+			}
+		});
+		adapter.setOnItemClickListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(slidingDrawer.isOpened())
+				{
+					slidingDrawer.close();
+				}
+				return false;
 			}
 		});
 		zoomPager.setAdapter(adapter);
@@ -287,6 +335,18 @@ public class LiveMeetingActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				if(slidingDrawer.isOpened())
+				{
+					slidingDrawer.close();
+				}
+			}
+		});
+		cBoxBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showCommunicationBoxWindow();
+				communicationBoxState.setText("会议交流");
 				if(slidingDrawer.isOpened())
 				{
 					slidingDrawer.close();
@@ -462,6 +522,7 @@ public class LiveMeetingActivity extends Activity {
 				{
 					drawLayout.setVisibility(View.VISIBLE);
 				}
+				getALLChat();				
 			}
 			
 			@Override
@@ -567,4 +628,183 @@ public class LiveMeetingActivity extends Activity {
 			  MyToast.alert("尚未建立连接或已断开");
 		  }		  
 	  }
+	  /**
+	   * 获取所有交流对话以及订阅交流对话
+	   * @author Felix
+	   */
+	  private void getALLChat()
+	  {
+		  if(mConnection.isConnected())
+		  {
+			  mConnection.call("chat#queryAll", String.class, new CallHandler() {
+				
+				@Override
+				public void onResult(Object result) {
+					Log.i("queryAllChatOnResult", result+"");
+				   String str =(String)result;
+					   try 
+					   {						   
+						JSONObject jso = new JSONObject(str);
+						chatTopicUri = jso.getString("chatTopicUri");
+						JSONArray jsa = jso.getJSONArray("chats");
+						communicationInfos.clear();
+						for(int i = 0 ;i<jsa.length();i++)
+						{
+							communicationInfos.add(jsa.getString(i));
+						}
+						mConnection.subscribe(chatTopicUri, ChatData.class, new EventHandler() {
+							
+							@Override
+							public void onEvent(String topicUri, Object event) {
+								Log.i("getChatOnEvent:", event+"");
+								ChatData cd = (ChatData)event;
+								if(cd.type.equals("newChat"))
+								{
+									communicationInfos.add(cd.data);								
+									if(communicationBoxWindow.isShowing())
+									{
+										communicationBoxTitle.setText("会议交流("+communicationInfos.size()+"条)");	
+										cBoxAdapter.notifyDataSetChanged();
+									}
+									else
+									{
+										MyToast.alert("有新的发言");
+										communicationBoxState.setText("会议交流(新)");
+									}								
+								}
+							}
+						});
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				@Override
+				public void onError(String errId, String errInfo) {
+					MyToast.alert("getAllChatOnError:"+errInfo+"");
+				}
+			}, meetingId);
+		  }
+	  }
+	  
+	  /**
+	   * 发言
+	   * @param content 内容
+	   * @author Felix
+	   */
+	  private void saySomething(String content)
+	  {
+			  String userEmail = HomeApp.getLocalUser().getUserEmail();
+			  String token = HomeApp.getLocalUser().getToken(); 
+			  long time = System.currentTimeMillis(); 
+			  mConnection.call("chat#say", String.class, new CallHandler() {
+				
+				@Override
+				public void onResult(Object result) {
+					String state = (String)result;
+					Log.i("saySomethingOnResult:", state+"");
+					if(state.equals("ok"))
+					{
+						MyToast.alert("发送成功");
+						saySomethingWindow.dismiss();
+						communicationBoxLv.setSelection(cBoxAdapter.getCount()-1);
+					}
+					else
+					{
+						MyToast.alert("发送失败");
+					}
+					
+				}
+				
+				@Override
+				public void onError(String errId, String errInfo) {
+					MyToast.alert("chat#SayOnError:"+errInfo);
+				}
+			}, userEmail,token,meetingId,content,time);
+	  }
+	  /**
+	   * 弹出会议交流窗口
+	   * @author Felix
+	   */
+	  private void showCommunicationBoxWindow()
+	  {
+			communicationBoxLayout = (View)LayoutInflater.from(this).inflate(R.layout.communication_box_layout, null);	
+			communicationBoxLv = (ListView)communicationBoxLayout.findViewById(R.id.communication_box_listview);
+			communicationBoxTitle = (TextView)communicationBoxLayout.findViewById(R.id.communication_box_title);
+			          cBoxBackBtn = (Button)communicationBoxLayout.findViewById(R.id.communication_box_back_btn);
+			          cBoxSayBtn = (Button)communicationBoxLayout.findViewById(R.id.communication_box_say_btn);
+			cBoxAdapter = new CommunicationBoxAdapter(this, communicationInfos);
+			communicationBoxLv.setAdapter(cBoxAdapter);
+			communicationBoxWindow=new PopupWindow(communicationBoxLayout, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);		
+			communicationBoxWindow.setFocusable(true);
+			communicationBoxWindow.setAnimationStyle(R.style.PopupAnimationFromRight);
+			communicationBoxWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+			communicationBoxWindow.showAtLocation(findViewById(R.id.live_meeting_main_layout), Gravity.CENTER_VERTICAL,0,0);
+			communicationBoxTitle.setText("会议交流("+communicationInfos.size()+"条)");
+			if(cBoxAdapter.getCount()!=0)//scroll to the last item
+			{
+				communicationBoxLv.setSelection(cBoxAdapter.getCount()-1);
+			}
+			cBoxBackBtn.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) 
+				{
+					communicationBoxWindow.dismiss();					
+				}
+			});
+			cBoxSayBtn.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					showSaySomethingWindow();
+				}
+			});
+		
+		}
+		
+		/**
+		 * 弹出提问窗口
+		 * @author Felix
+		 */
+		private void showSaySomethingWindow()
+		{
+			saySomethingLayout = (View)LayoutInflater.from(this).inflate(R.layout.saysomething_layout, null);	
+			saySomethingSendBtn = (Button)saySomethingLayout.findViewById(R.id.say_something_send_btn);
+			saySomethingNotSendBtn = (Button)saySomethingLayout.findViewById(R.id.say_something_back_btn);
+			saySomethingContent = (EditText)saySomethingLayout.findViewById(R.id.say_something_edit_text);
+			saySomethingSendBtn.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if(saySomethingContent.getText().toString().trim().equals(""))
+					{
+						MyToast.alert("无语了么?");
+						return;
+					}
+					if(mConnection.isConnected())
+					{
+						saySomething(saySomethingContent.getText().toString().trim());
+						MyToast.alert("正在发送...");
+					}
+					else
+					{
+						MyToast.alert("未连接服务器,请检查您的网络");
+					}
+				}
+			});
+			saySomethingNotSendBtn.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					saySomethingWindow.dismiss();
+				}
+			});
+			saySomethingWindow=new PopupWindow(saySomethingLayout, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);		
+			saySomethingWindow.setFocusable(true);
+			saySomethingWindow.setAnimationStyle(R.style.PopupAnimationFromTop);
+			saySomethingWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+			saySomethingWindow.showAtLocation(findViewById(R.id.live_meeting_main_layout), Gravity.CENTER_VERTICAL,0,0);
+			
+		}
 }

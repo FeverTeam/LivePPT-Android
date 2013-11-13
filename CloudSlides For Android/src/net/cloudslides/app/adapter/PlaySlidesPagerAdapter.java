@@ -6,16 +6,14 @@ import net.cloudslides.app.R;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView.onDrawCompleteListener;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView.onZoomViewListener;
-import net.cloudslides.app.utils.MyPathUtils;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Path;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.ImageView.ScaleType;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -38,6 +36,7 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 	
 	private onZoomViewListener mZoomListener = null;
 	
+	private OnTouchListener clickListener = null;	
 	DisplayImageOptions options = new DisplayImageOptions.Builder()        
     .cacheInMemory(true)         
     .cacheOnDisc(true)
@@ -83,6 +82,11 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 		if(null!=mZoomListener)
 		{
 			iv.setOnZoomViewListener(mZoomListener);
+		}
+		if(null!=clickListener)
+		{
+			
+			iv.setOnTouchListener(clickListener);
 		}
 		ImageLoader.getInstance().displayImage(urls.get(position), iv,options,new ImageLoadingListener() {
 			
@@ -169,5 +173,10 @@ public class PlaySlidesPagerAdapter extends PagerAdapter {
 		mZoomListener=listener;
 	}
 	
+	public void setOnItemClickListener(OnTouchListener listener)
+	{
+		this.clickListener=listener;
+	}
+
 
 }

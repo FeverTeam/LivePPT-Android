@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f0f0e0" >
+
+    <RelativeLayout 
+        android:id="@+id/rl_top"
+        android:layout_width="fill_parent"
+        android:layout_alignParentTop="true"
+    	android:layout_height="wrap_content">
+        <TextView 
+            android:id="@+id/communication_box_title"
+            android:layout_width="fill_parent"
+    		android:layout_height="44dp"
+    		android:gravity="center"
+    		android:textSize="18sp"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+    		android:background="#486a9a"
+    		android:textColor="@android:color/white"
+    		android:text="会议交流"/>
+                <Button
+            android:id="@+id/communication_box_say_btn"
+            android:layout_width="60dp"
+            android:layout_height="44dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginRight="10dp"
+            android:shadowColor="@android:color/white"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:background="@drawable/button_white_and_green_selector"
+            android:text="发言" />
+        <Button
+            android:id="@+id/communication_box_back_btn"
+            android:layout_width="60dp"
+            android:layout_height="44dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:shadowColor="@android:color/white"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:background="@drawable/button_white_and_red_selector"
+            android:text="返回" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/communication_box_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/rl_top"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:dividerHeight="5dp"
+        android:divider="#00000000"
+        android:cacheColorHint="#00000000"
+        android:listSelector="#00000000"
+        android:scrollbars="none" />
+    
+</RelativeLayout>

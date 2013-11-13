@@ -1,11 +1,12 @@
 package net.cloudslides.app.activity;
 
 import java.util.ArrayList;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
 import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
+import net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.thirdlibs.widget.wheel.ArrayWheelAdapter;
 import net.cloudslides.app.thirdlibs.widget.wheel.WheelView;
@@ -13,29 +14,47 @@ import net.cloudslides.app.utils.MyHttpClient;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 public class PlaySlidesActivity extends Activity {
 	private ZoomAbleViewPager zoomPager;
+	
 	private ArrayList<String> urls;
+	
 	private PlaySlidesPagerAdapter adapter;
+	
 	private FrameLayout covert;
+	
 	private Button pageBtn;
+	
 	private int pptPos;
+	
 	private long pptId;
-
+	
+	private LinearLayout drawerLayout;
+	
+	private Button backBtn;
+	
+    private MultiDirectionSlidingDrawer slidingDrawer;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,20 +71,72 @@ public class PlaySlidesActivity extends Activity {
 		zoomPager = (ZoomAbleViewPager)findViewById(R.id.play_slides_flipview);
 		   covert = (FrameLayout)findViewById(R.id.play_slides_covert_frame);	
 		  pageBtn = (Button)findViewById(R.id.play_slides_page_picker_btn);
+	 drawerLayout = (LinearLayout)findViewById(R.id.play_slides_drawer_main_layout);
+		  backBtn = (Button)findViewById(R.id.play_slides_drawer_back_btn);
+    slidingDrawer = (MultiDirectionSlidingDrawer)findViewById(R.id.play_slides_drawer);
 	}
 	
 	
 	private void initView()
 	{
 		adapter=new PlaySlidesPagerAdapter(urls,this);
+		adapter.setOnItemClickListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(slidingDrawer.isOpened())
+				{
+					slidingDrawer.close();
+				}
+				return false;
+			}
+		});
 		zoomPager.setAdapter(adapter);
+		zoomPager.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int arg0) {}
+			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				if(slidingDrawer.isOpened())
+				{
+					slidingDrawer.close();
+				}
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {}
+		});
 		pageBtn.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				showPickerDialog();
+				if(slidingDrawer.isOpened())
+				{
+					slidingDrawer.close();
+				}
 			}
 		});
+		backBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
+			}
+		});
+		drawerLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(slidingDrawer.isOpened())
+				{
+					slidingDrawer.close();
+				}
+			}
+		});
+		
 	}
 	
 	/**
@@ -149,7 +220,7 @@ public class PlaySlidesActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_MENU) 
 		{
-			showPickerDialog();
+			slidingDrawer.toggle();
 		}
 		return super.onKeyDown(keyCode, event);
 	}

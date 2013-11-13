@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        	android:id="@+id/question_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="#bfbfbf"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:text="2013年11月11日2:57:55" />
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+
+
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/question_item_l_layout">
+            
+            <ImageView
+            android:id="@+id/question_item_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/avatar"
+            android:focusable="false" />
+        
+        <TextView
+            android:id="@+id/question_item_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="3dp"
+            android:singleLine="true"
+            android:gravity="center_horizontal"
+            android:ellipsize="end"
+            android:text="用户名" />          
+            
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/question_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/question_item_l_layout"
+            android:background="@drawable/messagesbox"
+            android:gravity="left|center"
+            android:clickable="true"
+            android:focusable="true"
+            android:lineSpacingExtra="2dp"
+            android:minHeight="50dp"
+            android:textColor="@android:color/white"
+            android:shadowColor="@android:color/darker_gray"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textSize="14sp"/>
+
+
+    </RelativeLayout>
+    
+</LinearLayout>

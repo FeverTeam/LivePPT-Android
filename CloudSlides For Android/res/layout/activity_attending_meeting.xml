@@ -8,7 +8,25 @@
     <net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
         android:id="@+id/attending_meeting_viewpager"/>
+     <net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer
+		xmlns:my="http://schemas.android.com/apk/res/net.cloudslides.app"
+		android:id="@+id/attend_meeting_drawer"
+		my:direction="leftToRight"
+		android:layout_width="150dp"
+		android:layout_height="fill_parent"
+		my:handle="@+id/handle"
+		my:content="@+id/content">
+		<include
+			android:id="@id/content"
+			layout="@layout/attending_meeting_drawer_layout" />
+		<ImageView
+			android:id="@id/handle"
+			android:layout_width="20dp"
+			android:layout_height="fill_parent"
+			android:background="@drawable/handle" />
+	</net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer>
     <FrameLayout 
         android:layout_width="match_parent"
         android:layout_height="match_parent"

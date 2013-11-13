@@ -1,7 +1,5 @@
 package net.cloudslides.app.activity;
 
-import org.json.JSONObject;
-
 import net.cloudslides.app.Define;
 import net.cloudslides.app.R;
 import net.cloudslides.app.fragment.AttendingMeetingFragment;

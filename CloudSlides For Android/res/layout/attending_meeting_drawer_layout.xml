@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:orientation="vertical"
-    android:id="@+id/live_meeting_drawer_main_layout"
+    android:id="@+id/attend_meeting_drawer_main_layout"
     android:background="@drawable/repeat_bg_crabon">
 
        <LinearLayout 
@@ -17,17 +17,17 @@
          android:gravity="center_horizontal|center_vertical"
          android:orientation="vertical">
        <Button
-         android:id="@+id/live_meeting_drawer_page_picker_btn"
+         android:id="@+id/attend_meeting_drawer_back_btn"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:background="@drawable/sliding_drawer_page_button_selector" />
+         android:background="@drawable/sliding_drawer_back_button_selector" />
      
         <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_marginTop="5dp"
          android:textColor="@android:color/white"
-         android:text="页码跳转"
+         android:text="返回"
          android:shadowColor="@android:color/white"
          android:shadowDx="0"
          android:shadowDy="1"
@@ -43,15 +43,15 @@
          android:gravity="center_horizontal|center_vertical"
          android:orientation="vertical">
        <Button
-         android:id="@+id/live_meeting_drawer_question_box_btn"
+         android:id="@+id/attend_meeting_drawer_communication_box_btn"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:background="@drawable/sliding_drawer_questions_box_button_selector" />
      
         <TextView
-         android:id="@+id/live_meeting_drawer_communication_box_state"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
+         android:id="@+id/attend_meeting_drawer_communication_box_state"
          android:layout_marginTop="5dp"
          android:textColor="@android:color/white"
          android:text="会议交流"
@@ -62,15 +62,15 @@
          android:textSize="13sp" />
        </LinearLayout>
           
-    
+    <!-- 下面的布局仅仅为了布局对称作占位之用 -->
         <LinearLayout 
+         android:visibility="invisible"
          android:layout_width="match_parent"
          android:layout_height="0dp"
          android:layout_weight="1"
          android:gravity="center_horizontal|center_vertical"
          android:orientation="vertical">
      	<Button
-        android:id="@+id/live_meeting_drawer_clean_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/sliding_drawer_clean_button_selector" />
@@ -80,7 +80,7 @@
          android:layout_height="wrap_content"
          android:layout_marginTop="5dp"
          android:textColor="@android:color/white"
-         android:text="清除笔迹" 
+         android:text="清理笔迹" 
          android:shadowColor="@android:color/white"
          android:shadowDx="0"
          android:shadowDy="1"
@@ -90,7 +90,7 @@
           
     
         <LinearLayout 
-         android:id="@+id/drawer_draw_layout"
+         android:visibility="invisible"
          android:layout_width="match_parent"
          android:layout_height="0dp"
          android:layout_weight="1"
@@ -98,7 +98,6 @@
          android:orientation="vertical">
 		
 		 <CheckBox
-         android:id="@+id/live_meeting_drawer_draw_checkbox"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:button="@null"

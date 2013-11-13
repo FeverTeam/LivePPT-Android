@@ -89,7 +89,7 @@ public class FoundMeetingActivity extends Activity {
 	 */
 	private void setupView()
 	{
-		cf = (CoverFlow)findViewById(R.id.found_meeting_coverFlow);
+		    cf = (CoverFlow)findViewById(R.id.found_meeting_coverFlow);
 		   add = (Button)findViewById(R.id.found_meeting_add_btn);
 		 start = (Button)findViewById(R.id.found_meeting_start_btn);
 	    delete = (Button)findViewById(R.id.found_meeting_delete_btn);     

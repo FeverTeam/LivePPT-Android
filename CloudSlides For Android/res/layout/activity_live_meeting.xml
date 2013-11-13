@@ -9,7 +9,7 @@
     <net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="15dp"
         android:id="@+id/live_meeting_viewpager"/>
     
     <net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer
@@ -25,9 +25,9 @@
 			layout="@layout/live_meeting_drawer_layout" />
 		<ImageView
 			android:id="@id/handle"
-			android:layout_width="wrap_content"
+			android:layout_width="20dp"
 			android:layout_height="fill_parent"
-			android:background="@drawable/drawer_handle_left" />
+			android:background="@drawable/handle" />
 	</net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer>
     <FrameLayout 
         android:layout_width="match_parent"

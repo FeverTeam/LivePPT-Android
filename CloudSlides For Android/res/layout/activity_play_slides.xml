@@ -9,21 +9,25 @@
     <net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
         android:id="@+id/play_slides_flipview"/>
-    <FrameLayout 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true">
-
-        <Button
-            android:id="@+id/play_slides_page_picker_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/page_btn_selector"/>
-        
-    </FrameLayout>
+    <net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer
+		xmlns:my="http://schemas.android.com/apk/res/net.cloudslides.app"
+		android:id="@+id/play_slides_drawer"
+		my:direction="leftToRight"
+		android:layout_width="150dp"
+		android:layout_height="fill_parent"
+		my:handle="@+id/handle"
+		my:content="@+id/content">
+		<include
+			android:id="@id/content"
+			layout="@layout/play_slides_drawer_layout" />
+		<ImageView
+			android:id="@id/handle"
+			android:layout_width="20dp"
+			android:layout_height="fill_parent"
+			android:background="@drawable/handle" />
+	</net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer>
     <FrameLayout 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
