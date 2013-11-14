@@ -53,7 +53,11 @@ public class PlaySlidesActivity extends Activity {
 	
 	private Button backBtn;
 	
-    private MultiDirectionSlidingDrawer slidingDrawer;
+    private MultiDirectionSlidingDrawer slidingDrawer;    
+
+	private PopupWindow dialogPopWindow;	 
+	
+	private WheelView wheel;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -163,9 +167,7 @@ public class PlaySlidesActivity extends Activity {
 	 */
 	  private void showPickerDialog()
 	  {
-		  covert.setVisibility(View.VISIBLE);
-		  final PopupWindow dialogPopWindow;	 	  
-		  final WheelView wheel;
+		  covert.setVisibility(View.VISIBLE);		  
 		  final String[] items= new String[urls.size()];
 		  for(int i =0 ;i<urls.size();i++)
 		  {
@@ -231,6 +233,9 @@ public class PlaySlidesActivity extends Activity {
     super.onDestroy();
     Log.i("onDestroy","stopImageLoader");
     ImageLoader.getInstance().stop();
-    System.gc();
+    if(null!=dialogPopWindow&&dialogPopWindow.isShowing())
+	{
+		dialogPopWindow.dismiss();
+	}
     }
 }

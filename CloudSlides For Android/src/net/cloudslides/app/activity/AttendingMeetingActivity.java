@@ -159,7 +159,18 @@ public class AttendingMeetingActivity extends Activity {
 		{
 			mConnection.disconnect();
 		}
-	    System.gc();
+		if(null!=saySomethingWindow&&saySomethingWindow.isShowing())
+		{
+			saySomethingWindow.dismiss();
+		}
+		if(null!=communicationBoxWindow&&communicationBoxWindow.isShowing())
+		{
+			communicationBoxWindow.dismiss();
+		}
+		if(null!=loadingDialog&&loadingDialog.isShowing())
+		{
+			loadingDialog.dismiss();
+		}
     }
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -284,7 +295,10 @@ public class AttendingMeetingActivity extends Activity {
 				@Override
 				public void onOpen() {
 					MyVibrator.doVibration(500);
-				    loadingDialog.dismiss();
+					if(null!=loadingDialog&&loadingDialog.isShowing())
+					{
+						loadingDialog.dismiss();
+					}
 				    MyToast.alert("连接成功");
 					getCurrentPageRPC();
 					getPathRPC(meetingId);

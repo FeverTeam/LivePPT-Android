@@ -77,6 +77,10 @@ public class LiveMeetingActivity extends Activity {
 	private Button cBoxBtn;
 	
 	private CheckBox drawBtn;
+
+	private PopupWindow dialogPopWindow;	 
+	
+	private WheelView wheel;
 	
 	private int meetingPos;
 	
@@ -135,6 +139,8 @@ public class LiveMeetingActivity extends Activity {
 	private Button saySomethingNotSendBtn;
 	
 	private String chatTopicUri;
+	
+	private Dialog resetPathDialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -174,6 +180,26 @@ public class LiveMeetingActivity extends Activity {
 		if(mConnection.isConnected())
 		{
 			mConnection.disconnect();
+		}
+		if(null!=saySomethingWindow&&saySomethingWindow.isShowing())
+		{
+			saySomethingWindow.dismiss();
+		}
+		if(null!=communicationBoxWindow&&communicationBoxWindow.isShowing())
+		{
+			communicationBoxWindow.dismiss();
+		}
+		if(null!=loadingDialog&&loadingDialog.isShowing())
+		{
+			loadingDialog.dismiss();
+		}
+		if(null!=dialogPopWindow&&dialogPopWindow.isShowing())
+		{
+			dialogPopWindow.dismiss();
+		}
+		if(null!=resetPathDialog&&resetPathDialog.isShowing())
+		{
+			resetPathDialog.dismiss();
 		}
     }
 	
@@ -381,7 +407,7 @@ public class LiveMeetingActivity extends Activity {
 	 */
 	private void showConfirmCleanPathDialog()
 	{
-		final Dialog dialog =new Dialog(this, R.style.mDialog);
+		     resetPathDialog =new Dialog(this, R.style.mDialog);
 		View layout =LayoutInflater.from(this).inflate(R.layout.normal_dialog,null);
 		Button cancel  = (Button)layout.findViewById(R.id.normal_dialog_cancel_btn);
 		Button confirm = (Button)layout.findViewById(R.id.normal_dialog_confirm_btn);
@@ -393,7 +419,7 @@ public class LiveMeetingActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				dialog.dismiss();
+				resetPathDialog.dismiss();
 			}
 		});
 		confirm.setOnClickListener(new OnClickListener() {
@@ -402,11 +428,11 @@ public class LiveMeetingActivity extends Activity {
 			public void onClick(View v) 
 			{
 				resetPath(meetingId, currPageIndex, false);
-				dialog.dismiss();
+				resetPathDialog.dismiss();
 			}
 		});
-		dialog.setContentView(layout);
-		dialog.show();		
+		resetPathDialog.setContentView(layout);
+		resetPathDialog.show();		
 	}
 	
 	
@@ -417,8 +443,6 @@ public class LiveMeetingActivity extends Activity {
 	  private void showPickerDialog()
 	  {
 		  covert.setVisibility(View.VISIBLE);
-		  final PopupWindow dialogPopWindow;	 	  
-		  final WheelView wheel;
 		  final String[] items= new String[urls.size()];
 		  for(int i =0 ;i<urls.size();i++)
 		  {
@@ -514,7 +538,10 @@ public class LiveMeetingActivity extends Activity {
 			@Override
 			public void onOpen() {
 				MyVibrator.doVibration(500);
-			    loadingDialog.dismiss();
+				if(null!=loadingDialog&&loadingDialog.isShowing())
+				{
+					loadingDialog.dismiss();
+				}
 				MyToast.alert("连接成功");
 				isConnected=true;
 				setMeetingPage();
