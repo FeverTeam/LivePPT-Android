@@ -1,6 +1,7 @@
 package net.cloudslides.app.activity;
 
 import java.util.ArrayList;
+
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
@@ -11,6 +12,7 @@ import net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer.OnDrawerOpe
 import net.cloudslides.app.model.ChatData;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView.onDrawCompleteListener;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView.onZoomViewListener;
+import net.cloudslides.app.thirdlibs.widget.photoview.PhotoViewAttacher.OnViewTapListener;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.thirdlibs.widget.wheel.ArrayWheelAdapter;
 import net.cloudslides.app.thirdlibs.widget.wheel.WheelView;
@@ -19,9 +21,11 @@ import net.cloudslides.app.utils.MyHttpClient;
 import net.cloudslides.app.utils.MyPathUtils;
 import net.cloudslides.app.utils.MyToast;
 import net.cloudslides.app.utils.MyVibrator;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
@@ -33,10 +37,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
@@ -177,6 +179,7 @@ public class LiveMeetingActivity extends Activity {
 	{
 		super.onDestroy();
 	    close=true;//人为断开
+	    resetPath(meetingId, currPageIndex, true);
 		if(mConnection.isConnected())
 		{
 			mConnection.disconnect();
@@ -267,15 +270,14 @@ public class LiveMeetingActivity extends Activity {
 				isZoomIn=true;
 			}
 		});
-		adapter.setOnItemClickListener(new OnTouchListener() {
+		adapter.setOnItemClickListener(new OnViewTapListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
+			public void onViewTap(View view, float x, float y) {
 				if(slidingDrawer.isOpened())
 				{
 					slidingDrawer.close();
 				}
-				return false;
 			}
 		});
 		zoomPager.setAdapter(adapter);
@@ -649,11 +651,7 @@ public class LiveMeetingActivity extends Activity {
 					MyToast.alert(errInfo+"");
 				}
 			}, meetingId,pageIndex);
-		  }
-		  else
-		  {
-			  MyToast.alert("尚未建立连接或已断开");
-		  }		  
+		  }		 	  
 	  }
 	  /**
 	   * 获取所有交流对话以及订阅交流对话
@@ -679,6 +677,11 @@ public class LiveMeetingActivity extends Activity {
 						{
 							communicationInfos.add(jsa.getString(i));
 						}
+						if(null!=cBoxAdapter&&null!=communicationBoxWindow&&communicationBoxWindow.isShowing())
+						{
+							communicationBoxTitle.setText("会议交流("+communicationInfos.size()+"条)");	
+							cBoxAdapter.notifyDataSetChanged();
+						}
 						mConnection.subscribe(chatTopicUri, ChatData.class, new EventHandler() {
 							
 							@Override
@@ -688,7 +691,7 @@ public class LiveMeetingActivity extends Activity {
 								if(cd.type.equals("newChat"))
 								{
 									communicationInfos.add(cd.data);								
-									if(communicationBoxWindow.isShowing())
+									if(null!=communicationBoxWindow&&communicationBoxWindow.isShowing())
 									{
 										communicationBoxTitle.setText("会议交流("+communicationInfos.size()+"条)");	
 										cBoxAdapter.notifyDataSetChanged();

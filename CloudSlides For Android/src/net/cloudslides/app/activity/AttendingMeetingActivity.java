@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import net.cloudslides.app.Define;
 import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
-import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
 import net.cloudslides.app.adapter.CommunicationBoxAdapter;
+import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
 import net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer;
 import net.cloudslides.app.model.ChatData;
 import net.cloudslides.app.thirdlibs.widget.photoview.PhotoView.onZoomViewListener;
+import net.cloudslides.app.thirdlibs.widget.photoview.PhotoViewAttacher.OnViewTapListener;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.utils.CustomProgressDialog;
 import net.cloudslides.app.utils.MyHttpClient;
@@ -31,10 +32,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
@@ -49,9 +48,9 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import de.tavendo.autobahn.Wamp;
-import de.tavendo.autobahn.WampConnection;
 import de.tavendo.autobahn.Wamp.CallHandler;
 import de.tavendo.autobahn.Wamp.EventHandler;
+import de.tavendo.autobahn.WampConnection;
 
 public class AttendingMeetingActivity extends Activity {
 
@@ -200,15 +199,14 @@ public class AttendingMeetingActivity extends Activity {
 		adapter=new PlaySlidesPagerAdapter(urls,this);
 		zoomPager.setAdapter(adapter);	
 		zoomPager.setScrollEnabled(false);
-		adapter.setOnItemClickListener(new OnTouchListener() {
+		adapter.setOnItemClickListener(new OnViewTapListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
+			public void onViewTap(View view, float x, float y) {
 				if(slidingDrawer.isOpened())
 				{
 					slidingDrawer.close();
 				}
-				return false;
 			}
 		});
 		adapter.setOnZoomViewListener(new onZoomViewListener() {
@@ -526,6 +524,11 @@ public class AttendingMeetingActivity extends Activity {
 						{
 							communicationInfos.add(jsa.getString(i));
 						}
+						if(null!=cBoxAdapter&&null!=communicationBoxWindow&&communicationBoxWindow.isShowing())
+						{
+							communicationBoxTitle.setText("会议交流("+communicationInfos.size()+"条)");	
+							cBoxAdapter.notifyDataSetChanged();
+						}
 						mConnection.subscribe(chatTopicUri, ChatData.class, new EventHandler() {
 							
 							@Override
@@ -535,7 +538,7 @@ public class AttendingMeetingActivity extends Activity {
 							if(cd.type.equals("newChat"))
 							{
 								communicationInfos.add(cd.data);								
-								if(communicationBoxWindow.isShowing())
+								if(null!=communicationBoxWindow&&communicationBoxWindow.isShowing())
 								{
 									communicationBoxTitle.setText("会议交流("+communicationInfos.size()+"条)");	
 									cBoxAdapter.notifyDataSetChanged();

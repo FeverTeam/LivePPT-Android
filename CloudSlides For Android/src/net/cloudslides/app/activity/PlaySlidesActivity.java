@@ -7,6 +7,7 @@ import net.cloudslides.app.HomeApp;
 import net.cloudslides.app.R;
 import net.cloudslides.app.adapter.PlaySlidesPagerAdapter;
 import net.cloudslides.app.custom.widget.MultiDirectionSlidingDrawer;
+import net.cloudslides.app.thirdlibs.widget.photoview.PhotoViewAttacher.OnViewTapListener;
 import net.cloudslides.app.thirdlibs.widget.photoview.ZoomAbleViewPager;
 import net.cloudslides.app.thirdlibs.widget.wheel.ArrayWheelAdapter;
 import net.cloudslides.app.thirdlibs.widget.wheel.WheelView;
@@ -19,10 +20,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
@@ -84,15 +83,14 @@ public class PlaySlidesActivity extends Activity {
 	private void initView()
 	{
 		adapter=new PlaySlidesPagerAdapter(urls,this);
-		adapter.setOnItemClickListener(new OnTouchListener() {
+		adapter.setOnItemClickListener(new OnViewTapListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
+			public void onViewTap(View view, float x, float y) {
 				if(slidingDrawer.isOpened())
 				{
 					slidingDrawer.close();
 				}
-				return false;
 			}
 		});
 		zoomPager.setAdapter(adapter);
